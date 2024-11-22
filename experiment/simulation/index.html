@@ -1,14 +1,42 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<title></title>
-	<!-- Add CSS at the head of HTML file -->
-    <link rel="stylesheet" href="./css/main.css">
+	<meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <script src="https://cdn.tailwindcss.com"></script>
+    <title>Virtual Labs</title>
 </head>
 <body>
-		<!-- Your code goes here-->
-
-	<!-- Add JS at the bottom of HTML file --> 
-        <script src="./js/main.js"></script>
+	<div class="px-6 pb-6 flex-1">
+        <div
+          class="w-full text-[#007bff] font-normal text-[19.2px]"
+          style="font-family: Raleway, sans-serif"
+        >
+          <h3 class="text-black">Study the statistical properties of the output response of a system when the input is wide sense
+stationary,</h3>
+          <ol class="mb-4 pl-4">
+            <li>
+              <a href="./WSS_LTI.html">
+                <div class="flex">
+                  <span class="text-black mr-4">1.</span>
+                  <p class="hover:text-[#3e6389] hover:underline">
+                    When the system is LTI
+                  </p>
+                </div>
+              </a>
+            </li>
+            <li>
+              <a href="./WSS_ARMA.html">
+                <div class="flex">
+                  <span class="text-black mr-4">2.</span>
+                  <p class="hover:text-[#3e6389] hover:underline">
+                    When the LTI system is modeled as ARMA
+                  </p>
+                </div>
+              </a>
+            </li>
+          </ol>
+        </div>
+      </div>
 </body>
 </html>
