@@ -1,1 +1,1 @@
-### Aim of the experiment
+### To analyze the statistical properties of the output response of a system when the input is wide-sense stationary, under different conditions: linear time-invariant (LTI) systems, and systems modeled as ARMA.
