@@ -1,0 +1,729 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+    <title>Virtual Labs</title>
+	<style>
+		h1, #checkautocorrelation, #checkautocorrelationoutput, #inst {
+    color: #333;
+    font-size: 25px; /* Increased font size */
+	font-weight: 500;
+    margin-bottom: 20px;
+}
+	ul {
+    list-style-type: none;
+    fft1: 0;
+}
+
+li {
+    background-color: #e0e7ff;
+    margin: 5px 0;
+    fft1: 5px;
+    border-radius: 4px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    font-size: 14px; /* Set font size for list items */
+}
+
+li::before {
+    content: "✔";
+    color: #4caf50;
+    margin-right: 10px;
+}
+	    .container {
+            display: flex;
+			    height: 100vh; /* Full viewport height */
+        width: 100vw; /* Full viewport width */
+        }
+		.left-half {
+            width: 40vw;
+			}
+
+        .right-half {
+            width: 60vw;
+		    position: relative;
+		    overflow: auto;
+        }
+		
+/* Custom table styles */
+.custom-table {
+    width: auto;
+    border-collapse: collapse;
+    margin-top: 0px;
+    margin-bottom: 20px;
+}
+
+/* Header and cell styles */
+.custom-table th,
+.custom-table td {
+    border: 1px solid black;  /* Adds a solid black border */
+    fft1: 5px;  /* Slightly larger fft1 for better spacing */
+    text-align: center;
+    font-size: 17px;  /* Set font size for headers and cells */
+}
+
+/* Header-specific styles */
+.custom-table th {
+    width: auto;  /* Sets the width to auto to fit content */
+    background-color: #f2f2f2;  /* Light grey background for header */
+    font-weight: bold;  /* Bold text for headers */
+    font-size: 18px;  /* Larger font size for headers */
+}
+
+/* Alternate row styling for better readability */
+.custom-table tbody tr:nth-child(even) {
+    background-color: #f9f9f9;  /* Slightly darker background for even rows */
+}
+
+/* Table hover effect */
+.custom-table tbody tr:hover {
+    background-color: #e6f7ff;  /* Light blue background on row hover */
+}
+		</style>
+<body>
+    <!-- sidebar and body -->
+	    <!-- sidebar and body -->
+	<div id = "instructions">
+    <h1 id ="inst">Instructions for Wide Sense Stationary Simulator when the system is ARMA</h1>
+<ul>
+    <li>Step 1: Click on "Generate WSS" to generate a wide-sense stationary (WSS) signal, whose mean and autocorrelation do not change over time.</li>
+    <li>Step 2: Click on "Generate CIR" to generate the ARMA filter coefficients.</li>
+    <li>Step 3: Click on "Generate Output" to produce the output signal after filtration.</li>
+    <li>Step 4: Click on "Check Autocorrelation" to verify whether the output signal retains the properties of WSS.</li>
+</ul>
+
+	</div>
+	<hr/>
+	<br>
+    <div class="flex min-h-[10vh]">
+      <div class="px-6 pb-6 mt-1 flex-1">
+        <div class="">
+          <div class="flex flex-col justify-center">
+			<br/>
+            <div class="flex max-lg:flex-col gap-x-12 gap-y-2 mt-2">
+              <div class="flex items-center justify-center gap-1 mt-2">
+        <label for="numSamples">Number of Samples:</label>
+<input class="input-field border border-black px-2 py-1 rounded-sm" type="number" id="numSamples" value="1000000">
+                </div>
+		<div class="flex items-center justify-center gap-1 mt-2">
+        <label for="impulseResponsea">AR coefficients:</label>
+<input class="input-field border border-black px-2 py-1 rounded-sm" type="text" id="impulseResponsea" value="1, 0.8">
+                </div>
+			<div class="flex items-center justify-center gap-1 mt-2">
+        <label for="impulseResponse">MA coefficients:</label>
+<input class="input-field border border-black px-2 py-1 rounded-sm" type="text" id="impulseResponse" value="1, -0.5">
+                </div>
+			 <br/>
+            </div>
+            </div>
+            </div>
+        </div>
+      </div>
+    </div>
+	<hr/>
+	
+	
+	<div class = "container">
+	<div class = "left-half">
+	          <div class="flex gap-1">
+              <div class="flex-1 flex flex-col items-center">
+                <div class="w-full">
+				<br><br><br><br>
+            <img src="WSS_ARMA.png" alt="WSS" style="width: 400px; height: 200px; margin-left:50px; ">
+				<button
+                  class="button bg-blue-500 text-white rounded-md px-2 py-1 absolute top-[350px] left-[20px]"
+                  onclick="updateOutputs()"
+                >
+                  Generate WSS
+                </button>
+								<button
+                  class="button bg-blue-500 text-white rounded-md px-2 py-1 absolute bottom-[335px] left-[150px]"
+                  onclick="generateImpulseResponse()"
+                >
+                  Generate ARMA Coefficients
+                </button>
+				
+												<button
+                  class="button bg-blue-500 text-white rounded-md px-2 py-1 absolute top-[490px] left-[420px]"
+                  onclick="generateARMAOutput()"
+                >
+                  Generate Output
+                </button>
+				
+				<a href = "#checkautocorrelation">												<button
+                  class="button bg-gray-500 text-white rounded-md px-2 py-1 absolute bottom-[250px] left-[145px]"
+                >
+                  Check Auto-correlation for Input
+                </button></a>
+				
+								<a href = "#checkautocorrelationoutput">												<button
+                  class="button bg-gray-500 text-white rounded-md px-2 py-1 absolute bottom-[210px] left-[140px]"
+                >
+                  Check Auto-correlation for Output
+                </button></a>
+				
+              </div>
+              </div>
+			  </div>
+			  </div>
+			  
+	<div class = "right-half">
+			<div id = "scrolltoinput" class="flex items-center gap-2 justify-center max-lg:flex-col">
+              <div id="inputPlot" class="w-[600px] h-[450px]"></div>
+			</div>
+			<div id = "scrolltocir" class="flex items-center gap-2 justify-center max-lg:flex-col">
+              <div id="cirPlot" class="w-[600px] h-[450px]"></div>
+			  <div id="arPlot" class="w-[600px] h-[450px]"></div>
+			</div>
+			<div id = "scrolltooutput" class="flex items-center gap-2 justify-center max-lg:flex-col">
+              <div id="ARMAOutput" class="w-[600px] h-[450px]"></div>
+			</div>
+			<div id = "scrolltostats" class="flex items-center gap-2 justify-center max-lg:flex-col">
+              <div id="ARMAStats" class="w-[600px] h-[450px]"></div>
+			</div>
+	</div>
+</div>
+</div>
+
+<br/><br/><br/><br/><br/>
+<h2 id="checkautocorrelation">Check Autocorrelation of the Input Signal Over time</h2>
+	<br/>
+	<ul>
+<li>R(τ)  represents the correlation of the signal with itself as a function of the time lag (τ).</li>
+<li>R(t1, t2) represents the correlation between two points t1t1​ and t2t2​ in the signal.</li>
+</ul>
+<br/>
+<div class = "container">
+<div class =  "left-half">
+<div align =  "center">
+<h2>Rx(τ)</h2>
+<div class="flex items-center justify-center gap-1 mt-2">
+<label for="lag">Lag:</label>
+<input class="input-field border border-black px-2 py-1 rounded-sm" type="number" id="lag" value="300" min="0">
+<button class="button bg-blue-500 text-white rounded-md px-2 py-1" onclick="autocorrelation11()">Calculate</button>
+</div>
+
+<p id="rxτ"></p>
+<br/>
+    <h3>Autocorrelation Results</h3>
+	<br/>
+    <table id="autocorrelationTable" class = "custom-table">
+        <thead>
+            <tr>
+                <th>Lag</th>
+                <th>Autocorrelation</th>
+            </tr>
+        </thead>
+        <tbody>
+            <!-- Table rows will be added here -->
+        </tbody>
+    </table>
+	</div>
+</div>
+
+<div class = "right-half">
+<div align =  "center">
+<h2>Rx(t1,t2)</h2>
+<div class="flex items-center justify-center gap-1 mt-2">
+<label for="t1">t1:</label>
+<input class="input-field border border-black px-2 py-1 rounded-sm" type="number" id="t1" value="100" min="0">
+</div>
+<div class="flex items-center justify-center gap-1 mt-2">
+<label for="t2">t2:</label>
+<input class="input-field border border-black px-2 py-1 rounded-sm" type="number" id="t2" value="400" min="0">
+<button class="button bg-blue-500 text-white rounded-md px-2 py-1" onclick="autocorrx()">Calculate</button>
+</div>
+<p id="rxt1t2"></p>	
+<br/>
+   <h3>Autocorrelation Results</h3>
+   <br/>
+    <table id="autocorrelationTable1" class = "custom-table">
+        <thead>
+            <tr>
+                <th>t1</th>
+                <th>t2</th>
+                <th>Autocorrelation (Rx)</th>
+            </tr>
+        </thead>
+        <tbody>
+            <!-- Table rows will be added here -->
+        </tbody>
+    </table>
+	</div>
+</div>
+
+</div>
+
+<!-------------------------------------------------------------------------------->
+<h2 id="checkautocorrelationoutput">Check Autocorrelation of the Output Signal Over Time</h2>
+<br />
+<ul>
+  <li>R(τ) represents the correlation of the signal with itself as a function of the time lag (τ).</li>
+  <li>R(t1, t2) represents the correlation between two points \( t_1 \) and \( t_2 \) in the signal.</li>
+</ul>
+<br />
+<div class="container">
+  <div class="left-half">
+    <div align="center">
+      <h2>Rx(τ)</h2>
+      <div class="flex items-center justify-center gap-1 mt-2">
+        <label for="lag1">Lag:</label>
+        <input
+          class="input-field border border-black px-2 py-1 rounded-sm"
+          type="number"
+          id="lag1"
+          value="300"
+          min="0"
+        />
+        <button
+          class="button bg-blue-500 text-white rounded-md px-2 py-1"
+          onclick="autocorrelation111()"
+        >
+          Calculate
+        </button>
+      </div>
+
+      <p id="rxτ1"></p>
+      <br />
+      <h3>Autocorrelation Results</h3>
+      <br />
+      <table id="autocorrelationTableOutput" class="custom-table">
+        <thead>
+          <tr>
+            <th>Lag</th>
+            <th>Autocorrelation</th>
+          </tr>
+        </thead>
+        <tbody>
+          <!-- Table rows will be added here -->
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <div class="right-half">
+    <div align="center">
+      <h2>Rx(t1, t2)</h2>
+      <div class="flex items-center justify-center gap-1 mt-2">
+        <label for="t11">t1:</label>
+        <input
+          class="input-field border border-black px-2 py-1 rounded-sm"
+          type="number"
+          id="t11"
+          value="100"
+          min="0"
+        />
+      </div>
+      <div class="flex items-center justify-center gap-1 mt-2">
+        <label for="t21">t2:</label>
+        <input
+          class="input-field border border-black px-2 py-1 rounded-sm"
+          type="number"
+          id="t21"
+          value="400"
+          min="0"
+        />
+        <button
+          class="button bg-blue-500 text-white rounded-md px-2 py-1"
+          onclick="autocorrx1()"
+        >
+          Calculate
+        </button>
+      </div>
+      <p id="rxt1t21"></p>
+      <br />
+      <h3>Autocorrelation Results</h3>
+      <br />
+      <table id="autocorrelationTableOutput1" class="custom-table">
+        <thead>
+          <tr>
+            <th>t1</th>
+            <th>t2</th>
+            <th>Autocorrelation (Rx)</th>
+          </tr>
+        </thead>
+        <tbody>
+          <!-- Table rows will be added here -->
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+
+
+
+
+    <script>
+        // Helper functions
+        function mean(arr) {
+            return arr.reduce((a, b) => a + b, 0) / arr.length;
+        }
+
+        function variance(arr) {
+            const m = mean(arr);
+            return arr.reduce((a, b) => a + Math.pow(b - m, 2), 0) / arr.length;
+        }
+
+        function autocorrelation1(arr, lag) {
+            const m = mean(arr);
+            const n = arr.length;
+            let autocorr = 0;
+            for (let i = 0; i < n - lag; i++) {
+                autocorr += (arr[i] - m) * (arr[i + lag] - m);
+            }
+            return autocorr / (n - lag);
+        }
+
+        // Generate WSS process using Box-Muller transform for normal distribution
+        function generateWSS(n) {
+            const mean = 0;
+            const variance = 1;
+            let wss = [];
+            for (let i = 0; i < n; i++) {
+                let u1 = Math.random();
+                let u2 = Math.random();
+                let randStdNormal = Math.sqrt(-2.0 * Math.log(u1)) * Math.cos(2.0 * Math.PI * u2);
+                wss.push(mean + Math.sqrt(variance) * randStdNormal);
+            }
+            return wss;
+        }
+
+        // Generate sine wave
+        function generateSine(n, frequency) {
+            let sineWave = [];
+            for (let i = 0; i < n; i++) {
+                sineWave.push(Math.sin(2 * Math.PI * frequency * i / n));
+            }
+            return sineWave;
+        }
+
+        // Generate impulse response signal
+        function generateImpulseResponse(n) {
+            let impulseResponse = Array(n).fill(0);
+            impulseResponse[0] = 1;
+            return impulseResponse;
+        }
+
+        // Function to apply the filter using the difference equation
+        function arma(x, b, a) {
+            let N = x.length;
+            let y = new Array(N).fill(0);  // Initialize output array with zeros
+
+            // Apply the difference equation: y[n] = x[n] - 0.5*x[n-1] + 0.8*y[n-1]
+            for (let n = 0; n < N; n++) {
+                let xn = x[n];  // Current input value
+                let xnMinus1 = (n > 0) ? x[n - 1] : 0;  // x[n-1], use 0 if n-1 is out of bounds
+                let ynMinus1 = (n > 0) ? y[n - 1] : 0;  // y[n-1], use 0 if n-1 is out of bounds
+                
+                y[n] = xn - 0.5 * xnMinus1 + 0.8 * ynMinus1;  // Apply the difference equation
+            }
+            return y;
+        }
+     
+        let n, input, lag, t1, t2;
+        function updateOutputs() {
+            let n = parseInt(document.getElementById('numSamples').value); // Number of samples
+			input = generateWSS(n);
+            // Plotting using Plotly
+            Plotly.newPlot('inputPlot', [{
+                x: [...Array(input.length).keys()],
+                y: input,
+                type: 'scatter',
+                mode: 'lines',
+                name: `Input`
+            }], {
+                title: `WSS Input (with 0 mean and unit variance)`,
+				xaxis: { title: 'Sample Index' }
+            });
+
+            //updatePlots(input);
+			document.getElementById('scrolltoinput').scrollIntoView({ behavior: 'smooth' });
+        }
+
+        function generateImpulseResponse() {
+            // Generate outputs based on current values
+            const impulseResponse = document.getElementById("impulseResponse").value.split(',').map(Number);
+			const impulseResponsea = document.getElementById("impulseResponsea").value.split(',').map(Number);
+            let ARMAOutput = arma(input, impulseResponse, impulseResponsea);
+			
+			//Plotly.newPlot('cirPlot', [{
+			const maData = [{
+                x: Array.from({ length: 1000000 }, (_, i) => i).flatMap(i => [i, i, null]),
+                y: impulseResponse.slice(0, 10).flatMap(y => [0, y, null]),
+                type: 'scatter',
+                mode: 'lines',
+								line: { color: 'blue', width: 4 },
+				type: 'scatter',
+                name: `Input`
+            }]; 
+		    // Layout for the CIR plot
+    const cirLayout = {	
+                title: `Moving Average Coefficients`,
+				xaxis: { title: 'Sample Index' }
+            };
+    // Plot the CIR graph
+    Plotly.newPlot('cirPlot', maData, cirLayout);
+	
+	    const arData = [{
+                x: Array.from({ length: 1000000 }, (_, i) => i).flatMap(i => [i, i, null]),
+                y: impulseResponsea.slice(0, 10).flatMap(y => [0, y, null]),
+                type: 'scatter',
+                mode: 'lines',
+								line: { color: 'blue', width: 4 },
+				type: 'scatter',
+                name: `Input`
+            }]; 
+
+    // Layout for the ARMA output plot
+    const armaLayout = {
+        title: 'Autoregressive Coefficients',
+        xaxis: { title: 'Sample Index' },
+        yaxis: { title: 'Amplitude' }
+    };
+
+    // Plot the ARMA output graph
+    Plotly.newPlot('arPlot', arData, armaLayout);
+			document.getElementById('scrolltocir').scrollIntoView({ behavior: 'smooth' });
+			}
+			
+let ARMAOutputValue; // Declare in the global scope
+
+function generateARMAOutput() {
+    // Generate outputs based on current values
+    const impulseResponse = document.getElementById("impulseResponse").value.split(',').map(Number);
+    const impulseResponsea = document.getElementById("impulseResponsea").value.split(',').map(Number);
+    let ARMAOutput = arma(input, impulseResponse, impulseResponsea); // Compute ARMA output
+    ARMAOutputValue = ARMAOutput; // Assign to the global variable
+
+    // Plot the output using Plotly
+    Plotly.newPlot('ARMAOutput', [{
+        x: [...Array(ARMAOutput.length).keys()],
+        y: ARMAOutput,
+        type: 'scatter',
+        mode: 'lines',
+        name: 'ARMA Output'
+    }], {
+        title: 'ARMA System Output',
+        xaxis: { title: 'Sample Index' }
+    });
+
+    // Display statistical properties below the plot
+    document.getElementById("ARMAStats").innerHTML = `
+        <h3>ARMA Output Statistics</h3>
+        <p>Mean: ${mean(ARMAOutput)}</p>
+        <p>Variance: ${variance(ARMAOutput)}</p>
+    `;
+
+    // Smooth scroll to the output section
+    document.getElementById('scrolltooutput').scrollIntoView({ behavior: 'smooth' });
+}
+
+	
+        let autocorrelationData = []; // Array to store the lag and autocorrelation values	
+	function autocorrelation11() {
+	let lag = parseInt(document.getElementById('lag').value);
+	let input11 = input;
+	let result11 = autocorrelation1(input11, lag);
+	document.getElementById("rxτ").textContent = `${result11}`;
+	            // Check if lag already exists in the table
+            if (autocorrelationData.some(entry => entry.lag === lag)) {
+                alert(`Lag value ${lag} already exists in the table.`);
+                return;
+            }
+
+            // Add the new lag and result to the array
+            autocorrelationData.push({ lag: lag, autocorrelation: result11 });
+
+            // Sort the array by lag value
+            autocorrelationData.sort((a, b) => a.lag - b.lag);
+
+            // Update the table
+            updateTable();
+            document.getElementById("rxτ").textContent = `Autocorrelation: ${result11}`;
+	}
+	
+	        function updateTable() {
+            const tableBody = document.getElementById('autocorrelationTable').getElementsByTagName('tbody')[0];
+            tableBody.innerHTML = ''; // Clear the table before re-rendering
+
+            // Add rows to the table based on sorted autocorrelationData
+            autocorrelationData.forEach(entry => {
+                const row = tableBody.insertRow();
+                const cell1 = row.insertCell(0);
+                const cell2 = row.insertCell(1);
+
+                cell1.textContent = entry.lag;
+                cell2.textContent = entry.autocorrelation;
+            });
+        }
+    let autocorrelationData1 = []; // Array to store the lag and autocorrelation values	
+    function autocorrx() {
+		       let result;
+        // Define the signal X and the time indices t1 and t2
+        let X = input;
+        let t1 = parseInt(document.getElementById('t1').value); // Time index 1
+        let t2 = parseInt(document.getElementById('t2').value); // Time index 2
+
+        // Length of the signal
+        let N = X.length;
+
+        // Initialize autocorrelation value
+        let Rx_val = 0;
+
+        // Loop to compute the sum for autocorrelation at (t1, t2)
+        for (let n = 0; n < N; n++) {
+            // Ensure indices (n + t1) and (n + t2) are within bounds
+            if (n + t1 < N && n + t2 < N) {
+                Rx_val += X[n + t1] * X[n + t2];
+            } else {
+                break; // Stop if indices go out of bounds
+            }
+        }
+
+        // Normalize by the length of the signal
+        result = Rx_val /= N;
+		document.getElementById("rxt1t2").textContent = `Autocorrelation: ${Rx_val}`;
+		            // Check if t1, t2 combination already exists in the table
+            if (autocorrelationData1.some(entry => entry.t1 === t1 && entry.t2 === t2)) {
+                alert(`Autocorrelation for t1=${t1} and t2=${t2} already exists in the table.`);
+                return;
+            }
+
+            // Add the new t1, t2, and result to the array
+            autocorrelationData1.push({ t1: t1, t2: t2, autocorrelation1: result });
+
+            // Sort the array by t1 and t2 values
+            autocorrelationData1.sort((a, b) => a.t1 - b.t1 || a.t2 - b.t2);
+
+            // Update the table
+            updateTable1();
+        }
+		function updateTable1() {
+            const tableBody = document.getElementById('autocorrelationTable1').getElementsByTagName('tbody')[0];
+            tableBody.innerHTML = ''; // Clear the table before re-rendering
+
+            // Add rows to the table based on sorted autocorrelationData
+            autocorrelationData1.forEach(entry => {
+                const row = tableBody.insertRow();
+                const cell1 = row.insertCell(0);
+                const cell2 = row.insertCell(1);
+                const cell3 = row.insertCell(2);
+
+                cell1.textContent = entry.t1;
+                cell2.textContent = entry.t2;
+                cell3.textContent = entry.autocorrelation1;
+            });
+        }
+		
+		
+/////////////////////////////////////////////////////////////////
+
+let autocorrelationDataOutput = []; // Array to store the lag and autocorrelation values
+
+function autocorrelation111() {
+    let lag = parseInt(document.getElementById('lag1').value);
+    let input11 = ARMAOutputValue; // Input signal
+    let result11 = autocorrelation1(input11, lag);
+    
+    // Display autocorrelation result
+    document.getElementById("rxτ1").textContent = `Autocorrelation: ${result11}`;
+    
+    // Check if lag already exists in the table
+    if (autocorrelationDataOutput.some(entry => entry.lag === lag)) {
+        alert(`Lag value ${lag} already exists in the table.`);
+        return;
+    }
+
+    // Add the new lag and result to the array
+    autocorrelationDataOutput.push({ lag: lag, autocorrelation: result11 });
+
+    // Sort the array by lag value
+    autocorrelationDataOutput.sort((a, b) => a.lag - b.lag);
+
+    // Update the table
+    updateTable3();
+}
+
+function updateTable3() {
+    const tableBody = document.getElementById('autocorrelationTableOutput').getElementsByTagName('tbody')[0];
+    tableBody.innerHTML = ''; // Clear the table before re-rendering
+
+    // Add rows to the table based on sorted autocorrelationDataOutput
+    autocorrelationDataOutput.forEach(entry => {
+        const row = tableBody.insertRow();
+        const cell1 = row.insertCell(0);
+        const cell2 = row.insertCell(1);
+
+        cell1.textContent = entry.lag;
+        cell2.textContent = entry.autocorrelation;
+    });
+}
+
+let autocorrelationDataOutput1 = []; // Array to store the t1, t2, and autocorrelation values
+
+function autocorrx1() {
+    let X = ARMAOutputValue; // Input signal
+    let t1 = parseInt(document.getElementById('t11').value); // Time index 1
+    let t2 = parseInt(document.getElementById('t21').value); // Time index 2
+
+    // Length of the signal
+    let N = X.length;
+
+    // Initialize autocorrelation value
+    let Rx_val = 0;
+
+    // Loop to compute the sum for autocorrelation at (t1, t2)
+    for (let n = 0; n < N; n++) {
+        // Ensure indices (n + t1) and (n + t2) are within bounds
+        if (n + t1 < N && n + t2 < N) {
+            Rx_val += X[n + t1] * X[n + t2];
+        } else {
+            break; // Stop if indices go out of bounds
+        }
+    }
+
+    // Normalize by the length of the signal
+    let result = Rx_val / N;
+
+    // Display autocorrelation result
+    document.getElementById("rxt1t21").textContent = `Autocorrelation: ${result}`;
+
+    // Check if t1, t2 combination already exists in the table
+    if (autocorrelationDataOutput1.some(entry => entry.t1 === t1 && entry.t2 === t2)) {
+        alert(`Autocorrelation for t1=${t1} and t2=${t2} already exists in the table.`);
+        return;
+    }
+
+    // Add the new t1, t2, and result to the array
+    autocorrelationDataOutput1.push({ t1: t1, t2: t2, autocorrelation1: result });
+
+    // Sort the array by t1 and t2 values
+    autocorrelationDataOutput1.sort((a, b) => a.t1 - b.t1 || a.t2 - b.t2);
+
+    // Update the table
+    updateTable4();
+}
+
+function updateTable4() {
+    const tableBody = document.getElementById('autocorrelationTableOutput1').getElementsByTagName('tbody')[0];
+    tableBody.innerHTML = ''; // Clear the table before re-rendering
+
+    // Add rows to the table based on sorted autocorrelationDataOutput1
+    autocorrelationDataOutput1.forEach(entry => {
+        const row = tableBody.insertRow();
+        const cell1 = row.insertCell(0);
+        const cell2 = row.insertCell(1);
+        const cell3 = row.insertCell(2);
+
+        cell1.textContent = entry.t1;
+        cell2.textContent = entry.t2;
+        cell3.textContent = entry.autocorrelation1;
+    });
+}
+/////////////////////////////////////////////////////////////////
+
+    </script>
+</body>
+</html>
