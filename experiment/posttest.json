@@ -1,39 +1,176 @@
 {
-  "version": 2.0,
-  "questions": [
-    {
-      "question": "This is a Sample Question 1?",
-      "answers": {
-        "a": "answer1",
-        "b": "answer2",
-        "c": "answer3",
-        "d": "answer4"
+    "version": 2.0,
+    "questions": [
+      {
+        "question": "A signal has a mean of 5 and a variance that fluctuates over time. Can this signal be considered wide-sense stationary (WSS)?",
+        "answers": {
+          "a": "Yes, if the autocorrelation depends only on the time difference.",
+          "b": "No, because the variance is not constant.",
+          "c": "Yes, if the mean and variance are time-invariant on average.",
+          "d": "No, because WSS requires both mean and variance to be constant."
+        },
+        "explanations": {
+          "a": "WSS also requires constant mean and variance.",
+          "b": "Variance fluctuations violate WSS conditions.",
+          "c": "Time-invariance on average is not sufficient for WSS.",
+          "d": "WSS requires both mean and variance to remain constant over time."
+        },
+        "correctAnswer": "b",
+        "difficulty": "hard"
       },
-      "explanations": {
-        "a": "Explanation 1  <a href='www.google.com'>here</a>",
-        "b": "Explanation 2",
-        "c": "Explanation 2",
-        "d": "Explanation 2"
+      {
+        "question": "An LTI system has an impulse response that is zero for all values of time greater than a certain constant. What does this imply about the system?",
+        "answers": {
+          "a": "The system is time-invariant but not necessarily causal.",
+          "b": "The system is causal and has finite memory.",
+          "c": "The system is unstable.",
+          "d": "The system is invertible."
+        },
+        "explanations": {
+          "a": "Time-invariance does not depend on the impulse response being finite.",
+          "b": "Finite impulse response implies causality and finite memory.",
+          "c": "Stability is determined by bounded input and output, not impulse response length.",
+          "d": "Invertibility is unrelated to finite impulse response."
+        },
+        "correctAnswer": "b",
+        "difficulty": "hard"
       },
-      "correctAnswer": "a",
-      "difficulty": "beginner"
-    },
-    {
-      "question": "This is a Sample Question 2?",
-      "answers": {
-        "a": "answer1",
-        "b": "answer2",
-        "c": "answer3",
-        "d": "answer4"
+      {
+        "question": "What does it mean if the transfer function of a system has poles outside the unit circle in the z-domain?",
+        "answers": {
+          "a": "The system is unstable.",
+          "b": "The system is non-causal.",
+          "c": "The system is time-variant.",
+          "d": "The system is wide-sense stationary."
+        },
+        "explanations": {
+          "a": "Poles outside the unit circle indicate instability.",
+          "b": "Causality is unrelated to pole location.",
+          "c": "Time-variance is unrelated to pole location.",
+          "d": "Stability, not WSS, is determined by pole location."
+        },
+        "correctAnswer": "a",
+        "difficulty": "hard"
       },
-      "explanations": {
-        "a": "Explanation 1  <a href='www.google.com'>here</a>",
-        "b": "Explanation 2",
-        "c": "Explanation 2",
-        "d": "Explanation 2"
+      {
+        "question": "How does the inclusion of a moving average (MA) term in an ARMA model affect its frequency response?",
+        "answers": {
+          "a": "It sharpens the peak of the response.",
+          "b": "It smoothens the response by adding zeros.",
+          "c": "It introduces poles into the system.",
+          "d": "It does not affect the frequency response."
+        },
+        "explanations": {
+          "a": "MA terms generally smoothen the response, not sharpen it.",
+          "b": "MA terms add zeros, smoothening the overall response.",
+          "c": "Poles are introduced by the AR term, not the MA term.",
+          "d": "MA terms significantly affect the frequency response."
+        },
+        "correctAnswer": "b",
+        "difficulty": "hard"
       },
-      "correctAnswer": "c",
-      "difficulty": "beginner"
-    }
-  ]
-}
+      {
+        "question": "What is the key difference between a WSS process and a strict-sense stationary (SSS) process?",
+        "answers": {
+          "a": "WSS assumes higher-order moments are time-invariant.",
+          "b": "SSS requires constant mean and variance, while WSS does not.",
+          "c": "SSS requires invariance of all moments, while WSS considers only second-order moments.",
+          "d": "There is no difference; they are equivalent."
+        },
+        "explanations": {
+          "a": "Higher-order moments are not considered in WSS.",
+          "b": "WSS also requires constant mean and variance.",
+          "c": "SSS is stricter, requiring invariance of all moments.",
+          "d": "WSS and SSS are not equivalent."
+        },
+        "correctAnswer": "c",
+        "difficulty": "hard"
+      },
+      {
+        "question": "If a WSS signal passes through an LTI system, what will be the nature of the output signal?",
+        "answers": {
+          "a": "The output signal will always be wide-sense stationary.",
+          "b": "The output signal will be non-stationary.",
+          "c": "The output signal will have the same autocorrelation as the input.",
+          "d": "The output signal will be stationary only if the system is causal."
+        },
+        "explanations": {
+          "a": "An LTI system preserves WSS properties.",
+          "b": "Non-stationarity does not result from LTI systems.",
+          "c": "The autocorrelation of the output depends on the system's impulse response.",
+          "d": "Causality is unrelated to preserving stationarity."
+        },
+        "correctAnswer": "a",
+        "difficulty": "hard"
+      },
+      {
+        "question": "In an ARMA(1,1) model, what happens when the pole and zero are very close to each other in the z-domain?",
+        "answers": {
+          "a": "The system exhibits oscillatory behavior.",
+          "b": "The system becomes unstable.",
+          "c": "The system's response becomes heavily damped.",
+          "d": "The pole-zero cancellation occurs, simplifying the system."
+        },
+        "explanations": {
+          "a": "Oscillatory behavior depends on pole location, not proximity to zeros.",
+          "b": "Instability is not caused by pole-zero proximity.",
+          "c": "Close pole-zero pairs dampen the response.",
+          "d": "Pole-zero cancellation can simplify the system."
+        },
+        "correctAnswer": "d",
+        "difficulty": "hard"
+      },
+      {
+        "question": "If an AR(2) process has roots that lie on the unit circle, what can be said about the process?",
+        "answers": {
+          "a": "The process is stable and stationary.",
+          "b": "The process is marginally stable but not stationary.",
+          "c": "The process is unstable and stationary.",
+          "d": "The process is neither stable nor stationary."
+        },
+        "explanations": {
+          "a": "Roots on the unit circle indicate marginal stability, not full stability.",
+          "b": "Marginal stability occurs with roots on the unit circle, but stationarity is lost.",
+          "c": "Instability is not associated with unit-circle roots.",
+          "d": "Marginal stability applies here, not full instability."
+        },
+        "correctAnswer": "b",
+        "difficulty": "hard"
+      },
+      {
+        "question": "How does the inclusion of a high-order AR term in an ARMA model influence its autocorrelation properties?",
+        "answers": {
+          "a": "It shortens the decay rate of the autocorrelation.",
+          "b": "It extends the memory of the process.",
+          "c": "It eliminates oscillatory behavior in the autocorrelation.",
+          "d": "It has no effect on the autocorrelation."
+        },
+        "explanations": {
+          "a": "Higher-order AR terms extend the memory, not shorten it.",
+          "b": "Higher-order AR terms increase the decay length of autocorrelation.",
+          "c": "Oscillatory behavior depends on pole locations, not order.",
+          "d": "Autocorrelation is directly influenced by AR terms."
+        },
+        "correctAnswer": "b",
+        "difficulty": "hard"
+      },
+      {
+        "question": "What is the effect of adding a long-memory MA term to an ARMA model in the frequency domain?",
+        "answers": {
+          "a": "It increases the bandwidth of the process.",
+          "b": "It adds sharp resonances at specific frequencies.",
+          "c": "It suppresses high-frequency components.",
+          "d": "It enhances low-frequency components."
+        },
+        "explanations": {
+          "a": "Bandwidth is not directly affected by MA terms.",
+          "b": "Resonances are typically introduced by poles, not zeros.",
+          "c": "Long-memory MA terms smoothen or suppress high frequencies.",
+          "d": "Low-frequency enhancement depends on specific placements of zeros."
+        },
+        "correctAnswer": "c",
+        "difficulty": "hard"
+      }
+    ]
+  }
+  
