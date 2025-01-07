@@ -1,39 +1,176 @@
 {
-  "version": 2.0,
-  "questions": [
-    {
-      "question": "This is a Sample Question 1?",
-      "answers": {
-        "a": "answer1",
-        "b": "answer2",
-        "c": "answer3",
-        "d": "answer4"
+    "version": 2.0,
+    "questions": [
+      {
+        "question": "What is a fundamental property of a wide-sense stationary (WSS) process?",
+        "answers": {
+          "a": "It has a zero mean and constant variance.",
+          "b": "Its autocorrelation depends only on the time difference.",
+          "c": "Its power spectral density is a constant value.",
+          "d": "Its mean is always equal to zero."
+        },
+        "explanations": {
+          "a": "A WSS process can have a non-zero mean and varying variance.",
+          "b": "The autocorrelation function of a WSS process depends only on the time difference.",
+          "c": "The power spectral density of a WSS process is not constant but depends on the frequency.",
+          "d": "A WSS process does not necessarily have a zero mean."
+        },
+        "correctAnswer": "b",
+        "difficulty": "intermediate"
       },
-      "explanations": {
-        "a": "Explanation 1  <a href='www.google.com'>here</a>",
-        "b": "Explanation 2",
-        "c": "Explanation 2",
-        "d": "Explanation 2"
+      {
+        "question": "Which of the following is NOT a characteristic of a Linear Time-Invariant (LTI) system?",
+        "answers": {
+          "a": "Superposition principle applies.",
+          "b": "Time invariance ensures system response shifts with input shifts.",
+          "c": "The response to a sinusoidal input is always a sinusoid of the same frequency.",
+          "d": "The system must always be causal."
+        },
+        "explanations": {
+          "a": "Superposition is a defining property of LTI systems.",
+          "b": "Time invariance ensures the output shifts in response to input shifts.",
+          "c": "Sinusoidal inputs produce sinusoidal outputs of the same frequency in LTI systems.",
+          "d": "An LTI system can be non-causal, such as in certain mathematical models."
+        },
+        "correctAnswer": "d",
+        "difficulty": "intermediate"
       },
-      "correctAnswer": "a",
-      "difficulty": "beginner"
-    },
-    {
-      "question": "This is a Sample Question 2?",
-      "answers": {
-        "a": "answer1",
-        "b": "answer2",
-        "c": "answer3",
-        "d": "answer4"
+      {
+        "question": "The autocorrelation function of a WSS process is:",
+        "answers": {
+          "a": "Symmetric about the time origin.",
+          "b": "An exponential decay.",
+          "c": "A triangular function.",
+          "d": "A delta function."
+        },
+        "explanations": {
+          "a": "The autocorrelation function is symmetric for WSS processes.",
+          "b": "Exponential decay is a possible form, but it is not a general property.",
+          "c": "A triangular function is not a general property of WSS autocorrelation.",
+          "d": "A delta function corresponds to white noise, not WSS signals."
+        },
+        "correctAnswer": "a",
+        "difficulty": "intermediate"
       },
-      "explanations": {
-        "a": "Explanation 1  <a href='www.google.com'>here</a>",
-        "b": "Explanation 2",
-        "c": "Explanation 2",
-        "d": "Explanation 2"
+      {
+        "question": "In the context of LTI systems, what does the convolution operation represent?",
+        "answers": {
+          "a": "The multiplication of two signals in the time domain.",
+          "b": "The multiplication of two signals in the frequency domain.",
+          "c": "The relationship between input, impulse response, and output.",
+          "d": "The inverse Fourier Transform of the power spectral density."
+        },
+        "explanations": {
+          "a": "Convolution is not time-domain multiplication.",
+          "b": "Convolution in the time domain corresponds to multiplication in the frequency domain.",
+          "c": "Convolution relates the input, impulse response, and output of an LTI system.",
+          "d": "The inverse Fourier transform is unrelated to convolution directly."
+        },
+        "correctAnswer": "c",
+        "difficulty": "intermediate"
       },
-      "correctAnswer": "c",
-      "difficulty": "beginner"
-    }
-  ]
-}
+      {
+        "question": "What does the ARMA model represent in signal processing?",
+        "answers": {
+          "a": "A model for predicting deterministic signals.",
+          "b": "A combination of an autoregressive and moving average process.",
+          "c": "A strictly linear model for random signals.",
+          "d": "A method for measuring the noise power of a process."
+        },
+        "explanations": {
+          "a": "ARMA models are used for stochastic processes, not deterministic signals.",
+          "b": "ARMA combines autoregressive (AR) and moving average (MA) components.",
+          "c": "ARMA models are not strictly linear but a combination of processes.",
+          "d": "ARMA is not specifically a noise measurement method."
+        },
+        "correctAnswer": "b",
+        "difficulty": "intermediate"
+      },
+      {
+        "question": "What is the primary difference between an AR and MA process?",
+        "answers": {
+          "a": "An AR process depends on past noise values, while an MA process depends on past signal values.",
+          "b": "An AR process depends on past values of the signal, while an MA process depends on past noise values.",
+          "c": "An AR process has no memory, while an MA process has infinite memory.",
+          "d": "An AR process is deterministic, while an MA process is stochastic."
+        },
+        "explanations": {
+          "a": "This reverses the roles of AR and MA processes.",
+          "b": "AR uses past signal values, while MA uses past noise values.",
+          "c": "Both AR and MA processes have finite memory in practice.",
+          "d": "Both processes are stochastic, not deterministic."
+        },
+        "correctAnswer": "b",
+        "difficulty": "intermediate"
+      },
+      {
+        "question": "Which parameter is used to determine stationarity in a stochastic process?",
+        "answers": {
+          "a": "The mean and variance.",
+          "b": "The cross-correlation function.",
+          "c": "The autocorrelation function.",
+          "d": "The power spectral density."
+        },
+        "explanations": {
+          "a": "WSS processes do have constant mean and variance, but this alone does not ensure stationarity.",
+          "b": "Cross-correlation involves two signals, not a single process.",
+          "c": "The autocorrelation function determines stationarity since it depends only on time difference for WSS processes.",
+          "d": "Power spectral density is derived from the autocorrelation function."
+        },
+        "correctAnswer": "c",
+        "difficulty": "intermediate"
+      },
+      {
+        "question": "In an ARMA(1,1) model, what does the '1' in the AR part indicate?",
+        "answers": {
+          "a": "The model uses one noise term.",
+          "b": "The model uses one past signal value.",
+          "c": "The model has one autoregressive and one moving average parameter.",
+          "d": "The model uses one future signal value."
+        },
+        "explanations": {
+          "a": "The AR component refers to past signal values, not noise terms.",
+          "b": "The '1' in AR refers to the use of one past signal value.",
+          "c": "This describes the overall ARMA model but not the specific AR part.",
+          "d": "AR models do not use future signal values."
+        },
+        "correctAnswer": "b",
+        "difficulty": "intermediate"
+      },
+      {
+        "question": "How can the output of an LTI system be determined if the input signal is sinusoidal?",
+        "answers": {
+          "a": "By finding the convolution of the input signal with the system's impulse response.",
+          "b": "By adding the input to the system's impulse response.",
+          "c": "By multiplying the input frequency with the system's bandwidth.",
+          "d": "By integrating the input signal over time."
+        },
+        "explanations": {
+          "a": "The convolution operation determines the output of an LTI system.",
+          "b": "Adding the input to the impulse response is not correct.",
+          "c": "Multiplying the frequency with the bandwidth is irrelevant.",
+          "d": "Integration does not directly determine the LTI system's output."
+        },
+        "correctAnswer": "a",
+        "difficulty": "intermediate"
+      },
+      {
+        "question": "What does the term 'causal' mean in the context of ARMA models?",
+        "answers": {
+          "a": "The model depends only on present and past values.",
+          "b": "The model depends on future values.",
+          "c": "The model is stable and bounded.",
+          "d": "The model is time-invariant."
+        },
+        "explanations": {
+          "a": "Causal models depend only on present and past values.",
+          "b": "Non-causal models depend on future values.",
+          "c": "Stability is a separate concept from causality.",
+          "d": "Time-invariance is unrelated to causality."
+        },
+        "correctAnswer": "a",
+        "difficulty": "intermediate"
+      }
+    ]
+  }
+  
