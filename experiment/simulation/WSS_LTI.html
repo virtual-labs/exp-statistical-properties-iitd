@@ -91,7 +91,7 @@ li::before {
     <li>Step 1: Click on "Generate WSS" to generate a wide-sense stationary (WSS) signal, whose mean and autocorrelation do not change over time.</li>
     <li>Step 2: Click on "Generate CIR" to generate the LTI filter coefficients.</li>
     <li>Step 3: Click on "Generate Output" to produce the output signal after filtration.</li>
-    <li>Step 4: Click on "Check Autocorrelation" to verify whether the output signal retains the properties of WSS.</li>
+    <li>Step 4: Click on "Calculate Autocorrelation" to verify whether the output signal retains the properties of WSS.</li>
 </ul>
 
 	</div>
@@ -151,13 +151,18 @@ li::before {
 				<a href = "#checkautocorrelation">												<button
                   class="button bg-gray-500 text-white rounded-md px-2 py-1 absolute bottom-[250px] left-[145px]"
                 >
-                  Check Auto-correlation for Input
+                  Calculate Auto-correlation for Input
                 </button></a>
 				
 								<a href = "#checkautocorrelationoutput">												<button
                   class="button bg-gray-500 text-white rounded-md px-2 py-1 absolute bottom-[210px] left-[140px]"
                 >
-                  Check Auto-correlation for Output
+                  Calculate Auto-correlation for Output
+                </button></a>
+															<a href = "#checkautocorrelation">												<button
+                  class="button bg-gray-500 text-white rounded-md px-2 py-1 absolute bottom-[170px] left-[190px]"
+                >
+                  Plot Aucorrelation
                 </button></a>
 				
               </div>
@@ -183,7 +188,7 @@ li::before {
 </div>
 
 <br/><br/><br/><br/><br/>
-<h2 id="checkautocorrelation">Check Autocorrelation of the Input Signal Over time</h2>
+<h2 id="checkautocorrelation">Calculate Autocorrelation of the Input Signal Over time</h2>
 	<br/>
 	<ul>
 <li>R(τ)  represents the correlation of the signal with itself as a function of the time lag (τ).</li>
@@ -215,7 +220,9 @@ li::before {
             <!-- Table rows will be added here -->
         </tbody>
     </table>
-	</div>
+	<button class="button bg-blue-500 text-white rounded-md px-2 py-1" onclick="plotautocorrelationinput1()">Plot</button>
+	<div id="autocorrelationPlot" style="width: 80%; height: 400px;"></div>
+	</div>	
 </div>
 
 <div class = "right-half">
@@ -246,13 +253,15 @@ li::before {
             <!-- Table rows will be added here -->
         </tbody>
     </table>
+    <button class="button bg-blue-500 text-white rounded-md px-2 py-1" onclick="plotautocorrelationinput2()">Plot</button>
+	<div id="plotautocorrelationinput2" style="width: 80%; height: 400px;"></div>
 	</div>
 </div>
 
 </div>
 
 <!-------------------------------------------------------------------------------->
-<h2 id="checkautocorrelationoutput">Check Autocorrelation of the Output Signal Over Time</h2>
+<h2 id="checkautocorrelationoutput">Calculate Autocorrelation of the Output Signal Over Time</h2>
 <br />
 <ul>
   <li>R(τ) represents the correlation of the signal with itself as a function of the time lag (τ).</li>
@@ -295,7 +304,9 @@ li::before {
           <!-- Table rows will be added here -->
         </tbody>
       </table>
-    </div>
+	<button class="button bg-blue-500 text-white rounded-md px-2 py-1" onclick="plotautocorrelationoutput1()">Plot</button>
+	<div id="plotautocorrelationoutput1" style="width: 80%; height: 400px;"></div>
+	</div>
   </div>
 
   <div class="right-half">
@@ -343,6 +354,8 @@ li::before {
           <!-- Table rows will be added here -->
         </tbody>
       </table>
+	  	<button class="button bg-blue-500 text-white rounded-md px-2 py-1" onclick="plotautocorrelationoutput2()">Plot</button>
+	<div id="plotautocorrelationoutput2" style="width: 80%; height: 400px;"></div>
     </div>
   </div>
 </div>
@@ -523,6 +536,32 @@ function generateLTIOutput() {
                 cell2.textContent = entry.autocorrelation;
             });
         }
+		
+		//////////////////////////plot///////////////////////////
+		function plotautocorrelationinput1() {
+        // Extract data for plotting
+        const lags = autocorrelationData.map(entry => entry.lag);
+        const autocorrelations = autocorrelationData.map(entry => entry.autocorrelation);
+
+        const trace = {
+            x: lags,
+            y: autocorrelations,
+            mode: "lines+markers",
+            type: "scatter",
+            name: "Autocorrelation"
+        };
+
+        const layout = {
+            title: "Autocorrelation vs Lag",
+            xaxis: { title: "Lag (τ)" },
+            yaxis: { title: "Autocorrelation (R(τ))" },
+            margin: { t: 40, l: 50, r: 30, b: 50 }
+        };
+
+        Plotly.newPlot("autocorrelationPlot", [trace], layout);
+    }
+		/////////////////////////plot ends///////////////////////
+		
     let autocorrelationData1 = []; // Array to store the lag and autocorrelation values	
     function autocorrx() {
 		       let result;
@@ -581,7 +620,41 @@ function generateLTIOutput() {
                 cell3.textContent = entry.autocorrelation1;
             });
         }
-		
+	
+        ////////////////////////////plot///////////////////////////
+function plotautocorrelationinput2() {
+    // Extract data for plotting
+    const labels = autocorrelationData1.map(entry => `(${entry.t1},${entry.t2})`);
+    const autocorrelationValues = autocorrelationData1.map(entry => entry.autocorrelation1);
+
+    // Define the trace for the 2D scatter plot
+    const trace = {
+        x: labels,
+        y: autocorrelationValues,
+        mode: "markers+lines",
+        type: "scatter",
+        marker: {
+            size: 8,
+            color: autocorrelationValues,
+            colorscale: "Viridis",
+            colorbar: { title: "Autocorrelation" }
+        },
+        line: { shape: "linear" }
+    };
+
+    // Define the layout for the plot
+    const layout = {
+        title: "Autocorrelation vs (t1, t2)",
+        xaxis: { title: "t1, t2", tickangle: -45 },
+        yaxis: { title: "Autocorrelation Value" },
+        margin: { t: 40, l: 50, r: 30, b: 100 }
+    };
+
+    // Plot the data using Plotly
+    Plotly.newPlot("plotautocorrelationinput2", [trace], layout);
+}
+
+        ////////////////////////////plot ends/////////////////////	
 		
 /////////////////////////////////////////////////////////////////
 
@@ -625,6 +698,31 @@ function updateTable3() {
         cell2.textContent = entry.autocorrelation;
     });
 }
+
+		//////////////////////////plot///////////////////////////
+		function plotautocorrelationoutput1() {
+        // Extract data for plotting
+        const lags = autocorrelationDataOutput.map(entry => entry.lag);
+        const autocorrelations = autocorrelationDataOutput.map(entry => entry.autocorrelation);
+
+        const trace = {
+            x: lags,
+            y: autocorrelations,
+            mode: "lines+markers",
+            type: "scatter",
+            name: "Autocorrelation"
+        };
+
+        const layout = {
+            title: "Autocorrelation vs Lag",
+            xaxis: { title: "Lag (τ)" },
+            yaxis: { title: "Autocorrelation (R(τ))" },
+            margin: { t: 40, l: 50, r: 30, b: 50 }
+        };
+
+        Plotly.newPlot("plotautocorrelationoutput1", [trace], layout);
+    }
+		/////////////////////////plot ends///////////////////////
 
 let autocorrelationDataOutput1 = []; // Array to store the t1, t2, and autocorrelation values
 
@@ -687,7 +785,43 @@ function updateTable4() {
         cell3.textContent = entry.autocorrelation1;
     });
 }
+/////////////////////////////plot//////////////////////////////
+function plotautocorrelationoutput2() {
+    // Extract data for plotting
+    const labels = autocorrelationDataOutput1.map(entry => `(${entry.t1},${entry.t2})`);
+    const autocorrelationValues = autocorrelationDataOutput1.map(entry => entry.autocorrelation1);
+
+    // Define the trace for the 2D scatter plot
+    const trace = {
+        x: labels,
+        y: autocorrelationValues,
+        mode: "markers+lines",
+        type: "scatter",
+        marker: {
+            size: 8,
+            color: autocorrelationValues,
+            colorscale: "Viridis",
+            colorbar: { title: "Autocorrelation" }
+        },
+        line: { shape: "linear" }
+    };
+
+    // Define the layout for the plot
+    const layout = {
+        title: "Autocorrelation vs (t1, t2)",
+        xaxis: { title: "t1, t2", tickangle: -45 },
+        yaxis: { title: "Autocorrelation Value" },
+        margin: { t: 40, l: 50, r: 30, b: 100 }
+    };
+
+    // Plot the data using Plotly
+    Plotly.newPlot("plotautocorrelationoutput2", [trace], layout);
+}
+
+/////////////////////////////plot ends///////////////////////////
+
 /////////////////////////////////////////////////////////////////
+
 
     </script>
 </body>
