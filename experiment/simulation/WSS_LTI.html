@@ -122,53 +122,68 @@ li::before {
 	
 	
 	<div class = "container">
-	<div class = "left-half">
-	          <div class="flex gap-1">
-              <div class="flex-1 flex flex-col items-center">
-                <div class="w-full">
-				<br><br><br><br>
-            <img src="WSS_LTI.png" alt="WSS" style="width: 400px; height: 200px; margin-left:50px; ">
-				<button
-                  class="button bg-blue-500 text-white rounded-md px-2 py-1 absolute top-[480px] left-[20px]"
-                  onclick="updateOutputs()"
-                >
-                  Generate WSS
-                </button>
-								<button
-                  class="button bg-blue-500 text-white rounded-md px-2 py-1 absolute bottom-[335px] left-[210px]"
-                  onclick="generateImpulseResponse()"
-                >
-                  Generate CIR
-                </button>
-				
-												<button
-                  class="button bg-blue-500 text-white rounded-md px-2 py-1 absolute top-[480px] left-[375px]"
-                  onclick="generateLTIOutput()"
-                >
-                  Generate Output
-                </button>
-				
-				<a href = "#checkautocorrelation">												<button
-                  class="button bg-gray-500 text-white rounded-md px-2 py-1 absolute bottom-[250px] left-[145px]"
-                >
-                  Calculate Auto-correlation for Input
-                </button></a>
-				
-								<a href = "#checkautocorrelationoutput">												<button
-                  class="button bg-gray-500 text-white rounded-md px-2 py-1 absolute bottom-[210px] left-[140px]"
-                >
-                  Calculate Auto-correlation for Output
-                </button></a>
-															<a href = "#checkautocorrelation">												<button
-                  class="button bg-gray-500 text-white rounded-md px-2 py-1 absolute bottom-[170px] left-[190px]"
-                >
-                  Plot Aucorrelation
-                </button></a>
-				
-              </div>
-              </div>
-			  </div>
-			  </div>
+	<div class="left-half">
+  <div class="flex gap-1 flex-wrap">
+    <div class="flex-1 flex flex-col items-center">
+      <div class="w-full relative"> <!-- Set relative positioning here -->
+        <br><br><br><br>
+        
+        <!-- Absolute positioned image -->
+        <img
+          src="WSS_LTI.png"
+          alt="WSS"
+          style="position: absolute; width: 35em; height: 18em; left: 3em; top: 0;"> <!-- Absolute position for image -->
+        
+        <!-- Buttons positioned relative to the image -->
+        <button
+          class="button bg-blue-500 text-white rounded-md px-3 py-2 absolute top-[8em] left-[1.2em]"
+          onclick="updateOutputs()"
+        >
+          Generate WSS
+        </button>
+        
+        <button
+          class="button bg-blue-500 text-white rounded-md px-3 py-2 absolute top-[18em] left-[17em]"
+          onclick="generateImpulseResponse()"
+        >
+          Generate CIR
+        </button>
+
+        <button
+          class="button bg-blue-500 text-white rounded-md px-3 py-2 absolute top-[8em] right-[-2em]"
+          onclick="generateLTIOutput()"
+        >
+          Generate Output
+        </button>
+
+        <a href="#checkautocorrelation">
+          <button
+            class="button bg-gray-500 text-white rounded-md px-3 py-2 absolute top-[21em] left-[12em]"
+          >
+            Calculate Auto-correlation for Input
+          </button>
+        </a>
+
+        <a href="#checkautocorrelationoutput">
+          <button
+            class="button bg-gray-500 text-white rounded-md px-3 py-2 absolute top-[24em] left-[11.5em]"
+          >
+            Calculate Auto-correlation for Output
+          </button>
+        </a>
+        
+        <a href="#checkautocorrelation">
+          <button
+            class="button bg-gray-500 text-white rounded-md px-3 py-2 absolute top-[27em] left-[15em]"
+          >
+            Plot Auto-correlation
+          </button>
+        </a>
+        
+      </div>
+    </div>
+  </div>
+</div>
 			  
 	<div class = "right-half">
 			<div id = "scrolltoinput" class="flex items-center gap-2 justify-center max-lg:flex-col">
