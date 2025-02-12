@@ -16,24 +16,26 @@
                 <li><strong>MA Coefficients:</strong> Specify the coefficients for the Moving Average (MA) part of the ARMA model, which defines how past noise terms influence the current value of the signal.</li>
             </ul>
         </li>
+      <br/>
+      <h3>Steps:</h3>
         <li>
-            <strong>Generate the WSS Signal:</strong> 
+            <strong>1. Generate the WSS Signal:</strong> 
             Click the <em>“Generate WSS”</em> button to create a WSS signal has statistical properties (like mean and autocorrelation) that do not change with time shifts.
         </li>
         <li>
-            <strong>Generate the Channel Impulse Response:</strong> 
+            <strong>2. Generate the Channel Impulse Response:</strong> 
             Click the <em>“Generate CIR”</em> button to generate the impulse response values or coefficients.
         </li>
         <li>
-            <strong>Generate Output Signal when System is LTI:</strong> 
+            <strong>3. Generate Output Signal when System is LTI:</strong> 
             Click the <em>“Generate Output”</em> button to perform the convolution of the input WSS signal with the LTI channel coefficients. The resulting signal is the output.
         </li>
         <li>
-            <strong>Check Auto-correlation for the Input Signal:</strong> 
+            <strong>4. Check Auto-correlation for the Input Signal:</strong> 
             Click the <em>“Check Auto-correlation for Input”</em> button to measure the similarity between the input WSS signal and a time-shifted version of itself.
         </li>
         <li>
-            <strong>Check Auto-correlation for the Output Signal:</strong> 
+            <strong>5. Check Auto-correlation for the Output Signal:</strong> 
             Click the <em>“Check Auto-correlation for Output”</em> button to measure the similarity between the output signal and a time-shifted version of itself.
         </li>
     </ul>
