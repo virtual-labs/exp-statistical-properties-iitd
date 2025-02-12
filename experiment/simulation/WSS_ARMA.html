@@ -126,46 +126,46 @@ li::before {
 	
 	
 	<div class = "container">
-	<div class = "left-half">
+		<div class = "left-half">
 	          <div class="flex gap-1">
               <div class="flex-1 flex flex-col items-center">
-                <div class="w-full">
+                <div class="w-full relative">
 				<br><br><br><br>
-            <img src="WSS_ARMA.png" alt="WSS" style="width: 400px; height: 200px; margin-left:50px; ">
+            <img src="WSS_ARMA.png" alt="WSS" style="position: absolute; width: 35em; height: 18em; left: 3em; top: 0;">
 				<button
-                  class="button bg-blue-500 text-white rounded-md px-2 py-1 absolute top-[350px] left-[20px]"
+                  class="button bg-blue-500 text-white rounded-md px-3 py-2 absolute top-[10em] left-[1.2em]"
                   onclick="updateOutputs()"
                 >
                   Generate WSS
                 </button>
 								<button
-                  class="button bg-blue-500 text-white rounded-md px-2 py-1 absolute bottom-[335px] left-[150px]"
+                  class="button bg-blue-500 text-white rounded-md px-3 py-2 absolute top-[18em] left-[14em]"
                   onclick="generateImpulseResponse()"
                 >
                   Generate ARMA Coefficients
                 </button>
 				
 												<button
-                  class="button bg-blue-500 text-white rounded-md px-2 py-1 absolute top-[490px] left-[420px]"
+                  class="button bg-blue-500 text-white rounded-md px-3 py-2 absolute top-[2.5em] right-[-2em]"
                   onclick="generateARMAOutput()"
                 >
                   Generate Output
                 </button>
 				
 				<a href = "#checkautocorrelation">												<button
-                  class="button bg-gray-500 text-white rounded-md px-2 py-1 absolute bottom-[250px] left-[145px]"
+                  class="button bg-gray-500 text-white rounded-md px-3 py-2 absolute top-[21em] left-[12em]"
                 >
                   Calculate Auto-correlation for Input
                 </button></a>
 				
 								<a href = "#checkautocorrelationoutput">												<button
-                  class="button bg-gray-500 text-white rounded-md px-2 py-1 absolute bottom-[210px] left-[140px]"
+                  class="button bg-gray-500 text-white rounded-md px-3 py-2 absolute top-[24em] left-[11.5em]"
                 >
                   Calculate Auto-correlation for Output
                 </button></a>
 				
 												<a href = "#checkautocorrelation">												<button
-                  class="button bg-gray-500 text-white rounded-md px-2 py-1 absolute bottom-[170px] left-[190px]"
+                  class="button bg-gray-500 text-white rounded-md px-3 py-2 absolute top-[27em] left-[15em]"
                 >
                   Plot Aucorrelation
                 </button></a>
