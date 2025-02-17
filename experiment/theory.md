@@ -853,7 +853,7 @@ font-family:"Times New Roman","serif"'><o:p>&nbsp;</o:p></span></p>
 font-family:"Times New Roman","serif"'><o:p>&nbsp;</o:p></span></p>
 
 <p class=MsoNormal><b style='mso-bidi-font-weight:normal'><span lang=EN-US
-style='font-size:18.0pt;line-height:107%;font-family:"Times New Roman","serif"'>3.
+style='font-size:18.0pt;line-height:107%;font-family:"Times New Roman","serif"'>1.
 Definition of Stationary and Wide Sense Stationary Process<o:p></o:p></span></b></p>
 
 <p class=MsoNormal style='text-align:justify'><span lang=EN-US
@@ -975,7 +975,7 @@ font-family:"Times New Roman","serif"'><o:p>&nbsp;</o:p></span></p>
 font-family:"Times New Roman","serif"'><o:p>&nbsp;</o:p></span></p>
 
 <p class=MsoNormal><b style='mso-bidi-font-weight:normal'><span lang=EN-US
-style='font-size:18.0pt;line-height:107%;font-family:"Times New Roman","serif"'>3.
+style='font-size:18.0pt;line-height:107%;font-family:"Times New Roman","serif"'>1.
 a. The output of a Wide Sense Stationary When the System is LTI<o:p></o:p></span></b></p>
 
 <p class=MsoNormal><span lang=EN-US style='font-size:14.0pt;line-height:107%;
@@ -1258,7 +1258,7 @@ font-family:"Times New Roman","serif"'><o:p>&nbsp;</o:p></span></p>
 font-family:"Times New Roman","serif"'><o:p>&nbsp;</o:p></span></p>
 
 <p class=MsoNormal><b style='mso-bidi-font-weight:normal'><span lang=EN-US
-style='font-size:18.0pt;line-height:107%;font-family:"Times New Roman","serif"'>3.
+style='font-size:18.0pt;line-height:107%;font-family:"Times New Roman","serif"'>1.
 b. When the system is Linear and the input is Gaussian<o:p></o:p></span></b></p>
 
 <p class=MsoNormal><span lang=EN-US style='font-size:14.0pt;line-height:107%;
@@ -1480,7 +1480,7 @@ mso-fareast-theme-font:minor-fareast'><o:p>&nbsp;</o:p></span></p>
 
 <p class=MsoNormal><b style='mso-bidi-font-weight:normal'><span lang=EN-US
 style='font-size:18.0pt;line-height:107%;font-family:"Times New Roman","serif";
-mso-fareast-font-family:"Times New Roman";mso-fareast-theme-font:minor-fareast'>3.
+mso-fareast-font-family:"Times New Roman";mso-fareast-theme-font:minor-fareast'>1.
 c. Time Series Analysis - AR, MA, and ARMA Models<o:p></o:p></span></b></p>
 
 <p class=MsoNormal><b style='mso-bidi-font-weight:normal'><span lang=EN-US
