@@ -444,6 +444,12 @@ li::before {
             return output;
         }
      
+	         const rr = {
+            showLink: false,             
+            displaylogo: false,           
+            modeBarButtonsToRemove: ['sendDataToCloud'] 
+        };
+
         let n, input, lag, t1, t2;
         function updateOutputs() {
             let n = parseInt(document.getElementById('numSamples').value); // Number of samples
@@ -458,7 +464,7 @@ li::before {
             }], {
                 title: `WSS Input (with 0 mean and unit variance)`,
 				xaxis: { title: 'Sample Index' }
-            });
+            }, rr);
 
             //updatePlots(input);
 			document.getElementById('scrolltoinput').scrollIntoView({ behavior: 'smooth' });
@@ -480,7 +486,7 @@ li::before {
             }], {
                 title: `CIR Plot`,
 				xaxis: { title: 'Sample Index' }
-            });
+            }, rr);
 			document.getElementById('scrolltocir').scrollIntoView({ behavior: 'smooth' });
 			}
 			
@@ -502,7 +508,7 @@ function generateLTIOutput() {
     }], {
         title: 'LTI System Output',
         xaxis: { title: 'Sample Index' }
-    });
+    }, rr);
 
     // Display statistical properties below the plot
     document.getElementById("ltiStats").innerHTML = `
@@ -575,7 +581,7 @@ function generateLTIOutput() {
             margin: { t: 40, l: 50, r: 30, b: 50 }
         };
 
-        Plotly.newPlot("autocorrelationPlot", [trace], layout);
+        Plotly.newPlot("autocorrelationPlot", [trace], layout, rr);
     }
 		/////////////////////////plot ends///////////////////////
 		
@@ -668,7 +674,7 @@ function plotautocorrelationinput2() {
     };
 
     // Plot the data using Plotly
-    Plotly.newPlot("plotautocorrelationinput2", [trace], layout);
+    Plotly.newPlot("plotautocorrelationinput2", [trace], layout, rr);
 }
 
         ////////////////////////////plot ends/////////////////////	
@@ -737,7 +743,7 @@ function updateTable3() {
             margin: { t: 40, l: 50, r: 30, b: 50 }
         };
 
-        Plotly.newPlot("plotautocorrelationoutput1", [trace], layout);
+        Plotly.newPlot("plotautocorrelationoutput1", [trace], layout, rr);
     }
 		/////////////////////////plot ends///////////////////////
 
@@ -832,7 +838,7 @@ function plotautocorrelationoutput2() {
     };
 
     // Plot the data using Plotly
-    Plotly.newPlot("plotautocorrelationoutput2", [trace], layout);
+    Plotly.newPlot("plotautocorrelationoutput2", [trace], layout, rr);
 }
 
 /////////////////////////////plot ends///////////////////////////
