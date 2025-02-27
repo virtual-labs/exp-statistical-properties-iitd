@@ -437,7 +437,12 @@ li::before {
             }
             return y;
         }
-     
+             const rr = {
+            showLink: false,             
+            displaylogo: false,           
+            modeBarButtonsToRemove: ['sendDataToCloud'] 
+        };
+
         let n, input, lag, t1, t2;
         function updateOutputs() {
             let n = parseInt(document.getElementById('numSamples').value); // Number of samples
@@ -452,7 +457,7 @@ li::before {
             }], {
                 title: `WSS Input (with 0 mean and unit variance)`,
 				xaxis: { title: 'Sample Index' }
-            });
+            }, rr);
 
             //updatePlots(input);
 			document.getElementById('scrolltoinput').scrollIntoView({ behavior: 'smooth' });
@@ -480,7 +485,7 @@ li::before {
 				xaxis: { title: 'Sample Index' }
             };
     // Plot the CIR graph
-    Plotly.newPlot('cirPlot', maData, cirLayout);
+    Plotly.newPlot('cirPlot', maData, cirLayout, rr);
 	
 	    const arData = [{
                 x: Array.from({ length: 1000000 }, (_, i) => i).flatMap(i => [i, i, null]),
@@ -500,7 +505,7 @@ li::before {
     };
 
     // Plot the ARMA output graph
-    Plotly.newPlot('arPlot', arData, armaLayout);
+    Plotly.newPlot('arPlot', arData, armaLayout, rr);
 			document.getElementById('scrolltocir').scrollIntoView({ behavior: 'smooth' });
 			}
 			
@@ -514,7 +519,7 @@ function generateARMAOutput() {
     ARMAOutputValue = ARMAOutput; // Assign to the global variable
 
     // Plot the output using Plotly
-    Plotly.newPlot('ARMAOutput', [{
+    Plotly('ARMAOutput', [{
         x: [...Array(ARMAOutput.length).keys()],
         y: ARMAOutput,
         type: 'scatter',
@@ -596,7 +601,7 @@ function generateARMAOutput() {
             margin: { t: 40, l: 50, r: 30, b: 50 }
         };
 
-        Plotly.newPlot("autocorrelationPlot", [trace], layout);
+        Plotly.newPlot("autocorrelationPlot", [trace], layout, rr);
     }
 		/////////////////////////plot ends///////////////////////
 		
@@ -689,7 +694,7 @@ function plotautocorrelationinput2() {
     };
 
     // Plot the data using Plotly
-    Plotly.newPlot("plotautocorrelationinput2", [trace], layout);
+    Plotly.newPlot("plotautocorrelationinput2", [trace], layout, rr);
 }
 
         ////////////////////////////plot ends/////////////////////	
@@ -757,7 +762,7 @@ function updateTable3() {
             margin: { t: 40, l: 50, r: 30, b: 50 }
         };
 
-        Plotly.newPlot("plotautocorrelationoutput1", [trace], layout);
+        Plotly.newPlot("plotautocorrelationoutput1", [trace], layout, rr);
     }
 		/////////////////////////plot ends///////////////////////
 let autocorrelationDataOutput1 = []; // Array to store the t1, t2, and autocorrelation values
@@ -850,7 +855,7 @@ function plotautocorrelationoutput2() {
     };
 
     // Plot the data using Plotly
-    Plotly.newPlot("plotautocorrelationoutput2", [trace], layout);
+    Plotly.newPlot("plotautocorrelationoutput2", [trace], layout, rr);
 }
 
 /////////////////////////////plot ends///////////////////////////
