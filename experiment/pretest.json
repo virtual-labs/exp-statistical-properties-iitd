@@ -66,7 +66,7 @@
         "c": "Convolution relates the input, impulse response, and output of an LTI system.",
         "d": "The inverse Fourier transform is unrelated to convolution directly."
       },
-      "correctAnswer": "c",
+      "correctAnswer": "b",
       "difficulty": "intermediate"
     },
     {
