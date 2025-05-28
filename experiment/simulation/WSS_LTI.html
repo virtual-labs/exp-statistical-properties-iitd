@@ -81,6 +81,21 @@ li::before {
 .custom-table tbody tr:hover {
     background-color: #e6f7ff;  /* Light blue background on row hover */
 }
+.containerff {
+            display: flex;
+            gap: 2em;
+            margin-bottom: 2em;
+        }
+
+        .box {
+            border: 0.2em solid #333;
+            padding: 1em;
+            text-align: center;
+            flex: 1;
+        }
+        #optionBlock {
+      display: none; /* hidden by default */
+    }
 		</style>
 <body>
     <!-- sidebar and body -->
@@ -89,11 +104,10 @@ li::before {
     <h1 id ="inst">Instructions for Wide Sense Stationary Simulator when the system is LTI</h1>
 <ul>
     <li>Step 1: Click on "Generate WSS" to generate a wide-sense stationary (WSS) signal, whose mean and autocorrelation do not change over time.</li>
-    <li>Step 2: Click on "Generate CIR" to generate the LTI filter coefficients.</li>
-    <li>Step 3: Click on "Generate Output" to produce the output signal after filtration.</li>
-    <li>Step 4: Click on "Calculate Autocorrelation" to verify whether the output signal retains the properties of WSS.</li>
-   <li>R(τ) represents the autocorrelation function of the signal as a function of the lag τ, where τ = t<sub>2</sub> - t<sub>1</sub> is the time difference (or lag) between two time points, R(τ) = <strong>E</strong>[x(t) ⋅ x(t + τ)]</li>
-<li>In the context of Wide-Sense Stationary (WSS) signals, the autocorrelation R(t<sub>1</sub>, t<sub>2</sub>) represents the statistical measure of how the signal at one time point t<sub>1</sub> correlates with the signal at another time point t<sub>2</sub>, R(t<sub>1</sub>, t<sub>2</sub>) = <strong>E</strong>[x(t<sub>1</sub>) ⋅ x(t<sub>2</sub>)]</li>
+    <li>Step 2: You may also choose "Noisy Sinusoid" from the input type dropdown.</li> 
+    <li>Step 3: Click on "Plot CIR" to generate the LTI filter coefficients.</li>
+    <li>Step 4: Click on "Generate Output" to produce the output signal after filtration.</li>
+    <li>Step 5: You can see the auto-correlation plot by clicking the "Calculate Auto-correlation" button.</li>
 </ul>
 
 	</div>
@@ -107,19 +121,37 @@ li::before {
             <div class="flex max-lg:flex-col gap-x-12 gap-y-2 mt-2">
               <div class="flex items-center justify-center gap-1 mt-2">
         <label for="numSamples">Number of Samples:</label>
-<input class="input-field border border-black px-2 py-1 rounded-sm" type="number" id="numSamples" value="1000000">
+<input class="input-field border border-black px-2 py-1 rounded-sm" type="number" id="numSamples" value="1000">
                 </div>
+                <div class="flex items-center justify-center gap-1 mt-2">
+                  <label for="mean">Mean:</label>
+          <input class="input-field border border-black px-2 py-1 rounded-sm" type="number" id="mean" value="0">
+              </div>
+              <div class="flex items-center justify-center gap-1 mt-2">
+                  <label for="variance">Variance:</label>
+          <input class="input-field border border-black px-2 py-1 rounded-sm" type="number" id="variance" value="1">
+              </div>
 			<div class="flex items-center justify-center gap-1 mt-2">
         <label for="impulseResponse">Channel Impulse Response:</label>
 <input class="input-field border border-black px-2 py-1 rounded-sm" type="text" id="impulseResponse" value="0.2,0.5,0.2">
-                </div>
-			 <br/>
-            </div>
-            </div>
-            </div>
-        </div>
-      </div>
-    </div>
+</div>
+</div>
+</div>
+<label for="noisySinusoid">Choose Input Type:</label>
+<select id="noisySinusoid" name="inputType">
+  <option value="wss" selected>WSS</option>
+  <option value="noisySinusoid">Noisy Sinusoid</option>
+</select>
+<div id = "optionBlock">
+<label for="amplitude">Amplitude:</label>
+<input class="input-field border border-black px-2 py-1 rounded-sm" type="number" id="amplitude" value="1">
+<label for="frequency">Frequency (Hz):</label>
+<input class="input-field border border-black px-2 py-1 rounded-sm" type="number" id="frequency" value="50">
+</div>
+</div>
+</div>
+</div>
+</div>
 	<hr/>
 	
 	
@@ -143,12 +175,19 @@ li::before {
         >
           Generate WSS
         </button>
+        <a href="#realData">
+            <button 
+              class="button bg-blue-500 text-white rounded-md px-3 py-2 absolute top-[11em] left-[1.2em]"
+              aria-expanded="false">
+              Input Real Data
+            </button>
+          </a>
         
         <button
           class="button bg-blue-500 text-white rounded-md px-3 py-2 absolute top-[18em] left-[17em]"
           onclick="generateImpulseResponse()"
         >
-          Generate CIR
+          Plot CIR
         </button>
 
         <button
@@ -157,30 +196,6 @@ li::before {
         >
           Generate Output
         </button>
-
-        <a href="#checkautocorrelation">
-          <button
-            class="button bg-gray-500 text-white rounded-md px-3 py-2 absolute top-[21em] left-[12em]"
-          >
-            Calculate Auto-correlation for Input
-          </button>
-        </a>
-
-        <a href="#checkautocorrelationoutput">
-          <button
-            class="button bg-gray-500 text-white rounded-md px-3 py-2 absolute top-[24em] left-[11.5em]"
-          >
-            Calculate Auto-correlation for Output
-          </button>
-        </a>
-        
-        <a href="#checkautocorrelation">
-          <button
-            class="button bg-gray-500 text-white rounded-md px-3 py-2 absolute top-[27em] left-[15em]"
-          >
-            Plot Auto-correlation
-          </button>
-        </a>
         
       </div>
     </div>
@@ -204,181 +219,64 @@ li::before {
 </div>
 </div>
 
-<br/><br/><br/><br/><br/>
-<h2 id="checkautocorrelation">Calculate Autocorrelation of the Input Signal Over time</h2>
-	<br/>
-	<ul>
-<li>R(τ)  represents the correlation of the signal with itself as a function of the time lag (τ).</li>
-<li>R(t1, t2) represents the correlation between two points t1t1​ and t2t2​ in the signal.</li>
-</ul>
-<br/>
-<div class = "container">
-<div class =  "left-half">
-<div align =  "center">
-<h2>Rx(τ)</h2>
-<div class="flex items-center justify-center gap-1 mt-2">
-<label for="lag">Lag:</label>
-<input class="input-field border border-black px-2 py-1 rounded-sm" type="number" id="lag" value="300" min="0">
-<button class="button bg-blue-500 text-white rounded-md px-2 py-1" onclick="autocorrelation11()">Calculate</button>
-</div>
+<br/><br/>
+<hr class="my-6 border-t-2 border-gray-800"/>
 
-<p id="rxτ"></p>
-<br/>
-    <h3>Autocorrelation Results</h3>
-	<br/>
-    <table id="autocorrelationTable" class = "custom-table">
-        <thead>
-            <tr>
-                <th>Lag</th>
-                <th>Autocorrelation</th>
-            </tr>
-        </thead>
-        <tbody>
-            <!-- Table rows will be added here -->
-        </tbody>
-    </table>
-	<button class="button bg-blue-500 text-white rounded-md px-2 py-1" onclick="plotautocorrelationinput1()">Plot</button>
-	<div id="autocorrelationPlot" style="width: 80%; height: 400px;"></div>
-	</div>	
-</div>
+</h2>
+<button 
+class="button bg-gray-500 text-white rounded-md px-3 py-2 absolute bottom-[16em] left-[12.5em]"
+onclick="plotCorrelation()">Calculate Auto-correlation</button>
+<div id="correlationPlot"></div>
 
-<div class = "right-half">
-<div align =  "center">
-<h2>Rx(t1,t2)</h2>
-<div class="flex items-center justify-center gap-1 mt-2">
-<label for="t1">t1:</label>
-<input class="input-field border border-black px-2 py-1 rounded-sm" type="number" id="t1" value="100" min="0">
-</div>
-<div class="flex items-center justify-center gap-1 mt-2">
-<label for="t2">t2:</label>
-<input class="input-field border border-black px-2 py-1 rounded-sm" type="number" id="t2" value="400" min="0">
-<button class="button bg-blue-500 text-white rounded-md px-2 py-1" onclick="autocorrx()">Calculate</button>
-</div>
-<p id="rxt1t2"></p>	
-<br/>
-   <h3>Autocorrelation Results</h3>
-   <br/>
-    <table id="autocorrelationTable1" class = "custom-table">
-        <thead>
-            <tr>
-                <th>t1</th>
-                <th>t2</th>
-                <th>Autocorrelation (Rx)</th>
-            </tr>
-        </thead>
-        <tbody>
-            <!-- Table rows will be added here -->
-        </tbody>
-    </table>
-    <button class="button bg-blue-500 text-white rounded-md px-2 py-1" onclick="plotautocorrelationinput2()">Plot</button>
-	<div id="plotautocorrelationinput2" style="width: 80%; height: 400px;"></div>
-	</div>
-</div>
+<hr class="my-6 border-t-2 border-gray-800"/>
+<br/><br/>
 
-</div>
-
-<!-------------------------------------------------------------------------------->
-<h2 id="checkautocorrelationoutput">Calculate Autocorrelation of the Output Signal Over Time</h2>
-<br />
-<ul>
-  <li>R(τ) represents the correlation of the signal with itself as a function of the time lag (τ).</li>
-  <li>R(t1, t2) represents the correlation between two points \( t_1 \) and \( t_2 \) in the signal.</li>
-</ul>
-<br />
-<div class="container">
-  <div class="left-half">
-    <div align="center">
-      <h2>Rx(τ)</h2>
-      <div class="flex items-center justify-center gap-1 mt-2">
-        <label for="lag1">Lag:</label>
-        <input
-          class="input-field border border-black px-2 py-1 rounded-sm"
-          type="number"
-          id="lag1"
-          value="300"
-          min="0"
-        />
-        <button
-          class="button bg-blue-500 text-white rounded-md px-2 py-1"
-          onclick="autocorrelation111()"
-        >
-          Calculate
-        </button>
-      </div>
-
-      <p id="rxτ1"></p>
-      <br />
-      <h3>Autocorrelation Results</h3>
-      <br />
-      <table id="autocorrelationTableOutput" class="custom-table">
-        <thead>
-          <tr>
-            <th>Lag</th>
-            <th>Autocorrelation</th>
-          </tr>
-        </thead>
-        <tbody>
-          <!-- Table rows will be added here -->
-        </tbody>
-      </table>
-	<button class="button bg-blue-500 text-white rounded-md px-2 py-1" onclick="plotautocorrelationoutput1()">Plot</button>
-	<div id="plotautocorrelationoutput1" style="width: 80%; height: 400px;"></div>
-	</div>
-  </div>
-
-  <div class="right-half">
-    <div align="center">
-      <h2>Rx(t1, t2)</h2>
-      <div class="flex items-center justify-center gap-1 mt-2">
-        <label for="t11">t1:</label>
-        <input
-          class="input-field border border-black px-2 py-1 rounded-sm"
-          type="number"
-          id="t11"
-          value="100"
-          min="0"
-        />
-      </div>
-      <div class="flex items-center justify-center gap-1 mt-2">
-        <label for="t21">t2:</label>
-        <input
-          class="input-field border border-black px-2 py-1 rounded-sm"
-          type="number"
-          id="t21"
-          value="400"
-          min="0"
-        />
-        <button
-          class="button bg-blue-500 text-white rounded-md px-2 py-1"
-          onclick="autocorrx1()"
-        >
-          Calculate
-        </button>
-      </div>
-      <p id="rxt1t21"></p>
-      <br />
-      <h3>Autocorrelation Results</h3>
-      <br />
-      <table id="autocorrelationTableOutput1" class="custom-table">
-        <thead>
-          <tr>
-            <th>t1</th>
-            <th>t2</th>
-            <th>Autocorrelation (Rx)</th>
-          </tr>
-        </thead>
-        <tbody>
-          <!-- Table rows will be added here -->
-        </tbody>
-      </table>
-	  	<button class="button bg-blue-500 text-white rounded-md px-2 py-1" onclick="plotautocorrelationoutput2()">Plot</button>
-	<div id="plotautocorrelationoutput2" style="width: 80%; height: 400px;"></div>
+<h2 id="realData" class="text-2xl font-bold text-gray-800 mb-4"></h2>
+<div class="containerff">
+    <div class="box">  
+        <div class="w-[30em] h-[20em]">
+            <h2>Upload CSV and See Output</h2>
+            <input type="file" id="csvInput" accept=".csv">
+            <br/><br/><br/>
+            Channel Impulse Response<br/>
+            <input type="text" id="impulseResponsexx" value="0.2,0.5,0.2">  
+        </div>
+    </div>   
+    <div class="box">
+        <p>Channel Impulse Response</p>
+        <div id="cirPlotxx" class="w-[30em] h-[20em]"></div>
     </div>
-  </div>
+
+        <div class="box">
+        <p>Output</p>
+        <div id="ltiOutputxx" class="w-[30em] h-[20em]"></div>
+        <div id="ltiStatsxx"></div>
+    </div>
 </div>
 
+<div class="box"></div>
+<div id="outputCorrelation"></div>
+</div>
 
+<script>
+    // Function to check if the number of samples is within the valid range
+    function checkSamples() {
+        const numSamples = parseFloat(document.getElementById('numSamples').value);
 
+        // Validate that numSamples is between 100 and 100000
+        if (numSamples < 100 || numSamples > 100000) {
+            alert("Please enter a number of samples between 100 and 100,000.");
+        } 
+    }
+
+    // Select all button elements on the page
+    const buttons = document.querySelectorAll('button');
+
+    // Attach the click event listener to each button
+    buttons.forEach(button => {
+        button.addEventListener('click', checkSamples);
+    });
+</script>
 
     <script>
         // Helper functions
@@ -403,8 +301,8 @@ li::before {
 
         // Generate WSS process using Box-Muller transform for normal distribution
         function generateWSS(n) {
-            const mean = 0;
-            const variance = 1;
+          let mean = parseFloat(document.getElementById('mean').value);
+            let variance = parseFloat(document.getElementById('variance').value);
             let wss = [];
             for (let i = 0; i < n; i++) {
                 let u1 = Math.random();
@@ -450,25 +348,45 @@ li::before {
             modeBarButtonsToRemove: ['sendDataToCloud'] 
         };
 
-        let n, input, lag, t1, t2;
-        function updateOutputs() {
-            let n = parseInt(document.getElementById('numSamples').value); // Number of samples
-			input = generateWSS(n);
-            // Plotting using Plotly
-            Plotly.newPlot('inputPlot', [{
-                x: [...Array(input.length).keys()],
-                y: input,
-                type: 'scatter',
-                mode: 'lines',
-                name: `Input`
-            }], {
-                title: `WSS Input (with 0 mean and unit variance)`,
-				xaxis: { title: 'Sample Index' }
-            }, rr);
+        const noisySinusoidSelect = document.getElementById("noisySinusoid");
+    const optionBlock = document.getElementById("optionBlock");
 
-            //updatePlots(input);
-			document.getElementById('scrolltoinput').scrollIntoView({ behavior: 'smooth' });
+    // Toggle display logic
+    noisySinusoidSelect.addEventListener("change", function () {
+        if (this.value === "noisySinusoid") {
+            optionBlock.style.display = "block";
+        } else {
+            optionBlock.style.display = "none";
         }
+    });
+
+    let input;
+
+    function updateOutputs() {
+        let n = parseInt(document.getElementById('numSamples').value);
+        let amplitude = parseFloat(document.getElementById('amplitude').value);
+        let frequency = parseFloat(document.getElementById('frequency').value);
+        let selectedOption = noisySinusoidSelect.value;
+
+        if (selectedOption === "wss") {
+            input = generateWSS(n); // Make sure generateWSS() is defined
+        } else {
+            input = generateNoisySinusoid(n, frequency, amplitude, 0, 1, n); // Also make sure this is defined
+        }
+
+        Plotly.newPlot('inputPlot', [{
+            x: [...Array(input.length).keys()],
+            y: input,
+            type: 'scatter',
+            mode: 'lines',
+            name: 'Input'
+        }], {
+            title: `WSS Input`,
+            xaxis: { title: 'Sample Index' }
+        });
+
+        document.getElementById('scrolltoinput').scrollIntoView({ behavior: 'smooth' });
+    }
 
         function generateImpulseResponse() {
             // Generate outputs based on current values
@@ -488,6 +406,23 @@ li::before {
 				xaxis: { title: 'Sample Index' }
             }, rr);
 			document.getElementById('scrolltocir').scrollIntoView({ behavior: 'smooth' });
+			}
+        function generateImpulseResponsexx() {
+            // Generate outputs based on current values
+            const impulseResponse = document.getElementById("impulseResponsexx").value.split(',').map(Number);
+			
+			Plotly.newPlot('cirPlotxx', [{
+                x: Array.from({ length: 1000000 }, (_, i) => i).flatMap(i => [i, i, null]),
+                y: impulseResponse.slice(0, 10).flatMap(y => [0, y, null]),
+                type: 'scatter',
+                mode: 'lines',
+								line: { color: 'blue', width: 4 },
+				type: 'scatter',
+                name: `Input`
+            }], {
+                title: `CIR Plot`,
+				xaxis: { title: 'Sample Index' }
+            }, rr);
 			}
 			
 let ltiOutputValue; // Declare in the global scope
@@ -520,6 +455,77 @@ function generateLTIOutput() {
     // Smooth scroll to the output section
     document.getElementById('scrolltooutput').scrollIntoView({ behavior: 'smooth' });
 }
+
+document.getElementById('csvInput').addEventListener('change', function (event) {
+    const file = event.target.files[0];
+    if (!file) return;
+
+    const reader = new FileReader();
+    reader.onload = function (e) {
+      const text = e.target.result;
+      const rows = text.split(/\r?\n/).filter(line => line.trim() !== '');
+      const signal = rows.map(row => parseFloat(row.split(',')[0])).filter(v => !isNaN(v));
+      if (signal.length === 0) return alert('Invalid or empty data.');
+function generateLTIOutputxx() {
+    // Generate outputs based on current values
+    const impulseResponse = document.getElementById("impulseResponse").value.split(',').map(Number);
+    let ltiOutput = convolve(signal, impulseResponse); // Compute LTI output
+    ltiOutputValue = ltiOutput; // Assign to the global variable
+
+    // Plot the output using Plotly
+    Plotly.newPlot('ltiOutputxx', [{
+        x: [...Array(ltiOutput.length).keys()],
+        y: ltiOutput,
+        type: 'scatter',
+        mode: 'lines',
+        name: 'LTI Output'
+    }], {
+        title: 'LTI System Output',
+        xaxis: { title: 'Sample Index' }
+    }, rr);
+
+    // Display statistical properties below the plot
+    document.getElementById("ltiStatsxx").innerHTML = `
+        <h3>LTI Output Statistics</h3>
+        <p>Mean: ${mean(ltiOutput)}</p>
+        <p>Variance: ${variance(ltiOutput)}</p>
+    `;
+    const maxLag = 50;
+    const Ry = auto_correlation(ltiOutput, maxLag);
+    const Rx = auto_correlation(csvInput, maxLag);
+
+    const trace1 = {
+      x: Rx.lags,
+      y: Rx.result,
+      mode: 'lines+markers',
+      name: 'Input Autocorrelation Rx[k]',
+      line: { color: 'blue' }
+    };
+
+    const trace2 = {
+      x: Ry.lags,
+      y: Ry.result,
+      mode: 'lines+markers',
+      name: 'Output Autocorrelation Ry[k]',
+      line: { color: 'red' }
+    };
+
+    const layout = {
+      title: 'Autocorrelation of Input and Output',
+      xaxis: { title: 'Lag (k)' },
+      yaxis: { title: 'Autocorrelation' },
+      legend: { x: 0.1, y: 1 }
+    };
+
+    Plotly.newPlot('outputCorrelation', [trace1, trace2], layout);
+
+}
+generateImpulseResponsexx()
+generateLTIOutputxx();
+    };
+
+    reader.readAsText(file);
+  });
 
 	
         let autocorrelationData = []; // Array to store the lag and autocorrelation values	
@@ -844,7 +850,70 @@ function plotautocorrelationoutput2() {
 /////////////////////////////plot ends///////////////////////////
 
 /////////////////////////////////////////////////////////////////
+function auto_correlation(signal, maxLag) {
+      const N = signal.length;
+      const result = [];
+      const lags = [];
+      for (let lag = -maxLag; lag <= maxLag; lag++) {
+        let sum = 0;
+        for (let n = 0; n < N - Math.abs(lag); n++) {
+          sum += signal[n] * signal[n + Math.abs(lag)];
+        }
+        result.push(sum / N);
+        lags.push(lag);
+      }
+      return { lags, result };
+    }
 
+function plotCorrelation() {
+    const maxLag = 50;
+    const Ry = auto_correlation(ltiOutputValue, maxLag);
+    const Rx = auto_correlation(input, maxLag);
+
+    const trace1 = {
+      x: Rx.lags,
+      y: Rx.result,
+      mode: 'lines+markers',
+      name: 'Input Autocorrelation Rx[k]',
+      line: { color: 'blue' }
+    };
+
+    const trace2 = {
+      x: Ry.lags,
+      y: Ry.result,
+      mode: 'lines+markers',
+      name: 'Output Autocorrelation Ry[k]',
+      line: { color: 'red' }
+    };
+
+    const layout = {
+      title: 'Autocorrelation of WSS Input and LTI Output',
+      xaxis: { title: 'Lag (k)' },
+      yaxis: { title: 'Autocorrelation' },
+      legend: { x: 0.1, y: 1 }
+    };
+
+    Plotly.newPlot('correlationPlot', [trace1, trace2], layout);
+    document.getElementById('correlationPlot').scrollIntoView({ behavior: 'smooth' });
+}
+function generateNoisySinusoid(N, freq, amp, mean = 0, variance = 1, sampleRate) {
+  const signal = [];
+  for (let n = 0; n < N; n++) {
+    const t = n / sampleRate;
+    const sine = amp * Math.sin(2 * Math.PI * freq * t);
+    const noise = Math.sqrt(variance) * randn_bm() + mean;
+    signal.push(sine + noise);
+  }
+  return signal;
+}
+
+// Normal-distributed noise using Box-Muller transform
+function randn_bm() {
+  let u = 0, v = 0;
+  while(u === 0) u = Math.random();
+  while(v === 0) v = Math.random();
+  return Math.sqrt(-2.0 * Math.log(u)) * Math.cos(2.0 * Math.PI * v);
+}
 
     </script>
 </body>
