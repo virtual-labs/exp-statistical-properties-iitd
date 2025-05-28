@@ -19,22 +19,22 @@
       "difficulty": "intermediate"
     },
     {
-      "question": "2. Which of the following is NOT a characteristic of a Linear Time-Invariant (LTI) system?",
+      "question": "2. Which of the following statements is FALSE regarding Linear Time-Invariant (LTI) systems?",
       "answers": {
-        "a": "Superposition principle applies.",
-        "b": "Time invariance ensures system response shifts with input shifts.",
-        "c": "The response to a sinusoidal input is always a sinusoid of the same frequency.",
-        "d": "The system must always be causal."
+        "a": "They preserve the frequency of sinusoidal inputs in the output.",
+        "b": "They must always satisfy the causality condition in all practical cases.",
+        "c": "Their response to a linear combination of inputs is the same linear combination of individual responses.",
+        "d": "They can be completely characterized by their impulse response."
       },
       "explanations": {
-        "a": "Superposition is a defining property of LTI systems.",
-        "b": "Time invariance ensures the output shifts in response to input shifts.",
-        "c": "Sinusoidal inputs produce sinusoidal outputs of the same frequency in LTI systems.",
-        "d": "An LTI system can be non-causal, such as in certain mathematical models."
+        "a": "This is true; LTI systems maintain input frequency, changing only amplitude and phase.",
+        "b": "This is false; while many practical systems are causal, not all LTI systems must be causal.",
+        "c": "This is true and reflects the principle of linearity.",
+        "d": "This is true; the impulse response defines the system entirely via convolution."
       },
-      "correctAnswer": "d",
+      "correctAnswer": "b",
       "difficulty": "intermediate"
-    },
+    },    
     {
       "question": "3. The autocorrelation function of a WSS process is:",
       "answers": {
@@ -70,18 +70,18 @@
       "difficulty": "intermediate"
     },
     {
-      "question": "5. What does the ARMA model represent in signal processing?",
+      "question": "5. Why is the ARMA model commonly used for analyzing time-series data in signal processing?",
       "answers": {
-        "a": "A model for predicting deterministic signals.",
-        "b": "A combination of an autoregressive and moving average process.",
-        "c": "A strictly linear model for random signals.",
-        "d": "A method for measuring the noise power of a process."
+        "a": "It assumes all signals are periodic and noise-free.",
+        "b": "It models both the memory (AR) and the impact of past noise (MA) in signals.",
+        "c": "It ignores past values and focuses only on current observations.",
+        "d": "It eliminates the need for statistical assumptions."
       },
       "explanations": {
-        "a": "ARMA models are used for stochastic processes, not deterministic signals.",
-        "b": "ARMA combines autoregressive (AR) and moving average (MA) components.",
-        "c": "ARMA models are not strictly linear but a combination of processes.",
-        "d": "ARMA is not specifically a noise measurement method."
+        "a": "ARMA is used for stochastic signals, not idealized periodic ones.",
+        "b": "The AR part captures memory of past values, while the MA part captures influence of past noise.",
+        "c": "ARMA explicitly models dependence on past values and errors.",
+        "d": "Statistical assumptions are essential in ARMA modeling."
       },
       "correctAnswer": "b",
       "difficulty": "intermediate"
@@ -155,21 +155,21 @@
       "difficulty": "intermediate"
     },
     {
-      "question": "10. What does the term 'causal' mean in the context of ARMA models?",
+      "question": "10. Under what condition is an ARMA model both causal and invertible?",
       "answers": {
-        "a": "The model depends only on present and past values.",
-        "b": "The model depends on future values.",
-        "c": "The model is stable and bounded.",
-        "d": "The model is time-invariant."
+        "a": "All poles and zeros lie inside the unit circle in the z-domain.",
+        "b": "All poles lie outside the unit circle, and zeros lie inside.",
+        "c": "All poles lie inside the unit circle, and zeros lie outside.",
+        "d": "Both poles and zeros lie on the unit circle."
       },
       "explanations": {
-        "a": "Causal models depend only on present and past values.",
-        "b": "Non-causal models depend on future values.",
-        "c": "Stability is a separate concept from causality.",
-        "d": "Time-invariance is unrelated to causality."
+        "a": "Incorrect. Causality and invertibility require separate conditions.",
+        "b": "Correct. Causality requires poles outside the unit circle; invertibility requires zeros inside.",
+        "c": "Incorrect. Poles inside the unit circle result in a non-causal system.",
+        "d": "Incorrect. Poles or zeros on the unit circle may lead to instability or non-invertibility."
       },
-      "correctAnswer": "a",
-      "difficulty": "intermediate"
-    }
+      "correctAnswer": "b",
+      "difficulty": "advanced"
+    }    
   ]
 }

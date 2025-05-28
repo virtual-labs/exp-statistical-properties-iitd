@@ -2,22 +2,22 @@
   "version": 2.0,
   "questions": [
     {
-      "question": "1. A signal has a mean of 5 and a variance that fluctuates over time. Can this signal be considered wide-sense stationary (WSS)?",
+      "question": "1. In the context of a wide-sense stationary (WSS) process, which of the following is true regarding the concept of **ergodicity**?",
       "answers": {
-        "a": "Yes, if the autocorrelation depends only on the time difference.",
-        "b": "No, because the variance is not constant.",
-        "c": "Yes, if the mean and variance are time-invariant on average.",
-        "d": "No, because WSS requires both mean and variance to be constant."
+        "a": "A WSS process is always ergodic in both time and ensemble.",
+        "b": "For a WSS process to be ergodic, the time average of the process must equal the ensemble average for all values of \\( t \\).",
+        "c": "Ergodicity implies that the statistical properties of the process can be determined from a single realization of the process over time.",
+        "d": "A WSS process is guaranteed to be ergodic if its autocorrelation function is non-negative."
       },
       "explanations": {
-        "a": "WSS also requires constant mean and variance.",
-        "b": "Variance fluctuations violate WSS conditions.",
-        "c": "Time-invariance on average is not sufficient for WSS.",
-        "d": "WSS requires both mean and variance to remain constant over time."
+        "a": "Incorrect. While all ergodic processes are WSS, not all WSS processes are ergodic. Ergodicity is an additional requirement that allows statistical properties to be inferred from a single realization.",
+        "b": "Correct. This is the definition of ergodicity in the context of WSS processes. It ensures that the time average over a long time period is equal to the expected value over the ensemble.",
+        "c": "Correct. This is another way to describe ergodicity: a process is ergodic if we can estimate the ensemble properties from a single time series (realization).",
+        "d": "Incorrect. The autocorrelation function's non-negativity does not guarantee ergodicity. Ergodicity depends on how well the process can represent the statistical properties of the ensemble from a single realization over time."
       },
       "correctAnswer": "b",
       "difficulty": "hard"
-    },
+    },    
     {
       "question": "2. An LTI system has an impulse response that is zero for all values of time greater than a certain constant. What does this imply about the system?",
       "answers": {
@@ -36,22 +36,22 @@
       "difficulty": "hard"
     },
     {
-      "question": "3. What does it mean if the transfer function of a system has poles outside the unit circle in the z-domain?",
+      "question": "3. In the context of discrete-time systems, what is the implication of having poles outside the unit circle in the z-domain for the system's stability and behavior?",
       "answers": {
-        "a": "The system is unstable.",
-        "b": "The system is non-causal.",
-        "c": "The system is time-variant.",
-        "d": "The system is wide-sense stationary."
+        "a": "The system exhibits instability and potential unbounded output for certain input signals.",
+        "b": "The system's frequency response will exhibit unbounded growth for high frequencies.",
+        "c": "The system may exhibit non-linear behavior despite being linear in nature.",
+        "d": "The system can still be stable but may exhibit a non-minimum phase characteristic."
       },
       "explanations": {
-        "a": "Poles outside the unit circle indicate instability.",
-        "b": "Causality is unrelated to pole location.",
-        "c": "Time-variance is unrelated to pole location.",
-        "d": "Stability, not WSS, is determined by pole location."
+        "a": "Poles outside the unit circle indicate that the system's response grows without bound, leading to instability.",
+        "b": "Poles outside the unit circle do cause instability, but the high-frequency behavior is more relevant to the location of zeros and stability margins, not directly related to the poles' location.",
+        "c": "The poles' location does not directly cause non-linearity in the system. Non-linearity is a property of the system's equations, not its transfer function.",
+        "d": "A system with poles outside the unit circle is inherently unstable. Non-minimum phase refers to zeros outside the unit circle, not poles."
       },
       "correctAnswer": "a",
       "difficulty": "hard"
-    },
+    },    
     {
       "question": "4. How does the inclusion of a moving average (MA) term in an ARMA model affect its frequency response?",
       "answers": {
@@ -70,39 +70,39 @@
       "difficulty": "hard"
     },
     {
-      "question": "5. What is the key difference between a WSS process and a strict-sense stationary (SSS) process?",
+      "question": "5. In the context of stochastic processes, what distinguishes a strict-sense stationary (SSS) process from a wide-sense stationary (WSS) process in terms of their moment invariance properties?",
       "answers": {
-        "a": "WSS assumes higher-order moments are time-invariant.",
-        "b": "SSS requires constant mean and variance, while WSS does not.",
-        "c": "SSS requires invariance of all moments, while WSS considers only second-order moments.",
-        "d": "There is no difference; they are equivalent."
+        "a": "WSS requires the invariance of all higher-order moments, while SSS only requires the invariance of the second-order moments.",
+        "b": "SSS guarantees the invariance of all statistical moments, including higher-order moments, whereas WSS only ensures invariance of the first and second moments.",
+        "c": "SSS demands invariance of all moments, including higher-order moments, while WSS only imposes conditions on the mean, variance, and autocovariance (second-order moments).",
+        "d": "There is no significant difference in the moment invariance requirements between WSS and SSS processes."
       },
       "explanations": {
-        "a": "Higher-order moments are not considered in WSS.",
-        "b": "WSS also requires constant mean and variance.",
-        "c": "SSS is stricter, requiring invariance of all moments.",
-        "d": "WSS and SSS are not equivalent."
+        "a": "This is incorrect because SSS requires invariance of all moments, including higher-order moments, while WSS only requires invariance of the first two moments.",
+        "b": "This is incorrect. WSS ensures invariance only for the first and second moments, while SSS requires invariance for all moments, including higher-order.",
+        "c": "This is correct. SSS is a more stringent condition, requiring invariance of all moments, while WSS focuses on the first and second moments, such as mean and autocovariance.",
+        "d": "This is incorrect. SSS is stricter than WSS, requiring invariance of all moments."
       },
       "correctAnswer": "c",
       "difficulty": "hard"
-    },
+    },  
     {
-      "question": "6. If a WSS signal passes through an LTI system, what will be the nature of the output signal?",
+      "question": "6. When a wide-sense stationary (WSS) signal passes through a Linear Time-Invariant (LTI) system, what impact does the system's characteristics have on the stationarity and statistical properties of the output signal?",
       "answers": {
-        "a": "The output signal will always be wide-sense stationary.",
-        "b": "The output signal will be non-stationary.",
-        "c": "The output signal will have the same autocorrelation as the input.",
-        "d": "The output signal will be stationary only if the system is causal."
+        "a": "The output signal will remain WSS, but its autocorrelation function will be modified based on the system's impulse response.",
+        "b": "The output signal may become non-stationary depending on the system's impulse response and stability characteristics.",
+        "c": "The output signal will retain the same autocorrelation function as the input signal, as long as the system is causal.",
+        "d": "The stationarity of the output is guaranteed only if the system is both causal and stable."
       },
       "explanations": {
-        "a": "An LTI system preserves WSS properties.",
-        "b": "Non-stationarity does not result from LTI systems.",
-        "c": "The autocorrelation of the output depends on the system's impulse response.",
-        "d": "Causality is unrelated to preserving stationarity."
+        "a": "This is correct. While the stationarity of the WSS signal is preserved, the system modifies the autocorrelation depending on the system's impulse response. The system might filter the signal in a way that changes its statistical properties.",
+        "b": "This is incorrect. While LTI systems do not guarantee stationarity in all cases, a WSS signal generally remains stationary after passing through an LTI system, though the specific characteristics of the autocorrelation may change.",
+        "c": "This is incorrect. The autocorrelation function of the output is generally modified by the LTI system’s impulse response. The autocorrelation of the output is not identical to that of the input.",
+        "d": "This is incorrect. While stability and causality are important for system behavior, the stationarity of a WSS input is typically preserved by an LTI system, even in non-causal or unstable systems."
       },
       "correctAnswer": "a",
       "difficulty": "hard"
-    },
+    },    
     {
       "question": "7. In an ARMA(1,1) model, what happens when the pole and zero are very close to each other in the z-domain?",
       "answers": {
@@ -121,22 +121,22 @@
       "difficulty": "hard"
     },
     {
-      "question": "8. If an AR(2) process has roots that lie on the unit circle, what can be said about the process?",
+      "question": "8. For an AR(2) process defined by X(n) = a1·X(n−1) + a2·X(n−2) + W(n), where W(n) is white noise, what does it imply about the spectral characteristics of the process if the characteristic equation has roots lying exactly on the unit circle in the z-plane?",
       "answers": {
-        "a": "The process is stable and stationary.",
-        "b": "The process is marginally stable but not stationary.",
-        "c": "The process is unstable and stationary.",
-        "d": "The process is neither stable nor stationary."
+        "a": "The process exhibits infinite power at specific frequencies, indicating a non-stationary behavior.",
+        "b": "The process is stationary with a flat power spectral density.",
+        "c": "The process is marginally stable and exhibits purely deterministic sinusoidal oscillations.",
+        "d": "The process is unstable and its power spectrum is undefined."
       },
       "explanations": {
-        "a": "Roots on the unit circle indicate marginal stability, not full stability.",
-        "b": "Marginal stability occurs with roots on the unit circle, but stationarity is lost.",
-        "c": "Instability is not associated with unit-circle roots.",
-        "d": "Marginal stability applies here, not full instability."
+        "a": "Correct. Roots on the unit circle cause poles on the unit circle in the spectral domain, resulting in spectral peaks with theoretically infinite power, implying non-stationarity.",
+        "b": "Incorrect. A flat PSD implies white noise, which is not the case here.",
+        "c": "Incorrect. While sinusoidal behavior may occur, it is not purely deterministic due to the stochastic input.",
+        "d": "Incorrect. The process is not unstable in the traditional explosive sense, but it's non-stationary due to persistent oscillations."
       },
-      "correctAnswer": "b",
+      "correctAnswer": "a",
       "difficulty": "hard"
-    },
+    },    
     {
       "question": "9. How does the inclusion of a high-order AR term in an ARMA model influence its autocorrelation properties?",
       "answers": {
