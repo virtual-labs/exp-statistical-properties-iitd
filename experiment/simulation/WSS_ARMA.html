@@ -7,30 +7,74 @@
     <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
     <title>Virtual Labs</title>
 	<style>
-		h1, #checkautocorrelation, #checkautocorrelationoutput, #inst {
+	#checkautocorrelation, #checkautocorrelationoutput, #inst {
     color: #333;
     font-size: 25px; /* Increased font size */
 	font-weight: 500;
     margin-bottom: 20px;
 }
-	ul {
-    list-style-type: none;
-    fft1: 0;
+#container {
+  background-color: #fff;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  border-radius: 12px;
+  padding: 25px 40px;
+  max-width: 100%;
+  margin: 20px auto;
+  text-align: left;
+  font-family: 'Segoe UI', sans-serif;
 }
 
-li {
-    background-color: #e0e7ff;
-    margin: 5px 0;
-    fft1: 5px;
-    border-radius: 4px;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-    font-size: 14px; /* Set font size for list items */
+h1 {
+  color: #1e3a8a;
+  font-size: 24px;
+  margin-bottom: 25px;
+  text-align: justify;
 }
 
-li::before {
-    content: "✔";
-    color: #4caf50;
-    margin-right: 10px;
+ul {
+  list-style-type: none;
+  padding: 0;
+  margin: 0;
+}
+
+li.step {
+  margin: 12px 0;
+  padding: 12px 15px;
+  border-radius: 6px;
+  font-size: 15px;
+  font-weight: 500;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
+  transition: transform 0.2s ease, background-color 0.2s ease;
+}
+
+li.step::before {
+  content: "✔";
+  color: #10b981;
+  margin-right: 10px;
+  font-weight: bold;
+}
+
+li.step:hover {
+  transform: scale(1.02);
+  background-color: #f3f4f6;
+}
+
+/* Color code each step */
+.step1 {
+  background-color: #ffe0e0;
+  border-left: 5px solid #ef4444;
+}
+.step2 {
+  background-color: #e0f7ff;
+  border-left: 5px solid #0ea5e9;
+}
+.step3 {
+  background-color: #e0ffe5;
+  border-left: 5px solid #22c55e;
+}
+.step4 {
+  background-color: #f5e0ff;
+  border-left: 5px solid #a855f7;
 }
 	    .container {
             display: flex;
@@ -103,11 +147,11 @@ li::before {
 	<div id = "instructions">
     <h1 id ="inst">Instructions for Wide Sense Stationary Simulator when the system is Autoregressive Moving Average (ARMA)</h1>
 <ul>
-    <li>Step 1: Click on "Generate WSS" to generate a wide-sense stationary (WSS) signal, whose mean and autocorrelation do not change over time.</li>
-    <li>Step 2: You may also choose "Noisy Sinusoid" from the input type dropdown.</li> 
-    <li>Step 3: Click on "Plot CIR Coefficients" to generate the channel impulse response coefficients.</li>
-    <li>Step 4: Click on "Generate Output" to produce the output signal after ARMA filtration.</li>
-    <li>Step 5: You can see the auto-correlation plot by clicking the "Calculate Auto-correlation" button.</li>
+    <li class="step step1">Step 1: Click on "Generate WSS" to generate a wide-sense stationary (WSS) signal, whose mean and autocorrelation do not change over time.</li>
+    <li class="step step2">Step 2: You may also choose "Noisy Sinusoid" from the input type dropdown.</li> 
+    <li class="step step3">Step 3: Click on "Plot CIR Coefficients" to generate the channel impulse response coefficients.</li>
+    <li class="step step4">Step 4: Click on "Generate Output" to produce the output signal after ARMA filtration.</li>
+    <li class="step step1">Step 5: You can see the auto-correlation plot by clicking the "Calculate Auto-correlation" button.</li>
    <!---
     <li>Step 4: Click on "Calculate Autocorrelation" to verify whether the output signal retains the properties of WSS.</li>
    <li>R(τ) represents the autocorrelation function of the signal as a function of the lag τ, where τ = t<sub>2</sub> - t<sub>1</sub> is the time difference (or lag) between two time points, R(τ) = <strong>E</strong>[x(t) ⋅ x(t + τ)]</li>
@@ -197,6 +241,9 @@ li::before {
                 >
                   Generate Output
                 </button>
+                <button 
+                class="button bg-gray-500 text-white rounded-md px-3 py-2 absolute top-[22em] left-[12.5em]"
+                onclick="plotCorrelation()">Calculate Auto-correlation</button>
               </div>
               </div>
 			  </div>
@@ -224,9 +271,7 @@ li::before {
 
 
 </h2>
-<button 
-class="button bg-gray-500 text-white rounded-md px-3 py-2 absolute bottom-[16em] left-[12.5em]"
-onclick="plotCorrelation()">Calculate Auto-correlation</button>
+
 <div id="correlationPlot"></div>
 
 <hr class="my-6 border-t-2 border-gray-800"/>
