@@ -121,22 +121,22 @@
       "difficulty": "hard"
     },
     {
-      "question": "8. For an AR(2) process defined by X(n) = a1·X(n−1) + a2·X(n−2) + W(n), where W(n) is white noise, what does it imply about the spectral characteristics of the process if the characteristic equation has roots lying exactly on the unit circle in the z-plane?",
+      "question": "8. For an AR(1) process X(n) = a·X(n−1) + W(n), where W(n) is zero-mean white noise, what happens to the power spectral density as |a| approaches 1?",
       "answers": {
-        "a": "The process exhibits infinite power at specific frequencies, indicating a non-stationary behavior.",
-        "b": "The process is stationary with a flat power spectral density.",
-        "c": "The process is marginally stable and exhibits purely deterministic sinusoidal oscillations.",
-        "d": "The process is unstable and its power spectrum is undefined."
+        "a": "The spectrum becomes more concentrated around low frequencies, and the process becomes nearly non-stationary.",
+        "b": "The process becomes more like white noise with a flat spectral density.",
+        "c": "The spectrum becomes uniform across all frequencies.",
+        "d": "The process loses all memory and becomes purely random."
       },
       "explanations": {
-        "a": "Correct. Roots on the unit circle cause poles on the unit circle in the spectral domain, resulting in spectral peaks with theoretically infinite power, implying non-stationarity.",
-        "b": "Incorrect. A flat PSD implies white noise, which is not the case here.",
-        "c": "Incorrect. While sinusoidal behavior may occur, it is not purely deterministic due to the stochastic input.",
-        "d": "Incorrect. The process is not unstable in the traditional explosive sense, but it's non-stationary due to persistent oscillations."
+        "a": "Correct. As |a| approaches 1, the pole moves closer to the unit circle, leading to a sharp spectral peak at low frequency and borderline non-stationarity.",
+        "b": "Incorrect. As |a| increases, the spectral density becomes more peaked, not flat.",
+        "c": "Incorrect. Only white noise has a uniform spectrum; AR(1) is colored noise.",
+        "d": "Incorrect. The process retains memory when |a| is close to 1, not loses it."
       },
       "correctAnswer": "a",
       "difficulty": "hard"
-    },    
+    },       
     {
       "question": "9. How does the inclusion of a high-order AR term in an ARMA model influence its autocorrelation properties?",
       "answers": {
