@@ -1,4 +1,4 @@
-<h2><strong>1. Definition of Stationary and Wide Sense Stationary Process</strong></h2>
+<h2><strong>Definition of Stationary and Wide Sense Stationary Process</strong></h2>
 
 <p>
 A stochastic process {…, X<sub>t−1</sub>, X<sub>t</sub>, X<sub>t+1</sub>, X<sub>t+2</sub>, …} consisting of random variables indexed by time index <i>t</i> is a time series.
@@ -42,7 +42,7 @@ A random process is called <strong>weak-sense stationary</strong> or <strong>wid
   <li>Hence, R<sub>xx</sub>(t₁, t₂) = R<sub>xx</sub>(t₁ − t₂, 0)</li>
 </ul>
 
-<h2><strong>1.a. Output of a WSS Process When Passed Through an LTI System</strong></h2>
+<h2><strong>Output of a WSS Process When Passed Through an LTI System</strong></h2>
 
 <p>
 Let the output of the system be Y(t) = h(t) * X(t), where h(t) is the impulse response. The expected output is:
@@ -60,7 +60,7 @@ Since the system is LTI and X(t) is WSS, the mean is:
 where H(0) = ∑ h[n] (DC gain). So the output is also constant-mean and WSS.
 </p>
 
-<h2><strong>1.b. When the System is Linear and the Input is Gaussian</strong></h2>
+<h2><strong>When the System is Linear and the Input is Gaussian</strong></h2>
 
 <p>
 Gaussian processes are fully described by their mean and covariance.
@@ -82,7 +82,7 @@ So, the output Y(t) is also Gaussian — linear systems preserve Gaussianity.
 Even though the amplitude and phase are modified, the statistical nature (Gaussian) is preserved.
 </p>
 
-<h2><strong>1.c. Time Series Analysis - AR, MA, and ARMA Models</strong></h2>
+<h2><strong>Time Series Analysis - AR, MA, and ARMA Models</strong></h2>
 
 <p><strong>Wold Decomposition Theorem:</strong><br>
 Any zero-mean, covariance-stationary time series {X<sub>t</sub>} can be written as:
