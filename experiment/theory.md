@@ -1,7 +1,90 @@
+<h2><strong>Random Variable</strong></h2>
+      <p>
+        A <strong>random variable</strong> is a function that assigns a real number to each outcome in a sample space of a random experiment.
+        It is a mathematical representation of a quantity whose value is subject to variations due to chance.
+        Random variables are typically classified as discrete or continuous, based on the nature of their possible values.
+      </p>
+  <h2>Probability Density Function (PDF)</h2>
+  <p>
+    A <strong>Probability Density Function (PDF)</strong> describes the likelihood of a continuous random variable 
+    taking a value within a specific range. Mathematically, for a continuous random variable <i>X</i>:
+  </p>
+  <ul>
+    <li>The probability that <i>X</i> lies between <i>a</i> and <i>b</i> is given by:<br>
+      <strong>P(a ≤ X ≤ b) = ∫<sub>a</sub><sup>b</sup> f(x) dx</strong>
+    </li>
+    <li>For <i>f(x)</i> to be a valid PDF:
+      <ul>
+        <li>f(x) ≥ 0 for all x</li>
+        <li>∫<sub>−∞</sub><sup>∞</sup> f(x) dx = 1</li>
+      </ul>
+    </li>
+  </ul>
+
+<h2>Gaussian (Normal) Distribution</h2>
+  <p>
+    The <strong>Gaussian distribution</strong> is a symmetric, bell-shaped curve defined by:
+  </p>
+  <p>
+    <strong>f(x) = (1 / √(2πσ²)) · exp(−(x − μ)² / 2σ²)</strong>
+  </p>
+  <ul>
+    <li>μ: Mean (center of the distribution)</li>
+    <li>σ²: Variance (spread or width of the curve)</li>
+  </ul>
+  <p>
+    It is widely used because many natural phenomena approximate this distribution.
+  </p>
+
+   <h2>White Noise</h2>
+  <p>
+    In time series, <strong>white noise</strong> is a sequence of random variables {ε<sub>t</sub>} that satisfy:
+  </p>
+  <ul>
+    <li>E[ε<sub>t</sub>] = 0 (zero mean)</li>
+    <li>Var(ε<sub>t</sub>) = σ² (constant variance)</li>
+    <li>Cov(ε<sub>t</sub>, ε<sub>t+k</sub>) = 0 for all k ≠ 0 (no correlation over time)</li>
+  </ul>
+  <p>
+    If the ε<sub>t</sub> values follow a Gaussian distribution, it is called <strong>Gaussian white noise</strong>.
+  </p>
+
+  <h2>Linear Time-Invariant (LTI) Systems</h2>
+  <p>
+    An <strong>LTI system</strong> is one that is both:
+  </p>
+  <ul>
+    <li><strong>Linear</strong>: Satisfies the superposition principle:<br>
+      If input x<sub>1</sub>(t) → y<sub>1</sub>(t), and x<sub>2</sub>(t) → y<sub>2</sub>(t), then:<br>
+      a·x<sub>1</sub>(t) + b·x<sub>2</sub>(t) → a·y<sub>1</sub>(t) + b·y<sub>2</sub>(t)
+    </li>
+    <li><strong>Time-Invariant</strong>: If the input is delayed, the output is delayed by the same amount:<br>
+      x(t − t<sub>0</sub>) → y(t − t<sub>0</sub>)
+    </li>
+  </ul>
+  <h2>Convolution</h2>
+<p><strong>Convolution</strong> is a mathematical operation that combines two functions: the input signal <em>x(t)</em> and the impulse response <em>h(t)</em>, to produce a third function, the system’s output <em>y(t)</em>.</p>
+
+<p>It is expressed as:</p>
+
+<p><strong>y(t) = ∫<sub>-∞</sub><sup>∞</sup> x(τ) h(t - τ) dτ</strong></p>
+
+<p><strong>Where:</strong></p>
+<ul>
+  <li><strong>x(t)</strong> is the input signal.</li>
+  <li><strong>h(t)</strong> is the impulse response of the system.</li>
+  <li><strong>y(t)</strong> is the output signal.</li>
+</ul>
+            <h2><strong>Stochastic Process</strong></h2>
+      <p>
+        A <strong>stochastic process</strong> is a collection of random variables, denoted as {X<sub>t</sub> | t ∈ T}, where <em>t</em> is an index (often representing time).
+        Each random variable X<sub>t</sub> represents the state of a system at time <em>t</em>. Stochastic processes are used to model systems that evolve randomly over time,
+        and are fundamental in fields like signal processing, economics, and queueing theory.
+      </p>
 <h2><strong>Definition of Stationary and Wide Sense Stationary Process</strong></h2>
 
 <p>
-A stochastic process {…, X<sub>t−1</sub>, X<sub>t</sub>, X<sub>t+1</sub>, X<sub>t+2</sub>, …} consisting of random variables indexed by time index <i>t</i> is a time series.
+A stochastic process {X<sub>t</sub>} = {X<sub>0</sub>, X<sub>1</sub>, …, X<sub>t−1</sub>, X<sub>t</sub>, X<sub>t+1</sub>, X<sub>t+2</sub>, …} consisting of random variables indexed by time index <i>t</i> is a time series.
 </p>
 
 <p>
@@ -27,9 +110,9 @@ That is, the joint distribution remains unchanged under time shifts.
 A time series <strong>{X<sub>t</sub>}</strong> is <strong>covariance stationary</strong> if:
 </p>
 <ul>
-  <li><strong>E(X<sub>t</sub>) = μ</strong></li>
-  <li><strong>Var(X<sub>t</sub>) = σ<sup>2</sup></strong></li>
-  <li><strong>Cov(X<sub>t</sub>, X<sub>t+τ</sub>) = γ(τ)</strong> (depends only on lag τ)</li>
+  <li><strong>E(X<sub>t</sub>) = μ</strong>&mdash; The expected value (mean) of the random process X<sub>t</sub> is constant (μ).</li>
+  <li><strong>Var(X<sub>t</sub>) = σ<sup>2</sup></strong>&mdash; The variance of the process is constant and equal to σ<sup>2</sup>.</li>
+  <li><strong>Cov(X<sub>t</sub>, X<sub>t+τ</sub>) = γ(τ)</strong> &mdash; The covariance between values of the process depends only on the time lag τ, not on time t.</li>
 </ul>
 
 <h3><strong>Wide Sense Stationary Process</strong></h3>
@@ -50,6 +133,10 @@ Let the output of the system be Y(t) = h(t) * X(t), where h(t) is the impulse re
 <p>
 <strong>μ<sub>y</sub> = E[Y(t)] = E[h(t) * X(t)]</strong>
 </p>
+    <strong>Where:</strong>
+    <ul>
+      <li><strong>' * '</strong> represents the convolution operation.</li>
+    </ul>
 <p>
 Since the system is LTI and X(t) is WSS, the mean is:
 </p>
