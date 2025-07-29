@@ -1,348 +1,160 @@
-<h2><strong>Random Variable</strong></h2>
-      <p>
-        A <strong>random variable</strong> is a function that assigns a real number to each outcome in a sample space of a random experiment.
-        It is a mathematical representation of a quantity whose value is subject to variations due to chance.
-        Random variables are typically classified as discrete or continuous, based on the nature of their possible values.
-      </p>
-  <h2>Probability Density Function (PDF)</h2>
-  <p>
-    A <strong>Probability Density Function (PDF)</strong> describes the likelihood of a continuous random variable 
-    taking a value within a specific range. Mathematically, for a continuous random variable <i>X</i>:
-  </p>
-  <ul>
-    <li>The probability that <i>X</i> lies between <i>a</i> and <i>b</i> is given by:<br>
-      <strong>P(a ≤ X ≤ b) = ∫<sub>a</sub><sup>b</sup> f(x) dx</strong>
-    </li>
-    <li>For <i>f(x)</i> to be a valid PDF:
-      <ul>
-        <li>f(x) ≥ 0 for all x</li>
-        <li>∫<sub>−∞</sub><sup>∞</sup> f(x) dx = 1</li>
-      </ul>
-    </li>
-  </ul>
+  <div class="container">
+    <p>
+      Understanding and modeling time-dependent data is crucial in many fields. This document outlines the foundational concepts of time series analysis, starting with the building blocks of random variables and stochastic processes, and progressing to the widely used AR, MA, and ARMA models. These tools allow us to characterize, predict, and analyze data that evolves randomly over time.
+    </p>
+    <h3><strong>Random Variables and Stochastic Processes</strong></h3>
+    <p>
+      A <strong>random variable</strong> is a function that assigns a real number to each outcome in a sample space of a random experiment. It's a mathematical representation of a quantity whose value is subject to variations due to chance. Random variables are typically classified as discrete or continuous.
+    </p>
+    <p>
+      A <strong>stochastic process</strong> is a collection of random variables indexed by time, denoted as {X<sub>t</sub> | t ∈ T}. Each random variable X<sub>t</sub> represents the state of a system at time <em>t</em>. Stochastic processes are fundamental for modeling systems that evolve randomly over time.
+    </p>
+    <h3><strong>Probability Distributions</strong></h3>
+    <p>
+      A <strong>Probability Density Function (PDF)</strong> describes the likelihood of a continuous random variable taking on a value within a specific range. For a continuous random variable <i>X</i>, the probability that <i>X</i> lies between <i>a</i> and <i>b</i> is the integral of its PDF, f(x), from <i>a</i> to <i>b</i>.
+    </p>
+    <p>
+      The <strong>Gaussian (or Normal) distribution</strong> is a symmetric, bell-shaped curve defined by its mean (μ) and variance (σ²). It is widely used because many natural phenomena approximate this distribution.
+    </p>
+    <h2>Stationarity in Time Series</h2>
+    <p>For a stochastic process to be analyzed with standard models, it often needs to be <strong>stationary</strong>, meaning its statistical properties do not change over time.</p>
+    <h3><strong>Strictly Stationary Process</strong></h3>
+    <p>
+      A time series {X<sub>t</sub>} is <strong>strictly stationary</strong> if its joint probability distribution remains unchanged under shifts in time. That is, for any set of time indices t<sub>1</sub>, ..., t<sub>m</sub> and any time shift τ, the joint distribution of (X<sub>t₁+τ</sub>, ..., X<sub>tₘ+τ</sub>) is the same as that of (X<sub>t₁</sub>, ..., X<sub>tₘ</sub>).
+    </p>
+    <h3><strong>Wide-Sense Stationary (WSS) Process</strong></h3>
+<p>
+  A <strong>wide-sense stationary</strong> (WSS) process is a type of stochastic process whose key statistical properties do not change over time. It is also called <strong>covariance stationary</strong>.
+</p>
+<p>
+  For a process {X<sub>t</sub>} to be WSS, it must satisfy the following three conditions:
+</p>
 
-<h2>Gaussian (Normal) Distribution</h2>
-  <p>
-    The <strong>Gaussian distribution</strong> is a symmetric, bell-shaped curve defined by:
-  </p>
-  <p>
-    <strong>f(x) = (1 / √(2πσ²)) · exp(−(x − μ)² / 2σ²)</strong>
-  </p>
-  <ul>
-    <li>μ: Mean (center of the distribution)</li>
-    <li>σ²: Variance (spread or width of the curve)</li>
-  </ul>
-  <p>
-    It is widely used because many natural phenomena approximate this distribution.
-  </p>
+<ol>
+  <li><strong>Constant Mean:</strong> The expected value stays the same at all times.<br>
+    E[X<sub>t</sub>] = μ
+  </li>
+  <li><strong>Constant Variance:</strong> The variance is constant and finite.<br>
+    Var(X<sub>t</sub>) = σ² &lt; ∞
+  </li>
+  <li><strong>Time-Invariant Covariance:</strong> The covariance between values at two different times depends only on the <em>time difference</em> (lag τ), not the actual time.<br>
+    Cov(X<sub>t</sub>, X<sub>t+τ</sub>) = γ(τ)
+  </li>
+</ol>
 
-   <h2>White Noise</h2>
-  <p>
-    In time series, <strong>white noise</strong> is a sequence of random variables {ε<sub>t</sub>} that satisfy:
-  </p>
-  <ul>
-    <li>E[ε<sub>t</sub>] = 0 (zero mean)</li>
-    <li>Var(ε<sub>t</sub>) = σ² (constant variance)</li>
-    <li>Cov(ε<sub>t</sub>, ε<sub>t+k</sub>) = 0 for all k ≠ 0 (no correlation over time)</li>
-  </ul>
-  <p>
-    If the ε<sub>t</sub> values follow a Gaussian distribution, it is called <strong>Gaussian white noise</strong>.
-  </p>
+<h4><strong>White Noise: A Special Case of WSS</strong></h4>
+<p>
+  White noise is the simplest example of a WSS process. It is a sequence of random variables {ε<sub>t</sub>} with the following properties:
+</p>
 
-  <h2>Linear Time-Invariant (LTI) Systems</h2>
-  <p>
-    An <strong>LTI system</strong> is one that is both:
-  </p>
-  <ul>
-    <li><strong>Linear</strong>: Satisfies the superposition principle:<br>
-      If input x<sub>1</sub>(t) → y<sub>1</sub>(t), and x<sub>2</sub>(t) → y<sub>2</sub>(t), then:<br>
-      a·x<sub>1</sub>(t) + b·x<sub>2</sub>(t) → a·y<sub>1</sub>(t) + b·y<sub>2</sub>(t)
-    </li>
-    <li><strong>Time-Invariant</strong>: If the input is delayed, the output is delayed by the same amount:<br>
-      x(t − t<sub>0</sub>) → y(t − t<sub>0</sub>)
-    </li>
-  </ul>
-  <h2>Convolution</h2>
-<p><strong>Convolution</strong> is a mathematical operation that combines two functions: the input signal <em>x(t)</em> and the impulse response <em>h(t)</em>, to produce a third function, the system’s output <em>y(t)</em>.</p>
-
-<p>It is expressed as:</p>
-
-<p><strong>y(t) = ∫<sub>-∞</sub><sup>∞</sup> x(τ) h(t - τ) dτ</strong></p>
-
-<p><strong>Where:</strong></p>
 <ul>
-  <li><strong>x(t)</strong> is the input signal.</li>
-  <li><strong>h(t)</strong> is the impulse response of the system.</li>
-  <li><strong>y(t)</strong> is the output signal.</li>
-</ul>
-            <h2><strong>Stochastic Process</strong></h2>
-      <p>
-        A <strong>stochastic process</strong> is a collection of random variables, denoted as {X<sub>t</sub> | t ∈ T}, where <em>t</em> is an index (often representing time).
-        Each random variable X<sub>t</sub> represents the state of a system at time <em>t</em>. Stochastic processes are used to model systems that evolve randomly over time,
-        and are fundamental in fields like signal processing, economics, and queueing theory.
-      </p>
-<h2><strong>Definition of Stationary and Wide Sense Stationary Process</strong></h2>
-
-<p>
-A stochastic process {X<sub>t</sub>} = {X<sub>0</sub>, X<sub>1</sub>, …, X<sub>t−1</sub>, X<sub>t</sub>, X<sub>t+1</sub>, X<sub>t+2</sub>, …} consisting of random variables indexed by time index <i>t</i> is a time series.
-</p>
-
-<p>
-The stochastic behavior of {X<sub>t</sub>} is determined by specifying the joint probability density or mass functions (pdf's):
-</p>
-
-<p>
-<strong>p(x<sub>t₁</sub>, x<sub>t₂</sub>, …, x<sub>tₘ</sub>)</strong><br>
-for all finite sets of time indexes {(t<sub>1</sub>, t<sub>2</sub>, …, t<sub>m</sub>), m &lt; ∞}.
-</p>
-
-<p>
-A time series <strong>{X<sub>t</sub>}</strong> is <strong>strictly stationary</strong> if:<br>
-<strong>p(x<sub>t₁+τ</sub>, x<sub>t₂+τ</sub>, …, x<sub>tₘ+τ</sub>) = p(x<sub>t₁</sub>, x<sub>t₂</sub>, …, x<sub>tₘ</sub>)</strong><br>
-for all τ, m, and time indices.
-</p>
-
-<p>
-That is, the joint distribution remains unchanged under time shifts.
-</p>
-
-<p>
-A time series <strong>{X<sub>t</sub>}</strong> is <strong>covariance stationary</strong> if:
-</p>
-<ul>
-  <li><strong>E(X<sub>t</sub>) = μ</strong>&mdash; The expected value (mean) of the random process X<sub>t</sub> is constant (μ).</li>
-  <li><strong>Var(X<sub>t</sub>) = σ<sup>2</sup></strong>&mdash; The variance of the process is constant and equal to σ<sup>2</sup>.</li>
-  <li><strong>Cov(X<sub>t</sub>, X<sub>t+τ</sub>) = γ(τ)</strong> &mdash; The covariance between values of the process depends only on the time lag τ, not on time t.</li>
+  <li><strong>Zero Mean:</strong> E[ε<sub>t</sub>] = 0</li>
+  <li><strong>Constant Variance:</strong> Var(ε<sub>t</sub>) = σ²</li>
+  <li><strong>No Correlation Over Time:</strong> Cov(ε<sub>t</sub>, ε<sub>s</sub>) = 0 for all t ≠ s</li>
 </ul>
 
-<h3><strong>Wide Sense Stationary Process</strong></h3>
 <p>
-A random process is called <strong>weak-sense stationary</strong> or <strong>wide-sense stationary (WSS)</strong> if:
+  These conditions make white noise not only WSS but also an important building block for more complex models like AR, MA, and ARMA. In fact, the error terms (ε<sub>t</sub>) in those models are usually assumed to be white noise.
 </p>
-<ul>
-  <li>Mean: μ<sub>x</sub>(t) = μ<sub>x</sub> (constant)</li>
-  <li>Autocorrelation: R<sub>xx</sub>(t<sub>1</sub>, t<sub>2</sub>) = R<sub>xx</sub>(t<sub>1</sub> + α, t<sub>2</sub> + α) for every α</li>
-  <li>Hence, R<sub>xx</sub>(t₁, t₂) = R<sub>xx</sub>(t₁ − t₂, 0)</li>
-</ul>
-
-<h2><strong>Output of a WSS Process When Passed Through an LTI System</strong></h2>
-
-<p>
-Let the output of the system be Y(t) = h(t) * X(t), where h(t) is the impulse response. The expected output is:
-</p>
-<p>
-<strong>μ<sub>y</sub> = E[Y(t)] = E[h(t) * X(t)]</strong>
-</p>
-    <strong>Where:</strong>
+      If the ε<sub>t</sub> values also follow a Gaussian distribution, it is called <strong>Gaussian white noise</strong>. Many time series models describe how this fundamental white noise process is transformed by a system.
+    </p>
+    <h2>LTI Systems and Their Application to Time Series</h2>
+    <p>Linear Time-Invariant (LTI) systems are a primary tool for analyzing and modeling time series. A stationary time series can often be viewed as the output of an LTI system whose input is white noise.</p>    
+    <h3><strong>LTI Systems and Convolution</strong></h3>
+    <p>
+      An <strong>LTI system</strong> is a system that is both <strong>linear</strong> (obeys the superposition principle) and <strong>time-invariant</strong> (its behavior doesn't change over time).
+    </p>
+    <p>
+      The output <i>y(t)</i> of an LTI system is determined by the <strong>convolution</strong> of the input signal <i>x(t)</i> with the system's unique impulse response <i>h(t)</i>. Convolution is a mathematical operation expressed as:
+    </p>
+    <div class="equation-box">
+      y(t) = ∫<sub>-∞</sub><sup>∞</sup> x(τ) h(t - τ) dτ
+    </div>    
+    <h3><strong>Output of LTI Systems with WSS Inputs</strong></h3>
+    <p>When a WSS process, such as a time series, is passed through a stable LTI system:</p>
     <ul>
-      <li><strong>' * '</strong> represents the convolution operation.</li>
+        <li>The output process is also WSS.</li>
+        <li>If the input process is Gaussian, the output process will also be Gaussian. The linear transformation preserves the nature of the distribution.</li>
     </ul>
+    <h2>Linear Time Series Models: AR, MA, and ARMA</h2>
+    <p>
+      The concepts of stationary processes and LTI systems lead to a powerful set of time series models. The <strong>Wold Decomposition Theorem</strong> provides the theoretical justification, stating that any WSS time series can be represented as the sum of a predictable (deterministic) component and a stochastic component. This stochastic part can be modeled as the output of an LTI system fed by white noise, leading to the three main classes of linear models.
+    </p>
+<h3><strong>Autoregressive (AR) Model</strong></h3>
 <p>
-Since the system is LTI and X(t) is WSS, the mean is:
+  An <strong>AR(p)</strong> model expresses the current value of a time series as a linear combination of its own <i>p</i> previous values, along with a random noise component. In simple terms, it’s like predicting today based on the past few days. This makes it a regression of the series against its own past values.
 </p>
+<div class="equation-box">
+  <strong>Standard Form:</strong><br>
+  X<sub>t</sub> = c + φ<sub>1</sub>X<sub>t−1</sub> + φ<sub>2</sub>X<sub>t−2</sub> + ... + φ<sub>p</sub>X<sub>t−p</sub> + ε<sub>t</sub><br>
+  where c is a constant term
+  <br/>
+  φ<sub>1</sub>, ..., φ<sub>p</sub> are model parameters,<br/>
+  and ε<sub>t</sub> is a white noise term with zero mean and constant variance
+</div>
 <p>
-<strong>μ<sub>y</sub> = μ<sub>x</sub> × H(0)</strong>
+  Using the <strong>backshift operator</strong> (B), defined by BX<sub>t</sub> = X<sub>t−1</sub>, the model can be expressed more compactly:
 </p>
+<div class="equation-box">
+  <strong>Backshift Notation:</strong><br>
+  (1 − φ<sub>1</sub>B − φ<sub>2</sub>B<sup>2</sup> − ... − φ<sub>p</sub>B<sup>p</sup>)X<sub>t</sub> = c + ε<sub>t</sub><br>
+  or<br>
+  φ(B)X<sub>t</sub> = c + ε<sub>t</sub>
+</div>
 <p>
-where H(0) = ∑ h[n] (DC gain). So the output is also constant-mean and WSS.
+  For the AR model to be <strong>stationary</strong>, the roots of the characteristic polynomial φ(z) must lie <strong>outside</strong> the unit circle in the complex plane. This ensures the influence of past terms diminishes over time.
 </p>
-
-<h2><strong>When the System is Linear and the Input is Gaussian</strong></h2>
-
-<p>
-Gaussian processes are fully described by their mean and covariance.
-</p>
-
-<p>
-If the input X(t) is Gaussian, and the system is linear, then:
-</p>
-
-<p>
-<strong>Y(ω) = H(ω) × X(ω)</strong>
-</p>
-
-<p>
-So, the output Y(t) is also Gaussian — linear systems preserve Gaussianity.
-</p>
-
-<p>
-Even though the amplitude and phase are modified, the statistical nature (Gaussian) is preserved.
-</p>
-
-<h2><strong>Time Series Analysis - AR, MA, and ARMA Models</strong></h2>
-
-<p><strong>Wold Decomposition Theorem:</strong><br>
-Any zero-mean, covariance-stationary time series {X<sub>t</sub>} can be written as:
-</p>
-
-<p>
-<strong>X<sub>t</sub> = V<sub>t</sub> + S<sub>t</sub></strong>
-</p>
-
-<p>
-Where:
-<ul>
-  <li><strong>V<sub>t</sub></strong> is a deterministic process (e.g., AR)</li>
-  <li><strong>S<sub>t</sub> = ∑ θ<sub>i</sub> ε<sub>t−i</sub></strong> is a moving average process (MA)</li>
-  <li>θ<sub>0</sub> = 1 and ∑ θ<sub>i</sub><sup>2</sup> &lt; ∞</li>
-  <li>ε<sub>t</sub> is white noise: E[ε<sub>t</sub>] = 0, Var = σ², uncorrelated for t ≠ s</li>
-</ul>
-</p>
-
-<p>
-Also, ε<sub>t</sub> is orthogonal to V<sub>t</sub>, i.e., uncorrelated with the deterministic part.
-</p>
-
-<p>
-Thus, any WSS process can be approximated using AR, MA, or ARMA models.
-</p>
-
-
-![](data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAXEAAADGCAIAAACrXSeKAAAAAXNSR0IArs4c6QAAL8hJREFUeF7t3Xn8bVP5B3BDSYMmKoUGkUsKmedwZQrJEDJTqWvMWMgQKkOUKa5kSMjNLMNVuKJBiKQyREJJpVIpRb93Vr/9O78z7rP3Pt8zPeuP7+t8z1nrWWt99t7PftYzzvzvf/97pmiBQCAQCFSEwCwV0QkygUAgEAj8B4HgKXEfBAKBQJUIBE+pEs2gFQgEAsFT4h4IBAKBKhEInlIlmkErEAgEgqfEPRAIBAJVIhA8pUo0g1YgEAgET4l7IBAIBKpEIHhKlWgGrUAgEAieEvdAIBAIVIlA8JQq0QxagUAgEDwl7oHRR+Bf//rX448//v3vf3/TTTc95ZRTHn300d/+9rejv+0+7TB4Sp+Aj2knEIELLrjgne985+WXX37hhRcuu+yy884779prrz2B84/XVMFTxut6j+Fur7zyyoMOOmjrrbc+4IADsu1/+tOfHkMoJmbLwVMmBueYpT8IOOMcd9xxW2655THHHPPiF784W8RCCy3UnwWNwawzR/6UMbjK47vFdddd94Ybbrj77rvnn3/+hIJv/D333HNf9apXjS8uvdx5yCm9RDdo9xuBe++9d8cdd5xnnnnSQr7zne/84Ac/WHnllYOh9O7KBE/pHbZBuc8I/PKXv3z66aff8IY3vOhFL7KU2267bfPNN2cDioNPTy9MnH16Cm8Q7zMCCyywwKRJk7761a/+5Cc/Ofzww3/3u989++yzt99+e5+XNdLTh5wy0pd37Dc355xzXnPNNSzHe+6558c+9jGG5Be+8IVjj0pvAQg5pbf4BvX+IvD73//+1FNPxUf22Wcf4smSSy45derUnXbaqb+rGu3Zg6eM9vWN3f0fAnvsscdpp51WawMKdHqBQJx9eoFq0BxEBK644opaG9AgLnEk1hQ8ZSQuY2yiLQKCfY4++mhhPi972cv+9Kc/BVo9RSDOPj2FN4gPBAI88SlW0lL4qtCtDMSyRnQRwVNG9MLGtgKBPiEQZ58+AR/TBgIjikDwlBG9sLGtQKBPCARP6RPwMW0gMKIIhD5lRC/sSG/rn//85xNPPFFsiy996Uv/8Y9/vOAFLzB8ttlmm3XWWWtzIBSjGaNqEQieEvfD8CHwyCOPbLTRRj/84Q8LLH3VVVf9+c9/Pvfccxv7pje9ifO+FHBN6Wy77bavfOUrC0wx5kOCp4z5DTCs23/ooYdWX331Bx98MNvAIossssUWW0jCJL/BXXfd9d73vpeTW/7tiS1kb/Y3G/KjH/1oscUWy08heiYEgqfEnTCsCEjg9vGPfzxb/RFHHPHJT36y8GaELIsM4rl//vnnJyLvf//7v/GNbxQmOLYDg6eM7aUf+o3/5S9/2W233c4888yUq/CNb3yjEGSZDcpsDE3iyc477yw3wuKLLy6B0/DGMQtEcMojvolyKoNJt2PD7tMtYtF/UBDgaD9lypTXvOY1aUEPP/zwJz7xiZKLQ3OllVa66qqrRDAjeO2115Yk2Mfhu+66K8448VVHgqf08aLH1GUR8OQff/zxGZXp06efdNJJMrmVpDvffPPtvvvuf//733/84x+XJNXH4XCwhf3222+C1xA8ZYIBj+kqRkBy2aWWWioR/etf/7rLLrtQ35afQ+2O7bff/uabb/7jH/9YnlpfKFx22WUM52xbEzx78JQJBjymqxgBBcBUAnvb296W0d1///2feuqp8tN8+MMfvv7663/96193JPXMM89QxHTsNsEdaJqoVJwNufNMZHmMWQ855JAJ3mpMFwhUiwAvEtHGX//61xPZn/70p7zaVlttNf5sZSZ63etet+iii84+++yyZDelIwv/xRdfrGSqvzQXFDFlpqt8LLvYGmusYVU4I5nlz3/+M5mlJCZ5FhlySh6Uos+gI/Ce97zHUWXmmWdOCz377LPvv//+8oveYIMNsoNVIzWMTKPBOfbYY8vPVS2FE088kcVqhRVWoFXBYa+77rq3vOUts8wyEc/7RMxRLVhBLRBoRIC9RgrrueaaK/3E2aS2kmmPEPOU8qzjmKvWxwQUDPra176GV3KiYeGeMWPGk08+2eZcRqn0kpe8RKU0LO+iiy4655xzHA8nQEgBdfin9Oh+C7J9QIBihbRCU2tu6snPf/7zFAo9fZAYht797nfPMcccDhetfPwrAQJTOOyww5577jnKEWcx0ofwAn9NndGnVyZY+Vdho0022YRP8GabbSaO4dBDDxWCUMkychGhvIkWCIwMAhS02X3vqfN09XRrt956q+nWW2+9ns7SLfHvfe97ViWwYIklljjllFO6HV6yf5x9cnHe6DQsCHzkIx9585vfnFb7m9/8Zq+99uqpReag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) … (i)
-
-The corresponding difference equation is
-
-![](data:image/png;base64,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)…. (ii)
-
-Where w\[n\] is the input sequence to the system and the observation data, x\[n\], represents the output sequence.
-
-In power spectrum estimation, the input sequence is not observable. However, if the observed data are characterized as a stationary random process, then the input sequence is also assumed to be a stationary random process. In such a case the power density spectrum of the data is
-
-![](data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAATQAAAAvCAIAAADihaEkAAAAAXNSR0IArs4c6QAAD8RJREFUeF7tnWnsFUUSwJeFdSOBIKJZORaNHCrIcsrKgkHlioD4BfxgOAxRJOEIIMoCJiYQj8jKrRzhklNBORXUCMqhbALKuQnHAgJBTrkUAxsS9revsp3JzHRPzeO9x3v/dH345zFT3V1V3V1XVw/lbty48TsPXgJeAsUngd8XH0meIi8BL4H/ScBvTr8OvASKVAJ+cxbpxHiyvAT85vRrwEugSCXgN2eRTowny0vAb06/BrwEilQCfnMW6cSUPbJ++eWXZcuW/S0D/Pj555/LHo+55aicP+fMrUB9b7ESOHDgwCuvvHLx4sVmzZp9+OGHp06dat269dKlS2vUqOElZpOAt5x+bRRCAqNHj27btu2SJUsmTJjw5ZdfdurUadu2bZ9//nkhxi7ZMbzlLNmpKynCBw8ePHnyZEPyN99888QTT/BP77g5ptFvzpJa4yVL7E8//RTyYMuVK/foo49u3bq1ZHnKO+Herc27iP0ASCA2thw2bJgXjkMCZXNznj59mtyDn/ioBK5du6YXC8jHjx9HmMEmJF31Pdgwz50795cM3HxXt6SHVEL47bffECO+Q1D4mh7i3drx48eTVTt58mT16tUPHjxo+JceecjfypUr87dr1675ls6aNWsY4umnn9YMRFbw008/Xbdu3X333detWzfTiiAH5V2/fn1NJ4XB+f777zdu3IgAbVQxC0bazIVQZfCFU3koMwI0b97cwSOSvOuuu1q1aqVhkP6nTp1aoUKFPXv2EDEaSfbv3x+L55ak0OYwjD169ICRPn36BCkJcpRIoUNuiW1vEgE6WU79+vXT9MMsz5kz5/z58+i4hx9+2ATeTG69evUSVjUReRRq1ap1//33V6pUiVnnhwGeAzzk1Z0Z2L9/f2wPuXr40UcfwYNylMuXLz/44INvvfUW+N27d4e8r776SijZvn37Sy+9dPbs2VwRdvP9TJky5e677/76669tXX333XejRo1C1ADroFq1avwTmyP4/ACBh7wC4d57733zzTfN21CfV69eZWfOmzcPEWkoR1CNGzd+9913QQ5JEoKfe+45tyQ5I4Eq20ArV66cPXt29G2QI5oTkcIvo0MJIGvP7AeG0DCSW5wrV64MGTIkOAvu/nfs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) … (iii)
-
-Where Γ<sub>ww</sub>(f) is the power density spectrum of the input sequence and H(f) is the frequency response of the model.
-
-Since our objective is to estimate the power density spectrum Γ<sub>xx</sub>(f), it is convenient to assume that the input sequence w\[n\] is a zero mean white noise sequence with autocorrelation.
-
-Γ<sub>ww</sub>(m) = σ<sup>2</sup><sub>w</sub> δ(m) … (iv)
-
-Where σ<sup>2</sup><sub>w</sub> is variance (i.e., σ<sup>2</sup><sub>w</sub> = |w(n)|<sup>2</sup>). Then the power density spectrum of the observed data is simply
-
-![](data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAacAAABkCAIAAACthmhhAAAAAXNSR0IArs4c6QAAHhlJREFUeF7tnXe8HEVyxy0MRsCBwebI0SBAHIgoDHxMzjnnJJIIAhEECIFMEIgMFjlJ5CBAZCRyOECAyFHkJDLYAmSyDdzXW/dp903ortmdtzv7tvqP95k3W91d/euZmuqq6uoev//++99ZMQQMAUOgYxCYqmNGagM1BAwBQ+D/EDCpZ8+BIWAIdBYCJvU6a75ttIaAIWBSz54BQ8AQ6CwETOp11nzbaA0BQ8Cknj0DhoAh0FkImNTrrPm20RoChoBJPXsGDAFDoLMQMKnXWfNtozUEDAGTevYMGAKGQGchYFKvs+bbRmsIGAIm9ewZMAQMgc5CwKReZ823jdYQMARM6tkzYAgYAp2FgEm9zppvG60hYAiY1LNnwBAwBDoLAZN6nTXfNlpDwBAwqWfPgCFgCLQlAg888MAXX3xRB+s9LIN8HahZFUPAEGghAv3796f3Sy+9dK211tpmm2322WefQsyY1CsElxEbAoZAKxFAuTv22GPfffddYeLll1/++uuv/71W9GyZ1NNjZZSGgCHQYgQGDx7cp0+fnXbaSfi4//771113XS4KrVnNrtfiWbTuDQFDQI/ADDPMsN122zn6ddZZZ8kll9RXF0qTekURM3pDwBBoGQLHHHPM1FNP7Xe/4447FuXGVrhFETN6Q6DSCDz22GNYuwYMGJDHJb/muT5nn3121o/R4UkL6FlRSgighB7PA3/XW2+9o446il64P2rUqI033liu8wp1x4wZw3p25plnzqNB1xs0aFC/fv00zPyVhvWwFUPAEOg2CNx4442824HhYAsTH6gra6+99oILLsi//N17773DUDzzzDMnn3zySy+9pEQMNyvdQbz11lvTBexJRTwSRxxxxIUXXhho57777kPePfHEEwGaZZddlqaUzAhZCJ1CDRmxIWAIVAGBqNSDyZ9//nnTTTcVqTd58uTvv/9+ypQpXIiNbP311//8888zx0Lj++67L9U1I/3xxx+xwdGR0A8bNqxv376PPPKIq/vdd98tt9xyI0aMyGsNeTfPPPO89tprmQQwCaujR4/WMOPTmF2vgF5spIZA90DgH2pF9LtZZpll+umnn3HGGbmQ+I977rnn0UcfTY/02WefxYW63377UVeDw4QJ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) … (v)
-
-In the model-based approach the spectrum estimation procedure consists of two steps. Given data sequence x\[n\], 0 ≤ n ≤ N-1, we estimate the parameters {a<sub>k</sub>} and {b<sub>k</sub>} of the model. Then from this estimates, we compute the power spectrum estimate according to equation (v)
-
-Random process x\[n\] generated by pole-zero model as shown in equation (i) is called an autoregressive moving average (ARMA) process of order (p,q) and it is usually denoted as ARMA (p,q). If q = 0 and b<sub>0</sub> = 1, the resulting system model has a system function H(z) = 1 / A(z) and its output x\[n\] is called an autoregressive (AR) process of order p. This is denoted as AR(p). The third possible model is obtained by setting obtained by setting A(z) = 1, so that H(z) = B(z). Its output x\[n\] is called a moving average (MA) process of order q and denoted as MA(q).
-
-Of these three linear models the AR model is by far the most widely used. The reasons are twofold. First, the AR model is suitable for representing spectra with narrow peaks (resonances). Second, the AR model results in very simple linear equations for the AR parameters. On the other hand, the MA model, as a general rule, requires many more coefficients to represent a narrow spectrum. Consequently, it is rarely used by itself as a model for spectrum estimation. By combining poles and zeros, the ARMA model provides a more efficient representation from the viewpoint of the number of model parameters, of the spectrum of a random process. The decomposition theorem due to Wold representation asserts that any ARMA or MA process can be represented uniquely by an AR model of possibly infinite order. In view of this theorem, the issue of model selection reduces to selecting the model that requires the smallest number of model parameters that are easy to compute. Usually the choice in practice is the AR model.
-
-<h2><strong>Autoregressive (AR) Model</strong></h2>
-
-<p>
-The notation AR(p) indicates an autoregressive model of order <i>p</i>. The AR(p) model is defined as:
-</p>
-
-<p>
-X<sub>t</sub> = φ<sub>1</sub>X<sub>t−1</sub> + φ<sub>2</sub>X<sub>t−2</sub> + ... + φ<sub>p</sub>X<sub>t−p</sub> + ε<sub>t</sub>
-</p>
-
-<p>
-Where φ<sub>1</sub>, ..., φ<sub>p</sub> are model parameters, and ε<sub>t</sub> is white noise.
-</p>
-
-<p>
-Using the backshift (lag) operator B, this becomes:
-</p>
-
-<p>
-X<sub>t</sub> = (φ<sub>1</sub>B + φ<sub>2</sub>B<sup>2</sup> + ... + φ<sub>p</sub>B<sup>p</sup>)X<sub>t</sub> + ε<sub>t</sub>
-</p>
-
-<p>
-Or rearranged:
-</p>
-
-<p>
-ϕ(B)X<sub>t</sub> = ε<sub>t</sub>
-</p>
-
-<p>
-Where ϕ(B) = 1 − φ<sub>1</sub>B − φ<sub>2</sub>B<sup>2</sup> − ... − φ<sub>p</sub>B<sup>p</sup>
-</p>
-
-<p>
-An AR model is a linear regression of the current value of the series against its previous values. AR models can be estimated using least squares and are easy to interpret. They behave like all-pole IIR (Infinite Impulse Response) filters driven by white noise.
-</p>
-
-<p>
-For stationarity, all roots of the characteristic equation ϕ(z) = 0 must lie **outside** the unit circle (i.e., |z<sub>i</sub>| > 1).
-</p>
-
-<h2><strong>Moving Average (MA) Model</strong></h2>
-
-<p>
-The notation MA(q) refers to the moving average model of order <i>q</i>:
-</p>
-
-<p>
-X<sub>t</sub> = μ + ε<sub>t</sub> + θ<sub>1</sub>ε<sub>t−1</sub> + θ<sub>2</sub>ε<sub>t−2</sub> + ... + θ<sub>q</sub>ε<sub>t−q</sub>
-</p>
-
-<p>
-Where:
-<ul>
-  <li>μ is the mean of the series</li>
-  <li>θ<sub>1</sub>, ..., θ<sub>q</sub> are model parameters</li>
-  <li>ε<sub>t</sub> is white noise (zero mean, constant variance, uncorrelated)</li>
-</ul>
-</p>
-
-<p>
-Using the backshift operator B:
-</p>
-
-<p>
-X<sub>t</sub> = μ + θ(B)ε<sub>t</sub>, where θ(B) = 1 + θ<sub>1</sub>B + θ<sub>2</sub>B<sup>2</sup> + ... + θ<sub>q</sub>B<sup>q</sup>
-</p>
-
-<p>
-So, an MA model is a weighted sum of current and past white noise errors.
-</p>
-
-<h2><strong>Autoregressive Moving Average (ARMA) Model</strong></h2>
-
-<p>
-An ARMA(p, q) model combines both AR and MA parts:
-</p>
-
-<p>
-X<sub>t</sub> = φ<sub>1</sub>X<sub>t−1</sub> + ... + φ<sub>p</sub>X<sub>t−p</sub> + ε<sub>t</sub> + θ<sub>1</sub>ε<sub>t−1</sub> + ... + θ<sub>q</sub>ε<sub>t−q</sub>
-</p>
-
-<p>
-Or in lag notation:
-</p>
-
-<p>
-ϕ(B)X<sub>t</sub> = θ(B)ε<sub>t</sub>
-</p>
-
-<p>
-Where:
-<ul>
-  <li>ϕ(B) = 1 − φ<sub>1</sub>B − ... − φ<sub>p</sub>B<sup>p</sup></li>
-  <li>θ(B) = 1 + θ<sub>1</sub>B + ... + θ<sub>q</sub>B<sup>q</sup></li>
-</ul>
-</p>
-
-<p>
-So the ARMA model is essentially an IIR filter applied to white noise.
-</p>
-
-<h2><strong>Applications</strong></h2>
-
-<p>
-AR, MA, and ARMA models are widely used for modeling and forecasting time series in:
-<ul>
-  <li>Weather and climate prediction</li>
-  <li>Economics and finance (e.g., stock prices, inflation)</li>
-  <li>Healthcare analytics</li>
-  <li>Signal processing and control systems</li>
-  <li>Retail and business sales forecasting</li>
-  <li>Environmental monitoring</li>
-</ul>
-</p>
-
-<p>
-These models are supported by linear system theory and form the basis for many advanced time series methods.
-</p>
+    <h3><strong>Moving Average (MA) Model</strong></h3>
+    <p>
+      An <strong>MA(q)</strong> model describes the current value of the series as a linear combination of the current and <i>q</i> previous white noise error terms. It models short-run shocks whose effects disappear after <i>q</i> periods.
+    </p>
+    <div class="equation-box">
+      <strong>Standard Form:</strong><br>
+      X<sub>t</sub> = μ + ε<sub>t</sub> + θ<sub>1</sub>ε<sub>t−1</sub> + θ<sub>2</sub>ε<sub>t−2</sub> + ... + θ<sub>q</sub>ε<sub>t−q</sub><br/>
+        where μ = mean of the series (a constant)<br>
+        ε<sub>t</sub> = current white noise (random error)<br>
+        θ<sub>1</sub>, θ<sub>2</sub>, ..., θ<sub>q</sub> = weights on past errors<br>
+  <br/>
+  and ε<sub>t</sub> is a white noise term with zero mean and constant variance
+    </div>
+    <p>
+      Using the backshift operator on the error terms:
+    </p>
+    <div class="equation-box">
+      <strong>Backshift Notation:</strong><br>
+      X<sub>t</sub> = μ + (1 + θ<sub>1</sub>B + θ<sub>2</sub>B<sup>2</sup> + ... + θ<sub>q</sub>B<sup>q</sup>)ε<sub>t</sub><br>
+      or<br>
+      X<sub>t</sub> = μ + θ(B)ε<sub>t</sub>
+    </div>
+    <p>MA models are always stationary.</p>
+    <h3><strong>Autoregressive Moving Average (ARMA) Model</strong></h3>
+    <p>
+      An <strong>ARMA(p, q)</strong> model combines both AR and MA components. It describes the current value of the series based on <i>p</i> previous values of the series and <i>q</i> previous error terms. This provides a more parsimonious (simpler) model for complex time series patterns.
+    </p>
+    <div class="equation-box">
+      <strong>Standard Form:</strong><br>
+      X<sub>t</sub> = c + φ<sub>1</sub>X<sub>t−1</sub> + ... + φ<sub>p</sub>X<sub>t−p</sub> + ε<sub>t</sub> + θ<sub>1</sub>ε<sub>t−1</sub> + ... + θ<sub>q</sub>ε<sub>t−q</sub>
+    </div>
+    <p>
+      In backshift notation, the model elegantly combines the AR and MA polynomials:
+    </p>
+    <div class="equation-box">
+      <strong>Backshift Notation:</strong><br>
+      φ(B)X<sub>t</sub> = c + θ(B)ε<sub>t</sub>
+    </div>
+    <p>Stationarity of an ARMA model depends entirely on its AR component.</p>
+    <h2>Applications</h2>
+    <p>
+      AR, MA, and ARMA models are widely used for modeling and forecasting time series in numerous domains, including:
+    </p>
+    <ul>
+      <li>Economics and finance (e.g., stock prices, inflation)</li>
+      <li>Weather and climate prediction</li>
+      <li>Signal processing and control systems</li>
+      <li>Retail and business sales forecasting</li>
+      <li>Healthcare analytics and environmental monitoring</li>
+    </ul>
+    <p>
+      These models are supported by a rich body of linear system theory and form the basis for many advanced time series methods.
+    </p>
+  </div>
