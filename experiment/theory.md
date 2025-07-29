@@ -1,5 +1,4 @@
-  <div class="container">
-    <p>
+  <p>
       Understanding and modeling time-dependent data is crucial in many fields. This document outlines the foundational concepts of time series analysis, starting with the building blocks of random variables and stochastic processes, and progressing to the widely used AR, MA, and ARMA models. These tools allow us to characterize, predict, and analyze data that evolves randomly over time.
     </p>
     <h3><strong>Random Variables and Stochastic Processes</strong></h3>
@@ -67,7 +66,7 @@
     <p>
       The output <i>y(t)</i> of an LTI system is determined by the <strong>convolution</strong> of the input signal <i>x(t)</i> with the system's unique impulse response <i>h(t)</i>. Convolution is a mathematical operation expressed as:
     </p>
-    <div class="equation-box">
+    <div>
       y(t) = ∫<sub>-∞</sub><sup>∞</sup> x(τ) h(t - τ) dτ
     </div>    
     <h3><strong>Output of LTI Systems with WSS Inputs</strong></h3>
@@ -84,61 +83,66 @@
 <p>
   An <strong>AR(p)</strong> model expresses the current value of a time series as a linear combination of its own <i>p</i> previous values, along with a random noise component. In simple terms, it’s like predicting today based on the past few days. This makes it a regression of the series against its own past values.
 </p>
-<div class="equation-box">
+<div>
   <strong>Standard Form:</strong><br>
   X<sub>t</sub> = c + φ<sub>1</sub>X<sub>t−1</sub> + φ<sub>2</sub>X<sub>t−2</sub> + ... + φ<sub>p</sub>X<sub>t−p</sub> + ε<sub>t</sub><br>
+  <br/>
   where c is a constant term
   <br/>
   φ<sub>1</sub>, ..., φ<sub>p</sub> are model parameters,<br/>
   and ε<sub>t</sub> is a white noise term with zero mean and constant variance
 </div>
+<br/>
 <p>
   Using the <strong>backshift operator</strong> (B), defined by BX<sub>t</sub> = X<sub>t−1</sub>, the model can be expressed more compactly:
 </p>
-<div class="equation-box">
+<div>
   <strong>Backshift Notation:</strong><br>
   (1 − φ<sub>1</sub>B − φ<sub>2</sub>B<sup>2</sup> − ... − φ<sub>p</sub>B<sup>p</sup>)X<sub>t</sub> = c + ε<sub>t</sub><br>
   or<br>
   φ(B)X<sub>t</sub> = c + ε<sub>t</sub>
 </div>
 <p>
+<br/>
   For the AR model to be <strong>stationary</strong>, the roots of the characteristic polynomial φ(z) must lie <strong>outside</strong> the unit circle in the complex plane. This ensures the influence of past terms diminishes over time.
 </p>
     <h3><strong>Moving Average (MA) Model</strong></h3>
     <p>
       An <strong>MA(q)</strong> model describes the current value of the series as a linear combination of the current and <i>q</i> previous white noise error terms. It models short-run shocks whose effects disappear after <i>q</i> periods.
     </p>
-    <div class="equation-box">
+    <div>
       <strong>Standard Form:</strong><br>
       X<sub>t</sub> = μ + ε<sub>t</sub> + θ<sub>1</sub>ε<sub>t−1</sub> + θ<sub>2</sub>ε<sub>t−2</sub> + ... + θ<sub>q</sub>ε<sub>t−q</sub><br/>
+      <br/>
         where μ = mean of the series (a constant)<br>
         ε<sub>t</sub> = current white noise (random error)<br>
         θ<sub>1</sub>, θ<sub>2</sub>, ..., θ<sub>q</sub> = weights on past errors<br>
-  <br/>
   and ε<sub>t</sub> is a white noise term with zero mean and constant variance
     </div>
+    <br/>
     <p>
       Using the backshift operator on the error terms:
     </p>
-    <div class="equation-box">
+    <div>
       <strong>Backshift Notation:</strong><br>
       X<sub>t</sub> = μ + (1 + θ<sub>1</sub>B + θ<sub>2</sub>B<sup>2</sup> + ... + θ<sub>q</sub>B<sup>q</sup>)ε<sub>t</sub><br>
       or<br>
       X<sub>t</sub> = μ + θ(B)ε<sub>t</sub>
     </div>
+    <br/>
     <p>MA models are always stationary.</p>
     <h3><strong>Autoregressive Moving Average (ARMA) Model</strong></h3>
     <p>
       An <strong>ARMA(p, q)</strong> model combines both AR and MA components. It describes the current value of the series based on <i>p</i> previous values of the series and <i>q</i> previous error terms. This provides a more parsimonious (simpler) model for complex time series patterns.
     </p>
-    <div class="equation-box">
+    <div>
       <strong>Standard Form:</strong><br>
       X<sub>t</sub> = c + φ<sub>1</sub>X<sub>t−1</sub> + ... + φ<sub>p</sub>X<sub>t−p</sub> + ε<sub>t</sub> + θ<sub>1</sub>ε<sub>t−1</sub> + ... + θ<sub>q</sub>ε<sub>t−q</sub>
     </div>
     <p>
       In backshift notation, the model elegantly combines the AR and MA polynomials:
     </p>
-    <div class="equation-box">
+    <div>
       <strong>Backshift Notation:</strong><br>
       φ(B)X<sub>t</sub> = c + θ(B)ε<sub>t</sub>
     </div>
@@ -157,4 +161,3 @@
     <p>
       These models are supported by a rich body of linear system theory and form the basis for many advanced time series methods.
     </p>
-  </div>
