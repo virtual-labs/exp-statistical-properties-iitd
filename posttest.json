@@ -1,0 +1,175 @@
+{
+  "version": 2.0,
+  "questions": [
+    {
+      "question": "1. In the context of a wide-sense stationary (WSS) process, which of the following is true regarding the concept of **ergodicity**?",
+      "answers": {
+        "a": "A WSS process is always ergodic in both time and ensemble.",
+        "b": "For a WSS process to be ergodic, the time average of the process must equal the ensemble average for all values of \\( t \\).",
+        "c": "Ergodicity implies that the statistical properties of the process can be determined from a single realization of the process over time.",
+        "d": "A WSS process is guaranteed to be ergodic if its autocorrelation function is non-negative."
+      },
+      "explanations": {
+        "a": "Incorrect. While all ergodic processes are WSS, not all WSS processes are ergodic. Ergodicity is an additional requirement that allows statistical properties to be inferred from a single realization.",
+        "b": "Correct. This is the definition of ergodicity in the context of WSS processes. It ensures that the time average over a long time period is equal to the expected value over the ensemble.",
+        "c": "Correct. This is another way to describe ergodicity: a process is ergodic if we can estimate the ensemble properties from a single time series (realization).",
+        "d": "Incorrect. The autocorrelation function's non-negativity does not guarantee ergodicity. Ergodicity depends on how well the process can represent the statistical properties of the ensemble from a single realization over time."
+      },
+      "correctAnswer": "b",
+      "difficulty": "hard"
+    },    
+    {
+      "question": "2. An LTI system has an impulse response that is zero for all values of time greater than a certain constant. What does this imply about the system?",
+      "answers": {
+        "a": "The system is time-invariant but not necessarily causal.",
+        "b": "The system is causal and has finite memory.",
+        "c": "The system is unstable.",
+        "d": "The system is invertible."
+      },
+      "explanations": {
+        "a": "Time-invariance does not depend on the impulse response being finite.",
+        "b": "Finite impulse response implies causality and finite memory.",
+        "c": "Stability is determined by bounded input and output, not impulse response length.",
+        "d": "Invertibility is unrelated to finite impulse response."
+      },
+      "correctAnswer": "b",
+      "difficulty": "hard"
+    },
+    {
+      "question": "3. In the context of discrete-time systems, what is the implication of having poles outside the unit circle in the z-domain for the system's stability and behavior?",
+      "answers": {
+        "a": "The system exhibits instability and potential unbounded output for certain input signals.",
+        "b": "The system's frequency response will exhibit unbounded growth for high frequencies.",
+        "c": "The system may exhibit non-linear behavior despite being linear in nature.",
+        "d": "The system can still be stable but may exhibit a non-minimum phase characteristic."
+      },
+      "explanations": {
+        "a": "Poles outside the unit circle indicate that the system's response grows without bound, leading to instability.",
+        "b": "Poles outside the unit circle do cause instability, but the high-frequency behavior is more relevant to the location of zeros and stability margins, not directly related to the poles' location.",
+        "c": "The poles' location does not directly cause non-linearity in the system. Non-linearity is a property of the system's equations, not its transfer function.",
+        "d": "A system with poles outside the unit circle is inherently unstable. Non-minimum phase refers to zeros outside the unit circle, not poles."
+      },
+      "correctAnswer": "a",
+      "difficulty": "hard"
+    },    
+    {
+      "question": "4. How does the inclusion of a moving average (MA) term in an ARMA model affect its frequency response?",
+      "answers": {
+        "a": "It sharpens the peak of the response.",
+        "b": "It smoothens the response by adding zeros.",
+        "c": "It introduces poles into the system.",
+        "d": "It does not affect the frequency response."
+      },
+      "explanations": {
+        "a": "MA terms generally smoothen the response, not sharpen it.",
+        "b": "MA terms add zeros, smoothening the overall response.",
+        "c": "Poles are introduced by the AR term, not the MA term.",
+        "d": "MA terms significantly affect the frequency response."
+      },
+      "correctAnswer": "b",
+      "difficulty": "hard"
+    },
+    {
+      "question": "5. In the context of stochastic processes, what distinguishes a strict-sense stationary (SSS) process from a wide-sense stationary (WSS) process in terms of their moment invariance properties?",
+      "answers": {
+        "a": "WSS requires the invariance of all higher-order moments, while SSS only requires the invariance of the second-order moments.",
+        "b": "SSS guarantees the invariance of all statistical moments, including higher-order moments, whereas WSS only ensures invariance of the first and second moments.",
+        "c": "SSS demands invariance of all moments, including higher-order moments, while WSS only imposes conditions on the mean, variance, and autocovariance (second-order moments).",
+        "d": "There is no significant difference in the moment invariance requirements between WSS and SSS processes."
+      },
+      "explanations": {
+        "a": "This is incorrect because SSS requires invariance of all moments, including higher-order moments, while WSS only requires invariance of the first two moments.",
+        "b": "This is incorrect. WSS ensures invariance only for the first and second moments, while SSS requires invariance for all moments, including higher-order.",
+        "c": "This is correct. SSS is a more stringent condition, requiring invariance of all moments, while WSS focuses on the first and second moments, such as mean and autocovariance.",
+        "d": "This is incorrect. SSS is stricter than WSS, requiring invariance of all moments."
+      },
+      "correctAnswer": "c",
+      "difficulty": "hard"
+    },  
+    {
+      "question": "6. When a wide-sense stationary (WSS) signal passes through a Linear Time-Invariant (LTI) system, what impact does the system's characteristics have on the stationarity and statistical properties of the output signal?",
+      "answers": {
+        "a": "The output signal will remain WSS, but its autocorrelation function will be modified based on the system's impulse response.",
+        "b": "The output signal may become non-stationary depending on the system's impulse response and stability characteristics.",
+        "c": "The output signal will retain the same autocorrelation function as the input signal, as long as the system is causal.",
+        "d": "The stationarity of the output is guaranteed only if the system is both causal and stable."
+      },
+      "explanations": {
+        "a": "This is correct. While the stationarity of the WSS signal is preserved, the system modifies the autocorrelation depending on the system's impulse response. The system might filter the signal in a way that changes its statistical properties.",
+        "b": "This is incorrect. While LTI systems do not guarantee stationarity in all cases, a WSS signal generally remains stationary after passing through an LTI system, though the specific characteristics of the autocorrelation may change.",
+        "c": "This is incorrect. The autocorrelation function of the output is generally modified by the LTI system’s impulse response. The autocorrelation of the output is not identical to that of the input.",
+        "d": "This is incorrect. While stability and causality are important for system behavior, the stationarity of a WSS input is typically preserved by an LTI system, even in non-causal or unstable systems."
+      },
+      "correctAnswer": "a",
+      "difficulty": "hard"
+    },    
+    {
+      "question": "7. In an ARMA(1,1) model, what happens when the pole and zero are very close to each other in the z-domain?",
+      "answers": {
+        "a": "The system exhibits oscillatory behavior.",
+        "b": "The system becomes unstable.",
+        "c": "The system's response becomes heavily damped.",
+        "d": "The pole-zero cancellation occurs, simplifying the system."
+      },
+      "explanations": {
+        "a": "Oscillatory behavior depends on pole location, not proximity to zeros.",
+        "b": "Instability is not caused by pole-zero proximity.",
+        "c": "Close pole-zero pairs dampen the response.",
+        "d": "Pole-zero cancellation can simplify the system."
+      },
+      "correctAnswer": "d",
+      "difficulty": "hard"
+    },
+    {
+      "question": "8. For an AR(1) process X(n) = a·X(n−1) + W(n), where W(n) is zero-mean white noise, what happens to the power spectral density as |a| approaches 1?",
+      "answers": {
+        "a": "The spectrum becomes more concentrated around low frequencies, and the process becomes nearly non-stationary.",
+        "b": "The process becomes more like white noise with a flat spectral density.",
+        "c": "The spectrum becomes uniform across all frequencies.",
+        "d": "The process loses all memory and becomes purely random."
+      },
+      "explanations": {
+        "a": "Correct. As |a| approaches 1, the pole moves closer to the unit circle, leading to a sharp spectral peak at low frequency and borderline non-stationarity.",
+        "b": "Incorrect. As |a| increases, the spectral density becomes more peaked, not flat.",
+        "c": "Incorrect. Only white noise has a uniform spectrum; AR(1) is colored noise.",
+        "d": "Incorrect. The process retains memory when |a| is close to 1, not loses it."
+      },
+      "correctAnswer": "a",
+      "difficulty": "hard"
+    },       
+    {
+      "question": "9. How does the inclusion of a high-order AR term in an ARMA model influence its autocorrelation properties?",
+      "answers": {
+        "a": "It shortens the decay rate of the autocorrelation.",
+        "b": "It extends the memory of the process.",
+        "c": "It eliminates oscillatory behavior in the autocorrelation.",
+        "d": "It has no effect on the autocorrelation."
+      },
+      "explanations": {
+        "a": "Higher-order AR terms extend the memory, not shorten it.",
+        "b": "Higher-order AR terms increase the decay length of autocorrelation.",
+        "c": "Oscillatory behavior depends on pole locations, not order.",
+        "d": "Autocorrelation is directly influenced by AR terms."
+      },
+      "correctAnswer": "b",
+      "difficulty": "hard"
+    },
+    {
+      "question": "10. What is the effect of adding a long-memory MA term to an ARMA model in the frequency domain?",
+      "answers": {
+        "a": "It increases the bandwidth of the process.",
+        "b": "It adds sharp resonances at specific frequencies.",
+        "c": "It suppresses high-frequency components.",
+        "d": "It enhances low-frequency components."
+      },
+      "explanations": {
+        "a": "Bandwidth is not directly affected by MA terms.",
+        "b": "Resonances are typically introduced by poles, not zeros.",
+        "c": "Long-memory MA terms smoothen or suppress high frequencies.",
+        "d": "Low-frequency enhancement depends on specific placements of zeros."
+      },
+      "correctAnswer": "c",
+      "difficulty": "hard"
+    }
+  ]
+}
