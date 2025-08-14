@@ -79,173 +79,112 @@
     <p>
       The concepts of stationary processes and LTI systems lead to a powerful set of time series models. The <strong>Wold Decomposition Theorem</strong> provides the theoretical justification, stating that any WSS time series can be represented as the sum of a predictable (deterministic) component and a stochastic component. This stochastic part can be modeled as the output of an LTI system fed by white noise, leading to the three main classes of linear models.
     </p>
-<h3><strong>Autoregressive (AR) Model</strong></h3>
-<p>
-  An <strong>AR(p)</strong> model expresses the current value of a time series as a linear combination of its own <i>p</i> previous values, along with a random noise component. In simple terms, it’s like predicting today based on the past few days. This makes it a regression of the series against its own past values.
-</p>
-<div>
-  <strong>Standard Form:</strong><br>
-  X<sub>t</sub> = c + φ<sub>1</sub>X<sub>t−1</sub> + φ<sub>2</sub>X<sub>t−2</sub> + ... + φ<sub>p</sub>X<sub>t−p</sub> + ε<sub>t</sub><br>
-  <br/>
-  where c is a constant term,<br/>
-  φ<sub>1</sub>, ..., φ<sub>p</sub> are model parameters,<br/>
-  and ε<sub>t</sub> is a white noise term with zero mean and constant variance.
-</div>
-<br/>
-<p>
-  Using the <strong>z-transform operator</strong> (z<sup>−1</sup>), defined by z<sup>−1</sup>X<sub>t</sub> = X<sub>t−1</sub>, the model can be expressed more compactly:
-</p>
-<div>
-  <strong>Z-Transform Representation:</strong><br>
-  Taking the z-transform of both sides of the AR(p) model:<br><br>
-  X<sub>t</sub> = c + φ<sub>1</sub>X<sub>t−1</sub> + φ<sub>2</sub>X<sub>t−2</sub> + ... + φ<sub>p</sub>X<sub>t−p</sub> + ε<sub>t</sub><br><br>
-
-  Applying the z-transform:<br>
-  X(z) = c·1/(1−z<sup>−1</sup>) + φ<sub>1</sub>z<sup>−1</sup>X(z) + φ<sub>2</sub>z<sup>−2</sup>X(z) + ... + φ<sub>p</sub>z<sup>−p</sup>X(z) + ε(z)
-</div>
-<br>
-<div>
-  <strong>Solving for X(z):</strong><br>
-  Move all X(z) terms to one side:<br>
-  [1 − φ<sub>1</sub>z<sup>−1</sup> − φ<sub>2</sub>z<sup>−2</sup> − ... − φ<sub>p</sub>z<sup>−p</sup>]·X(z) = c·1/(1−z<sup>−1</sup>) + ε(z)
-</div>
-<br>
-<div>
-  <strong>Transfer Function H(z):</strong><br>
-  Define the transfer function from ε(z) to X(z) as:<br>
-  H(z) = X(z) / ε(z) = 1 / φ(z)<br>
-  where:<br>
-  φ(z) = 1 − φ<sub>1</sub>z<sup>−1</sup> − φ<sub>2</sub>z<sup>−2</sup> − ... − φ<sub>p</sub>z<sup>−p</sup><br><br>
-  If c ≠ 0, then:<br>
-  X(z) = H(z)·ε(z) + c / [(1 − z<sup>−1</sup>)·φ(z)]
-</div>
-
-<br/>
-<p>
-  <strong>Continuous-Time Analogy:</strong> In continuous-time systems, similar dynamics are described using differential equations. For example, a first-order system is modeled as:<br>
-  <i>d</i>y(t)/<i>d</i>t + a·y(t) = b·x(t)<br>
-  This acts as the continuous-time counterpart of an AR(1) model. Applying the Laplace Transform (continuous analog of the z-transform) gives the transfer function:<br>
-  H(s) = Y(s)/X(s) = b / (s + a)<br>
-  This shows how autoregressive behavior also exists in continuous systems, though expressed through derivatives and Laplace transforms instead of time shifts and z-transforms.
-</p>
-<p>
-  <strong>Stability Condition:</strong><br>
-  The stability of an AR model depends on the location of the poles of the AR polynomial <i>Φ(z)</i>. The system is <em>stable</em> if all roots of Φ(z) lie <strong>inside the unit circle</strong> in the z-domain, i.e.,<br>
-  <strong>|z| &lt; 1</strong> for all roots of Φ(z).<br>
-  In continuous-time systems, this corresponds to all poles of H(s) lying in the <strong>left-half s-plane</strong> (Re(s) &lt; 0).
-</p>
-
-<h3><strong>Moving Average (MA) Model</strong></h3>
-<p>
-  An <strong>MA(q)</strong> model describes the current value of the series as a linear combination of the current and <i>q</i> previous white noise error terms. It models short-run shocks whose effects disappear after <i>q</i> periods.
-</p>
-<div>
-  <strong>Standard Form:</strong><br>
-  X<sub>t</sub> = μ + ε<sub>t</sub> + θ<sub>1</sub>ε<sub>t−1</sub> + θ<sub>2</sub>ε<sub>t−2</sub> + ... + θ<sub>q</sub>ε<sub>t−q</sub><br/>
-  <br/>
-  where:<br/>
-  μ is the mean of the series (a constant),<br/>
-  ε<sub>t</sub> is current white noise (zero-mean random error),<br/>
-  and θ<sub>1</sub>, ..., θ<sub>q</sub> are weights on past errors.
-</div>
-<br/>
-<p>
-  Using the <strong>z-transform operator</strong> (z<sup>−1</sup>), defined as z<sup>−1</sup>ε<sub>t</sub> = ε<sub>t−1</sub>, we can express the model compactly:
-</p>
-<div>
-  <strong>Z-Transform Notation:</strong><br>
-  X<sub>t</sub> = μ + (1 + θ<sub>1</sub>z<sup>−1</sup> + θ<sub>2</sub>z<sup>−2</sup> + ... + θ<sub>q</sub>z<sup>−q</sup>)ε<sub>t</sub><br>
-  or<br>
-  X<sub>t</sub> = μ + θ(z<sup>−1</sup>)ε<sub>t</sub>
-</div>
-<br/>
-<div>
-  <strong>Z-Domain Expression:</strong><br>
-  Taking the z-transform of both sides gives:<br>
-  X(z) = μ·1/(1 − z<sup>−1</sup>) + θ(z<sup>−1</sup>)·ε(z)<br><br>
-  where:<br>
-  θ(z<sup>−1</sup>) = 1 + θ<sub>1</sub>z<sup>−1</sup> + θ<sub>2</sub>z<sup>−2</sup> + ... + θ<sub>q</sub>z<sup>−q</sup>
-</div>
-<br/>
-<div>
-  <strong>Transfer Function H(z):</strong><br>
-  The transfer function from ε(z) to X(z) is:<br>
-  H(z) = X(z) / ε(z) = θ(z<sup>−1</sup>)<br><br>
-  If μ ≠ 0, the full expression becomes:<br>
-  X(z) = H(z)·ε(z) + μ / (1 − z<sup>−1</sup>)
-</div>
-<br/>
-<p>
-  <strong>Continuous-Time Analogy:</strong> Though less common, a continuous-time analogue to MA behavior could be a system with a finite impulse response to white noise input, such as:<br>
-  y(t) = ∫<sub>t−T</sub><sup>t</sup> h(τ)·ε(t−τ) dτ<br>
-  where h(τ) is a short-lived kernel and ε(t) is white noise. Unlike AR systems, these don't involve derivatives, just finite-length convolutions.
-</p>
-<p>
-  <strong>Stability Condition:</strong><br>
-  The MA model is always <em>stable</em> because it does not involve feedback (no poles except at the origin in the z-domain).<br>
-  However, for <em>invertibility</em>, the roots of the MA polynomial <i>Θ(z)</i> must lie <strong>outside the unit circle</strong>, i.e.,<br>
-  <strong>|z| &gt; 1</strong> for all roots of Θ(z).<br>
-</p>
-
-<h3><strong>Autoregressive Moving Average (ARMA) Model</strong></h3>
-
-<p>
-  An <strong>ARMA(p, q)</strong> model combines both autoregressive (AR) and moving average (MA) components. It models the current value of a discrete-time process as a combination of <i>p</i> past values of the process and <i>q</i> past white noise/error terms.
-</p>
-
-<div>
-  <strong>Standard Form:</strong><br>
-  X<sub>t</sub> = μ + φ<sub>1</sub>X<sub>t−1</sub> + ⋯ + φ<sub>p</sub>X<sub>t−p</sub> + ε<sub>t</sub> + θ<sub>1</sub>ε<sub>t−1</sub> + ⋯ + θ<sub>q</sub>ε<sub>t−q</sub>
-</div>
-
-<p>
-  Using the Z-transform (where the shift operator <i>z<sup>−1</sup></i> represents one time-step delay), the model is written in polynomial form:
-</p>
-
-<div>
-  <strong>Z-Transform Representation:</strong><br>
-  Φ(z)X(z) = Θ(z)E(z) + C(z)
-</div>
-
-<p>
-  where:<br>
-  Φ(z) = 1 − φ<sub>1</sub>z<sup>−1</sup> − φ<sub>2</sub>z<sup>−2</sup> − ⋯ − φ<sub>p</sub>z<sup>−p</sup><br>
-  Θ(z) = 1 + θ<sub>1</sub>z<sup>−1</sup> + θ<sub>2</sub>z<sup>−2</sup> + ⋯ + θ<sub>q</sub>z<sup>−q</sup><br>
-  E(z): Z-transform of white noise ε<sub>t</sub><br>
-  X(z): Z-transform of output signal X<sub>t</sub><br>
-  C(z): Z-transform of constant term μ (usually becomes μ/(1−φ<sub>1</sub>−⋯))
-</p>
-
-<p>
-  <strong>Transfer Function:</strong><br>
-  The frequency-domain representation (transfer function) becomes:<br>
-  H(z) = Θ(z) / Φ(z)
-</p>
-
-<hr>
-
-<h4><strong>Continuous-Time Analogy</strong></h4>
-<p>
-  In continuous-time systems, dynamics are governed by differential equations. An analogy to the ARMA model would be a linear time-invariant (LTI) system described by:
-</p>
-
-<div>
-  <i>d<sup>p</sup>y(t)/dt<sup>p</sup> + a<sub>1</sub>d<sup>p−1</sup>y(t)/dt<sup>p−1</sup> + ⋯ + a<sub>p</sub>y(t) = b<sub>0</sub>x(t) + b<sub>1</sub>dx(t)/dt + ⋯ + b<sub>q</sub>d<sup>q</sup>x(t)/dt<sup>q</sup></i>
-</div>
-
-<p>
-  Taking the Laplace Transform gives the transfer function:<br>
-  H(s) = Y(s)/X(s) = (b<sub>0</sub> + b<sub>1</sub>s + ⋯ + b<sub>q</sub>s<sup>q</sup>) / (s<sup>p</sup> + a<sub>1</sub>s<sup>p−1</sup> + ⋯ + a<sub>p</sub>)
-</p>
-
-<p>
-  Thus, just as the ARMA model uses the ratio of polynomials in <i>z</i>, the continuous-time system uses the ratio of polynomials in <i>s</i>.
-</p>
-<p>
-  <strong>Stability Condition:</strong><br>
-  The stability of an ARMA system depends on its AR component. In the z-domain, the system is <em>stable</em> if all poles of the transfer function (roots of Φ(z)) lie inside the unit circle |z| &lt; 1.<br>
-  Similarly, in continuous time, the system is stable if all poles of H(s) (roots of the denominator) lie in the left half of the s-plane (Re(s) &lt; 0).
-</p>
+  
+    <h3><strong>Autoregressive (AR) Model</strong></h3>
+    <p>
+      An <strong>Autoregressive (AR) model</strong> is a statistical model used in time series analysis where the current value of a series is predicted based on a linear combination of its own past values. It is denoted as <strong>AR(p)</strong>, where 'p' represents the order, indicating the number of preceding values used in the prediction. The core idea is that the future is dependent on the past.
+    </p>
+    <div>
+      <strong>Standard Form:</strong><br>
+      The mathematical representation of an AR(p) model is:<br><br>
+      X<sub>t</sub> = c + φ<sub>1</sub>X<sub>t−1</sub> + φ<sub>2</sub>X<sub>t−2</sub> + ... + φ<sub>p</sub>X<sub>t−p</sub> + ε<sub>t</sub>
+      <br/><br/>
+      where:
+      <ul>
+        <li><strong>X<sub>t</sub></strong> is the value of the time series at time <i>t</i>.</li>
+        <li><strong>c</strong> is a constant term.</li>
+        <li><strong>φ<sub>1</sub>, ..., φ<sub>p</sub></strong> are the model parameters that are learned from the data.</li>
+        <li><strong>p</strong> is the order of the model, representing the number of lag terms.</li>
+        <li><strong>ε<sub>t</sub></strong> is the white noise error term, which accounts for randomness not captured by the model.</li>
+      </ul>
+    </div>
+    <br/>
+    <p>
+      An AR model is conceptually similar to a linear regression where the variable is regressed against its own past values. For the model to be stationary, meaning its statistical properties do not change over time, there are constraints on the model's parameters.
+    </p>   
+    <h3><strong>Moving Average (MA) Model</strong></h3>
+    <p>
+      A <strong>Moving Average (MA) model</strong> describes the current value of a time series as a linear combination of the current and past white noise error terms. It is denoted as <strong>MA(q)</strong>, where 'q' is the order and indicates how many past error terms are included. This model is useful for capturing short-run shocks where the effects dissipate after 'q' periods. Unlike AR models, finite MA models are always stationary.
+    </p>  
+    <div>
+      <strong>Standard Form:</strong><br>
+      The MA(q) model is expressed as:<br><br>
+      X<sub>t</sub> = μ + ε<sub>t</sub> + θ<sub>1</sub>ε<sub>t−1</sub> + θ<sub>2</sub>ε<sub>t−2</sub> + ... + θ<sub>q</sub>ε<sub>t−q</sub>
+      <br/><br/>
+      where:
+      <ul>
+        <li><strong>X<sub>t</sub></strong> is the value of the time series at time <i>t</i>.</li>
+        <li><strong>μ</strong> is the mean of the series.</li>
+        <li><strong>ε<sub>t</sub></strong> is the current white noise error term.</li>
+        <li><strong>θ<sub>1</sub>, ..., θ<sub>q</sub></strong> are the weights applied to the past error terms.</li>
+        <li><strong>q</strong> is the order of the model.</li>
+      </ul>
+    </div>
+    <br/>
+    <p>
+      The MA model is essentially a finite impulse response (FIR) filter applied to white noise.
+    </p>  
+    <h3><strong>Autoregressive Moving Average (ARMA) Model</strong></h3>
+    <p>
+      An <strong>Autoregressive Moving Average (ARMA) model</strong> combines both AR and MA components to describe a stationary time series. It models the current value as a function of both past values of the series and past error terms. An <strong>ARMA(p,q)</strong> model has an autoregressive part of order 'p' and a moving average part of order 'q'. This combination allows for a more parsimonious representation of a time series compared to a pure AR or MA model.
+    </p>   
+    <div>
+      <strong>Standard Form:</strong><br>
+      The equation for an ARMA(p, q) model is:<br><br>
+      X<sub>t</sub> = c + φ<sub>1</sub>X<sub>t−1</sub> + ... + φ<sub>p</sub>X<sub>t−p</sub> + ε<sub>t</sub> + θ<sub>1</sub>ε<sub>t−1</sub> + ... + θ<sub>q</sub>ε<sub>t−q</sub>
+      <br/><br/>
+      where:
+      <ul>
+        <li><strong>X<sub>t</sub></strong> is the value of the time series at time t.</li>
+        <li><strong>c</strong> is a constant.</li>
+        <li><strong>φ<sub>i</sub></strong> are the autoregressive parameters.</li>
+        <li><strong>θ<sub>j</sub></strong> are the moving average parameters.</li>
+        <li><strong>ε<sub>t</sub></strong> is the white noise error term.</li>
+      </ul>
+    </div>    
+    <h2><strong>Z-Transform Analysis of Time Series Models</strong></h2>
+    <p>
+      The z-transform is a mathematical tool that converts a discrete-time signal (like a time series) into a complex frequency-domain representation. It is the discrete-time equivalent of the Laplace transform and is instrumental in analyzing the properties of time series models.
+    </p>    
+    <h3><strong>Z-Transform Representation</strong></h3>
+    <p>
+      Using the backshift operator <i>B</i>, where <i>B</i>X<sub>t</sub> = X<sub>t-1</sub>, the ARMA(p,q) model can be written in polynomial form:
+    </p>
+    <div>
+      (1 - φ<sub>1</sub>B - ... - φ<sub>p</sub>B<sup>p</sup>)X<sub>t</sub> = c + (1 + θ<sub>1</sub>B + ... + θ<sub>q</sub>B<sup>q</sup>)ε<sub>t</sub>
+    </div>
+    <br>
+    <p>
+      Let Φ(B) and Θ(B) be the polynomials in the backshift operator. Replacing <i>B</i> with z<sup>-1</sup> gives the z-transform representation:
+    </p>
+    <div>
+      Φ(z<sup>-1</sup>)X(z) = c' + Θ(z<sup>-1</sup>)E(z)
+    </div>
+    <br>
+    <p>
+      where <i>X(z)</i> and <i>E(z)</i> are the z-transforms of the time series and the error term, respectively.
+    </p>   
+    <h3><strong>Transfer Function</strong></h3>
+    <p>
+      The transfer function, H(z), of an ARMA model describes the relationship between the input (error term) and the output (time series) in the z-domain. It is defined as the ratio of the MA polynomial to the AR polynomial:
+    </p>
+    <div>
+      <strong>H(z) = X(z) / E(z) = Θ(z<sup>-1</sup>) / Φ(z<sup>-1</sup>)</strong>
+    </div>
+    <br>
+    <ul>
+        <li>For a pure <strong>AR(p)</strong> model, the transfer function is H(z) = 1 / Φ(z<sup>-1</sup>), which is an all-pole function.</li>
+        <li>For a pure <strong>MA(q)</strong> model, the transfer function is H(z) = Θ(z<sup>-1</sup>), which is an all-zero function.</li>
+        <li>An <strong>ARMA(p,q)</strong> model has a pole-zero transfer function.</li>
+    </ul>
+    
+    <h3><strong>Stability and Invertibility Conditions</strong></h3>
+    <p>
+      The stability of an ARMA model is determined by the roots of the autoregressive polynomial, Φ(z). For a model to be stable (and thus stationary), all the roots of Φ(z) must lie outside the unit circle in the z-plane. This is equivalent to the poles of the transfer function H(z) lying inside the unit circle when expressed in terms of z.
+    </p>
+    <p>
+      The invertibility of an ARMA model is determined by the roots of the moving average polynomial, Θ(z). For the model to be invertible, all the roots of Θ(z) must lie outside the unit circle. Invertibility ensures that the model can be represented as a pure autoregressive process of infinite order.
+    </p>
     <h2>Applications</h2>
     <p>
       AR, MA, and ARMA models are widely used for modeling and forecasting time series in numerous domains, including:
