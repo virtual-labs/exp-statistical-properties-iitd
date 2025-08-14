@@ -78,8 +78,7 @@
     <h2>Linear Time Series Models: AR, MA, and ARMA</h2>
     <p>
       The concepts of stationary processes and LTI systems lead to a powerful set of time series models. The <strong>Wold Decomposition Theorem</strong> provides the theoretical justification, stating that any WSS time series can be represented as the sum of a predictable (deterministic) component and a stochastic component. This stochastic part can be modeled as the output of an LTI system fed by white noise, leading to the three main classes of linear models.
-    </p>
-  
+    </p> 
     <h3><strong>Autoregressive (AR) Model</strong></h3>
     <p>
       An <strong>Autoregressive (AR) model</strong> is a statistical model used in time series analysis where the current value of a series is predicted based on a linear combination of its own past values. It is denoted as <strong>AR(p)</strong>, where 'p' represents the order, indicating the number of preceding values used in the prediction. The core idea is that the future is dependent on the past.
@@ -177,7 +176,6 @@
         <li>For a pure <strong>MA(q)</strong> model, the transfer function is H(z) = Θ(z<sup>-1</sup>), which is an all-zero function.</li>
         <li>An <strong>ARMA(p,q)</strong> model has a pole-zero transfer function.</li>
     </ul>
-    
     <h3><strong>Stability and Invertibility Conditions</strong></h3>
     <p>
       The stability of an ARMA model is determined by the roots of the autoregressive polynomial, Φ(z). For a model to be stable (and thus stationary), all the roots of Φ(z) must lie outside the unit circle in the z-plane. This is equivalent to the poles of the transfer function H(z) lying inside the unit circle when expressed in terms of z.
@@ -199,3 +197,4 @@
     <p>
       These models are supported by a rich body of linear system theory and form the basis for many advanced time series methods.
     </p>
+
