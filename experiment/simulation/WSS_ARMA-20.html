@@ -7,7 +7,7 @@
     <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
     <title>Virtual Labs</title>
 	<style>
-		#checkautocorrelation, #checkautocorrelationoutput, #inst {
+	#checkautocorrelation, #checkautocorrelationoutput, #inst {
     color: #333;
     font-size: 25px; /* Increased font size */
 	font-weight: 500;
@@ -145,7 +145,7 @@ li.step:hover {
     <!-- sidebar and body -->
 	    <!-- sidebar and body -->
 	<div id = "instructions">
-    <h1 id ="inst">Instructions for Wide Sense Stationary Simulator when the system is Moving Average (MA)</h1>
+    <h1 id ="inst">Instructions for Wide Sense Stationary Simulator when the system is Autoregressive Moving Average (ARMA)</h1>
 <ul>
     <li class="step step1">Step 1: Click on "Generate WSS" to generate a wide-sense stationary (WSS) signal, whose mean and autocorrelation are chosen by you.</li>
     <li class="step step2">Step 2: You may also choose "Real Signal" from the available input types.</li> 
@@ -180,12 +180,12 @@ li.step:hover {
                     <label for="variance">Variance:</label>
             <input class="input-field border border-black px-2 py-1 rounded-sm" type="number" id="variance" value="1">
                 </div>
-		<div class="flex items-center justify-center gap-1 mt-2 hidden">
-        <label for="impulseResponsea">AR coefficients:</label>
+		<div class="flex items-center justify-center gap-1 mt-2">
+        <label for="impulseResponsea">AR coefficients (ρ):</label>
 <input class="input-field border border-black px-2 py-1 rounded-sm" type="text" id="impulseResponsea" value="1, -0.8">
                 </div>
 			<div class="flex items-center justify-center gap-1 mt-2">
-        <label for="impulseResponse">MA coefficients (<em><strong>b</strong></em>):</label>
+        <label for="impulseResponse">MA coefficients (φ):</label>
 <input class="input-field border border-black px-2 py-1 rounded-sm" type="text" id="impulseResponse" value="1, -0.5">
 </div>
 </div>
@@ -214,7 +214,7 @@ li.step:hover {
               <div class="flex-1 flex flex-col items-center">
                 <div class="w-full relative">
 				<br><br><br><br>
-            <img src="basicMA.png" alt="WSS" style="position: absolute; width: 30em; height: 12em; left: -0.5em; top: 0.5em;">
+            <img src="WSS_ARMA.png" alt="WSS" style="position: absolute; width: 35em; height: 18em; left: 3em; top: 0;">
 				<button
                   class="button bg-blue-500 text-white rounded-md px-3 py-2 absolute top-[10em] left-[1.2em]"
                   onclick="updateOutputs()"
@@ -269,6 +269,7 @@ li.step:hover {
 <br/><br/>
 <hr class="my-6 border-t-2 border-gray-800"/>
 
+
 </h2>
 
 <div id="correlationPlot"></div>
@@ -277,14 +278,13 @@ li.step:hover {
 <br/><br/>
 
 <h2 id="realData" class="text-2xl font-bold text-gray-800 mb-4"></h2>
-<div id="correlationPlot"></div>
 <div class="containerff">
     <div class="box">  
         <div class="w-[30em] h-[20em]">
             <h2>Upload CSV and See Output</h2>
             <input type="file" id="csvInput" accept=".csv">
             <br/><br/><br/>
-            <div class="flex items-center justify-center gap-1 mt-2 hidden">
+            <div class="flex items-center justify-center gap-1 mt-2">
                 <label for="impulseResponseaxx">AR coefficients:</label>
         <input class="input-field border border-black px-2 py-1 rounded-sm" type="text" id="impulseResponseaxx" value="1, -0.8">
                         </div>
@@ -305,7 +305,6 @@ li.step:hover {
         <div id="ARMAStatsxx"></div>
     </div>
 </div>
-
 <div class="box"></div>
 <div id="outputCorrelation"></div>
 </div>
@@ -382,22 +381,28 @@ li.step:hover {
         }
 
         // Function to apply the filter using the difference equation
-        function arma(x, b) {
+        function arma(x, b, a) {
             let N = x.length;
             let y = new Array(N).fill(0);  // Initialize output array
 
             // b = [b0, b1, b2, ...] for x[n], x[n-1], ...
+            // a = [1, a1, a2, ...] for y[n-1], y[n-2], ...
             for (let n = 0; n < N; n++) {
                 let xnSum = 0;
-
-                // Apply the MA process (no feedback, only input parts)
                 for (let i = 0; i < b.length; i++) {
-                    if (n - i >= 0) {  // Ensure we are within bounds
-                        xnSum += b[i] * x[n - i];  // Add the MA terms
+                    if (n - i >= 0) {
+                        xnSum += b[i] * x[n - i];
                     }
                 }
 
-                y[n] = xnSum;  // Set the output to the sum of MA terms
+                let ynSum = 0;
+                for (let j = 1; j < a.length; j++) {  // a[0] is assumed to be 1 (normalized)
+                    if (n - j >= 0) {
+                        ynSum += a[j] * y[n - j];
+                    }
+                }
+
+                y[n] = xnSum - ynSum;  // General difference equation
             }
 
             return y;
@@ -457,7 +462,7 @@ li.step:hover {
             let L = 20;
             let impulse = new Array(L).fill(0);
             impulse[0] = 1;  // delta[n] = 1 at n = 0
-            let impulseResponsexx = arma(impulse, impulseResponse);
+            let impulseResponsexx = arma(impulse, impulseResponse, impulseResponsea);
 			
 			//Plotly.newPlot('cirPlot', [{
 			const maData = [{
@@ -486,7 +491,7 @@ li.step:hover {
             let L = 20;
             let impulse = new Array(L).fill(0);
             impulse[0] = 1;  // delta[n] = 1 at n = 0
-            let impulseResponsexx = arma(impulse, impulseResponse);
+            let impulseResponsexx = arma(impulse, impulseResponse, impulseResponsea);
 			
 			//Plotly.newPlot('cirPlot', [{
 			const maData = [{
@@ -513,7 +518,7 @@ function generateARMAOutput() {
     // Generate outputs based on current values
     const impulseResponse = document.getElementById("impulseResponse").value.split(',').map(Number);
     const impulseResponsea = document.getElementById("impulseResponsea").value.split(',').map(Number);
-    let ARMAOutput = arma(input, impulseResponse); // Compute ARMA output
+    let ARMAOutput = arma(input, impulseResponse, impulseResponsea); // Compute ARMA output
     ARMAOutputValue = ARMAOutput; // Assign to the global variable
 
     // Plot the output using Plotly
@@ -524,13 +529,13 @@ function generateARMAOutput() {
         mode: 'lines',
         name: 'ARMA Output'
     }], {
-        title: 'MA System Output',
+        title: 'ARMA System Output',
         xaxis: { title: 'Sample Index' }
     }, rr);
 
     // Display statistical properties below the plot
     document.getElementById("ARMAStats").innerHTML = `
-        <h3>MA Output Statistics</h3>
+        <h3>ARMA Output Statistics</h3>
         <p>Mean: ${mean(ARMAOutput)}</p>
         <p>Variance: ${variance(ARMAOutput)}</p>
     `;
@@ -553,7 +558,7 @@ function generateLTIOutputxx() {
     // Generate outputs based on current values
     const impulseResponse = document.getElementById("impulseResponse").value.split(',').map(Number);
     const impulseResponsea = document.getElementById("impulseResponsea").value.split(',').map(Number);
-    let ARMAOutput = arma(signal, impulseResponse); // Compute ARMA output
+    let ARMAOutput = arma(signal, impulseResponse, impulseResponsea); // Compute ARMA output
     ARMAOutputValue = ARMAOutput; // Assign to the global variable
 
     // Plot the output using Plotly
@@ -564,13 +569,13 @@ function generateLTIOutputxx() {
         mode: 'lines',
         name: 'ARMA Output'
     }], {
-        title: 'MA System Output',
+        title: 'ARMA System Output',
         xaxis: { title: 'Sample Index' }
     }, rr);
 
     // Display statistical properties below the plot
     document.getElementById("ARMAStatsxx").innerHTML = `
-        <h3>MA Output Statistics</h3>
+        <h3>ARMA Output Statistics</h3>
         <p>Mean: ${mean(ARMAOutput)}</p>
         <p>Variance: ${variance(ARMAOutput)}</p>
     `;
@@ -603,7 +608,6 @@ function generateLTIOutputxx() {
     };
 
     Plotly.newPlot('outputCorrelation', [trace1, trace2], layout);
-
 }
 generateImpulseResponsexx();
 generateLTIOutputxx();
@@ -969,7 +973,7 @@ function plotCorrelation() {
     };
 
     const layout = {
-      title: 'Autocorrelation of WSS Input and MA Output',
+      title: 'Autocorrelation of WSS Input and ARMA Output',
       xaxis: { title: 'Lag (k)' },
       yaxis: { title: 'Autocorrelation' },
       legend: { x: 0.1, y: 1 }
@@ -996,6 +1000,7 @@ function randn_bm() {
   while(v === 0) v = Math.random();
   return Math.sqrt(-2.0 * Math.log(u)) * Math.cos(2.0 * Math.PI * v);
 }
+
     </script>
 </body>
 </html>
