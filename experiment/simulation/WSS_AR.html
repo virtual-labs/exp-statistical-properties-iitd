@@ -147,9 +147,9 @@ li.step:hover {
 	<div id = "instructions">
     <h1 id ="inst">Instructions for Wide Sense Stationary Simulator when the system is Autoregressive (AR)</h1>
 <ul>
-    <li class="step step1">Step 1: Click on "Generate WSS" to generate a wide-sense stationary (WSS) signal, whose mean and autocorrelation do not change over time.</li>
-    <li class="step step2">Step 2: You may also choose "Noisy Sinusoid" from the input type dropdown.</li> 
-    <li class="step step3">Step 3: Click on "Plot CIR Coefficients" to generate the channel impulse response coefficients.</li>
+    <li class="step step1">Step 1: Click on "Generate WSS" to generate a wide-sense stationary (WSS) signal, whose mean and autocorrelation are chosen by you.</li>
+    <li class="step step2">Step 2: You may also choose "Real Signal" from the available input types.</li> 
+    <li class="step step3">Step 3: Click on "Plot CIR Coefficients" to plot the channel impulse response coefficients.</li>
     <li class="step step3">Step 4: Click on "Generate Output" to produce the output signal after ARMA filtration.</li>
     <li class="step step4">Step 5: You can see the auto-correlation plot by clicking the "Calculate Auto-correlation" button.</li>
    <!---
@@ -181,7 +181,7 @@ li.step:hover {
             <input class="input-field border border-black px-2 py-1 rounded-sm" type="number" id="variance" value="1">
                 </div>
 		<div class="flex items-center justify-center gap-1 mt-2">
-        <label for="impulseResponsea">AR coefficients (ρ):</label>
+        <label for="impulseResponsea">AR coefficients (<em><strong>a</strong></em>):</label>
 <input class="input-field border border-black px-2 py-1 rounded-sm" type="text" id="impulseResponsea" value="1, -0.8">
                 </div>
 			<div class="flex items-center justify-center gap-1 mt-2 hidden">
@@ -214,7 +214,7 @@ li.step:hover {
               <div class="flex-1 flex flex-col items-center">
                 <div class="w-full relative">
 				<br><br><br><br>
-            <img src="WSS_AR.png" alt="WSS" style="position: absolute; width: 35em; height: 18em; left: 3em; top: 0;">
+            <img src="basicAR.png" alt="WSS" style="position: absolute; width: 30em; height: 12em; left: 3em; top: 0.5em;">
 				<button
                   class="button bg-blue-500 text-white rounded-md px-3 py-2 absolute top-[10em] left-[1.2em]"
                   onclick="updateOutputs()"
@@ -236,7 +236,7 @@ li.step:hover {
                 </button>
 				
 												<button
-                  class="button bg-blue-500 text-white rounded-md px-3 py-2 absolute top-[2.5em] right-[-2em]"
+                  class="button bg-blue-500 text-white rounded-md px-3 py-2 absolute top-[2.5em] right-[-5em]"
                   onclick="generateARMAOutput()"
                 >
                   Generate Output
