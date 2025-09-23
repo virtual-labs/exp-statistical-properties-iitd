@@ -140,6 +140,9 @@ li.step:hover {
         #optionBlock {
       display: none; /* hidden by default */
     }
+    #boxes {
+      display: none; /* hidden by default */
+    }
 		</style>
 <body>
     <!-- sidebar and body -->
@@ -160,7 +163,6 @@ li.step:hover {
 </ul>
 
 	</div>
-	<hr/>
 	<br>
     <div class="flex min-h-[10vh]">
       <div class="px-6 pb-6 mt-1 flex-1">
@@ -188,6 +190,13 @@ li.step:hover {
         <label for="impulseResponse">MA coefficients (φ):</label>
 <input class="input-field border border-black px-2 py-1 rounded-sm" type="text" id="impulseResponse" value="1, -0.5">
 </div>
+<div class="flex items-center justify-center gap-1 mt-2">
+    <button 
+    class="bg-green-500 text-white rounded-md px-3 py-1 hover:scale-105 mt-3"
+    onclick="location.reload();"
+  >
+    Reset Simulator
+  </button></div>
 </div>
 </div>
 <label for="noisySinusoid">Choose Input Type:</label>
@@ -205,8 +214,6 @@ li.step:hover {
 </div>
 </div>
 </div>
-	<hr/>
-	
 	
 	<div class = "container">
 		<div class = "left-half">
@@ -224,6 +231,7 @@ li.step:hover {
                 <a href="#realData">
                     <button 
                       class="button bg-blue-500 text-white rounded-md px-3 py-2 absolute top-[13em] left-[1.2em]"
+                      onclick="showDiv()"
                       aria-expanded="false">
                       Input Real Data
                     </button>
@@ -267,16 +275,16 @@ li.step:hover {
 </div>
 
 <br/><br/>
-<hr class="my-6 border-t-2 border-gray-800"/>
+
 
 
 </h2>
 
 <div id="correlationPlot"></div>
 
-<hr class="my-6 border-t-2 border-gray-800"/>
-<br/><br/>
 
+<br/><br/>
+<div id = "boxes">
 <h2 id="realData" class="text-2xl font-bold text-gray-800 mb-4"></h2>
 <div class="containerff">
     <div class="box">  
@@ -308,7 +316,7 @@ li.step:hover {
 <div class="box"></div>
 <div id="outputCorrelation"></div>
 </div>
-
+</div>
 <script>
     // Function to check if the number of samples is within the valid range
     function checkSamples() {
@@ -1001,6 +1009,9 @@ function randn_bm() {
   return Math.sqrt(-2.0 * Math.log(u)) * Math.cos(2.0 * Math.PI * v);
 }
 
+function showDiv() {
+    document.getElementById("boxes").style.display = "block";
+  } 
     </script>
 </body>
 </html>
