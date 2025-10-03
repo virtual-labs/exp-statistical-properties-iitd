@@ -1,0 +1,7 @@
+
+/home/runner/work/exp-statistical-properties-iitd/exp-statistical-properties-iitd/experiment/js/toggleSidebar.js
+   4:10  warning  'toggle' is defined but never used      no-unused-vars
+  31:12  warning  'closeModal' is defined but never used  no-unused-vars
+
+✖ 2 problems (0 errors, 2 warnings)
+
