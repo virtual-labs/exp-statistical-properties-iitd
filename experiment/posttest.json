@@ -16,7 +16,7 @@
         "d": "Incorrect. The autocorrelation function's non-negativity does not guarantee ergodicity. Ergodicity depends on how well the process can represent the statistical properties of the ensemble from a single realization over time."
       },
       "correctAnswer": "b",
-      "difficulty": "hard"
+      "difficulty": "intermediate"
     },    
     {
       "question": "2. An LTI system has an impulse response that is zero for all values of time greater than a certain constant. What does this imply about the system?",
@@ -33,7 +33,7 @@
         "d": "Invertibility is unrelated to finite impulse response."
       },
       "correctAnswer": "b",
-      "difficulty": "hard"
+      "difficulty": "intermediate"
     },
     {
       "question": "3. In the context of discrete-time systems, what is the implication of having poles outside the unit circle in the z-domain for the system's stability and behavior?",
@@ -50,7 +50,7 @@
         "d": "A system with poles outside the unit circle is inherently unstable. Non-minimum phase refers to zeros outside the unit circle, not poles."
       },
       "correctAnswer": "a",
-      "difficulty": "hard"
+      "difficulty": "intermediate"
     },    
     {
       "question": "4. How does the inclusion of a moving average (MA) term in an ARMA model affect its frequency response?",
@@ -67,7 +67,7 @@
         "d": "MA terms significantly affect the frequency response."
       },
       "correctAnswer": "b",
-      "difficulty": "hard"
+      "difficulty": "intermediate"
     },
     {
       "question": "5. In the context of stochastic processes, what distinguishes a strict-sense stationary (SSS) process from a wide-sense stationary (WSS) process in terms of their moment invariance properties?",
@@ -84,7 +84,7 @@
         "d": "This is incorrect. SSS is stricter than WSS, requiring invariance of all moments."
       },
       "correctAnswer": "c",
-      "difficulty": "hard"
+      "difficulty": "intermediate"
     },  
     {
       "question": "6. When a wide-sense stationary (WSS) signal passes through a Linear Time-Invariant (LTI) system, what impact does the system's characteristics have on the stationarity and statistical properties of the output signal?",
@@ -101,7 +101,7 @@
         "d": "This is incorrect. While stability and causality are important for system behavior, the stationarity of a WSS input is typically preserved by an LTI system, even in non-causal or unstable systems."
       },
       "correctAnswer": "a",
-      "difficulty": "hard"
+      "difficulty": "intermediate"
     },    
     {
       "question": "7. In an ARMA(1,1) model, what happens when the pole and zero are very close to each other in the z-domain?",
@@ -118,7 +118,7 @@
         "d": "Pole-zero cancellation can simplify the system."
       },
       "correctAnswer": "d",
-      "difficulty": "hard"
+      "difficulty": "intermediate"
     },
     {
       "question": "8. For an AR(1) process X(n) = a·X(n−1) + W(n), where W(n) is zero-mean white noise, what happens to the power spectral density as |a| approaches 1?",
@@ -135,7 +135,7 @@
         "d": "Incorrect. The process retains memory when |a| is close to 1, not loses it."
       },
       "correctAnswer": "a",
-      "difficulty": "hard"
+      "difficulty": "intermediate"
     },       
     {
       "question": "9. How does the inclusion of a high-order AR term in an ARMA model influence its autocorrelation properties?",
@@ -152,7 +152,7 @@
         "d": "Autocorrelation is directly influenced by AR terms."
       },
       "correctAnswer": "b",
-      "difficulty": "hard"
+      "difficulty": "advanced"
     },
     {
       "question": "10. What is the effect of adding a long-memory MA term to an ARMA model in the frequency domain?",
@@ -169,7 +169,7 @@
         "d": "Low-frequency enhancement depends on specific placements of zeros."
       },
       "correctAnswer": "c",
-      "difficulty": "hard"
+      "difficulty": "advanced"
     }
   ]
 }
