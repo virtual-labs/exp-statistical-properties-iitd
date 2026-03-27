@@ -2,41 +2,41 @@
   "version": 2.0,
   "questions": [
     {
-      "question": "1. In the context of a wide-sense stationary (WSS) process, which of the following is true regarding the concept of **ergodicity**?",
+      "question": "In the context of a wide-sense stationary (WSS) process, what does ergodicity mean?",
       "answers": {
-        "a": "A WSS process is always ergodic in both time and ensemble.",
-        "b": "For a WSS process to be ergodic, the time average of the process must equal the ensemble average for all values of \\( t \\).",
-        "c": "Ergodicity implies that the statistical properties of the process can be determined from a single realization of the process over time.",
-        "d": "A WSS process is guaranteed to be ergodic if its autocorrelation function is non-negative."
+        "a": "A WSS process is always ergodic, regardless of its autocorrelation properties.",
+        "b": "The statistical properties of the process can be obtained from a single realization over a long period of time.",
+        "c": "The process must have a zero mean and constant variance.",
+        "d": "The autocorrelation function must be non-negative at all time lags."
       },
       "explanations": {
-        "a": "Incorrect. While all ergodic processes are WSS, not all WSS processes are ergodic. Ergodicity is an additional requirement that allows statistical properties to be inferred from a single realization.",
-        "b": "Correct. This is the definition of ergodicity in the context of WSS processes. It ensures that the time average over a long time period is equal to the expected value over the ensemble.",
-        "c": "Correct. This is another way to describe ergodicity: a process is ergodic if we can estimate the ensemble properties from a single time series (realization).",
-        "d": "Incorrect. The autocorrelation function's non-negativity does not guarantee ergodicity. Ergodicity depends on how well the process can represent the statistical properties of the ensemble from a single realization over time."
-      },
-      "correctAnswer": "b",
-      "difficulty": "intermediate"
-    },    
-    {
-      "question": "2. An LTI system has an impulse response that is zero for all values of time greater than a certain constant. What does this imply about the system?",
-      "answers": {
-        "a": "The system is time-invariant but not necessarily causal.",
-        "b": "The system is causal and has finite memory.",
-        "c": "The system is unstable.",
-        "d": "The system is invertible."
-      },
-      "explanations": {
-        "a": "Time-invariance does not depend on the impulse response being finite.",
-        "b": "Finite impulse response implies causality and finite memory.",
-        "c": "Stability is determined by bounded input and output, not impulse response length.",
-        "d": "Invertibility is unrelated to finite impulse response."
+        "a": "Incorrect. Not all WSS processes are ergodic. Ergodicity is an additional condition beyond WSS.",
+        "b": "Correct! Ergodicity allows the ensemble averages to be estimated from a single time series by taking long-time averages.",
+        "c": "Incorrect. Zero mean and constant variance are properties of WSS but do not guarantee ergodicity.",
+        "d": "Incorrect. Non-negativity of autocorrelation does not ensure ergodicity."
       },
       "correctAnswer": "b",
       "difficulty": "intermediate"
     },
     {
-      "question": "3. In the context of discrete-time systems, what is the implication of having poles outside the unit circle in the z-domain for the system's stability and behavior?",
+      "question": "What is the main effect of a moving average (MA) term in an ARMA model on the signal?",
+      "answers": {
+        "a": "It introduces long-term memory into the signal.",
+        "b": "It smooths the signal by averaging past noise contributions.",
+        "c": "It makes the signal completely deterministic.",
+        "d": "It increases the signal frequency content."
+      },
+      "explanations": {
+        "a": "Incorrect. MA terms do not create long-term memory; that is the AR part's role.",
+        "b": "Correct! The MA term incorporates past noise values, effectively smoothing short-term fluctuations.",
+        "c": "Incorrect. The process remains stochastic, not deterministic.",
+        "d": "Incorrect. MA terms generally smooth high-frequency components rather than increase them."
+      },
+      "correctAnswer": "b",
+      "difficulty": "intermediate"
+    },
+    {
+      "question": "In the context of discrete-time systems, what is the implication of having poles outside the unit circle in the z-domain for the system's stability and behavior?",
       "answers": {
         "a": "The system exhibits instability and potential unbounded output for certain input signals.",
         "b": "The system's frequency response will exhibit unbounded growth for high frequencies.",
@@ -44,50 +44,50 @@
         "d": "The system can still be stable but may exhibit a non-minimum phase characteristic."
       },
       "explanations": {
-        "a": "Poles outside the unit circle indicate that the system's response grows without bound, leading to instability.",
-        "b": "Poles outside the unit circle do cause instability, but the high-frequency behavior is more relevant to the location of zeros and stability margins, not directly related to the poles' location.",
-        "c": "The poles' location does not directly cause non-linearity in the system. Non-linearity is a property of the system's equations, not its transfer function.",
-        "d": "A system with poles outside the unit circle is inherently unstable. Non-minimum phase refers to zeros outside the unit circle, not poles."
+        "a": "Correct! Poles outside the unit circle indicate that the system's response grows without bound, leading to instability.",
+        "b": "Incorrect. Poles outside the unit circle do cause instability, but the high-frequency behavior is more relevant to the location of zeros and stability margins, not directly related to the poles' location.",
+        "c": "Incorrect. The poles' location does not directly cause non-linearity in the system. Non-linearity is a property of the system's equations, not its transfer function.",
+        "d": "Incorrect. A system with poles outside the unit circle is inherently unstable. Non-minimum phase refers to zeros outside the unit circle, not poles."
       },
       "correctAnswer": "a",
       "difficulty": "intermediate"
-    },    
+    },
     {
-      "question": "4. How does the inclusion of a moving average (MA) term in an ARMA model affect its frequency response?",
+      "question": "Which of the following best describes a stochastic process?",
       "answers": {
-        "a": "It sharpens the peak of the response.",
-        "b": "It smoothens the response by adding zeros.",
-        "c": "It introduces poles into the system.",
-        "d": "It does not affect the frequency response."
+        "a": "A deterministic function that evolves over time according to a fixed rule.",
+        "b": "A collection of random variables indexed by time, representing the evolution of a system under uncertainty.",
+        "c": "A single random variable with a known probability distribution.",
+        "d": "A linear filter applied to a deterministic signal."
       },
       "explanations": {
-        "a": "MA terms generally smoothen the response, not sharpen it.",
-        "b": "MA terms add zeros, smoothening the overall response.",
-        "c": "Poles are introduced by the AR term, not the MA term.",
-        "d": "MA terms significantly affect the frequency response."
+        "a": "Incorrect. Deterministic functions have no randomness, unlike stochastic processes.",
+        "b": "Correct! A stochastic process is a set of random variables indexed by time, capturing the random evolution of a system.",
+        "c": "Incorrect. A single random variable is not a process; a process involves many random variables over time.",
+        "d": "Incorrect. Applying a linear filter does not define a stochastic process, though it may operate on one."
       },
       "correctAnswer": "b",
       "difficulty": "intermediate"
     },
     {
-      "question": "5. In the context of stochastic processes, what distinguishes a strict-sense stationary (SSS) process from a wide-sense stationary (WSS) process in terms of their moment invariance properties?",
+      "question": "Which of the following is a property of white noise in time series analysis?",
       "answers": {
-        "a": "WSS requires the invariance of all higher-order moments, while SSS only requires the invariance of the second-order moments.",
-        "b": "SSS guarantees the invariance of all statistical moments, including higher-order moments, whereas WSS only ensures invariance of the first and second moments.",
-        "c": "SSS demands invariance of all moments, including higher-order moments, while WSS only imposes conditions on the mean, variance, and autocovariance (second-order moments).",
-        "d": "There is no significant difference in the moment invariance requirements between WSS and SSS processes."
+        "a": "It has a non-zero mean and time-dependent variance.",
+        "b": "Its values at different times are uncorrelated and have constant variance.",
+        "c": "It always follows a uniform distribution.",
+        "d": "It can only be used in deterministic models."
       },
       "explanations": {
-        "a": "This is incorrect because SSS requires invariance of all moments, including higher-order moments, while WSS only requires invariance of the first two moments.",
-        "b": "This is incorrect. WSS ensures invariance only for the first and second moments, while SSS requires invariance for all moments, including higher-order.",
-        "c": "This is correct. SSS is a more stringent condition, requiring invariance of all moments, while WSS focuses on the first and second moments, such as mean and autocovariance.",
-        "d": "This is incorrect. SSS is stricter than WSS, requiring invariance of all moments."
+        "a": "Incorrect. White noise has zero mean and constant variance.",
+        "b": "Correct! White noise values are uncorrelated over time and have constant variance, making it WSS.",
+        "c": "Incorrect. White noise can follow any distribution, often Gaussian, not necessarily uniform.",
+        "d": "Incorrect. White noise is used in stochastic, not deterministic, models."
       },
-      "correctAnswer": "c",
+      "correctAnswer": "b",
       "difficulty": "intermediate"
-    },  
+    },
     {
-      "question": "6. When a wide-sense stationary (WSS) signal passes through a Linear Time-Invariant (LTI) system, what impact does the system's characteristics have on the stationarity and statistical properties of the output signal?",
+      "question": "When a wide-sense stationary (WSS) signal passes through a Linear Time-Invariant (LTI) system, what impact does the system's characteristics have on the stationarity and statistical properties of the output signal?",
       "answers": {
         "a": "The output signal will remain WSS, but its autocorrelation function will be modified based on the system's impulse response.",
         "b": "The output signal may become non-stationary depending on the system's impulse response and stability characteristics.",
@@ -95,16 +95,16 @@
         "d": "The stationarity of the output is guaranteed only if the system is both causal and stable."
       },
       "explanations": {
-        "a": "This is correct. While the stationarity of the WSS signal is preserved, the system modifies the autocorrelation depending on the system's impulse response. The system might filter the signal in a way that changes its statistical properties.",
-        "b": "This is incorrect. While LTI systems do not guarantee stationarity in all cases, a WSS signal generally remains stationary after passing through an LTI system, though the specific characteristics of the autocorrelation may change.",
-        "c": "This is incorrect. The autocorrelation function of the output is generally modified by the LTI system’s impulse response. The autocorrelation of the output is not identical to that of the input.",
-        "d": "This is incorrect. While stability and causality are important for system behavior, the stationarity of a WSS input is typically preserved by an LTI system, even in non-causal or unstable systems."
+        "a": "Correct! While the stationarity of the WSS signal is preserved, the system modifies the autocorrelation depending on the system's impulse response. The system might filter the signal in a way that changes its statistical properties.",
+        "b": "Incorrect. While LTI systems do not guarantee stationarity in all cases, a WSS signal generally remains stationary after passing through an LTI system, though the specific characteristics of the autocorrelation may change.",
+        "c": "Incorrect. The autocorrelation function of the output is generally modified by the LTI system’s impulse response. The autocorrelation of the output is not identical to that of the input.",
+        "d": "Incorrect. While stability and causality are important for system behavior, the stationarity of a WSS input is typically preserved by an LTI system, even in non-causal or unstable systems."
       },
       "correctAnswer": "a",
       "difficulty": "intermediate"
-    },    
+    },
     {
-      "question": "7. In an ARMA(1,1) model, what happens when the pole and zero are very close to each other in the z-domain?",
+      "question": "In an ARMA(1,1) model, what happens when the pole and zero are very close to each other in the z-domain?",
       "answers": {
         "a": "The system exhibits oscillatory behavior.",
         "b": "The system becomes unstable.",
@@ -112,16 +112,16 @@
         "d": "The pole-zero cancellation occurs, simplifying the system."
       },
       "explanations": {
-        "a": "Oscillatory behavior depends on pole location, not proximity to zeros.",
-        "b": "Instability is not caused by pole-zero proximity.",
-        "c": "Close pole-zero pairs dampen the response.",
-        "d": "Pole-zero cancellation can simplify the system."
+        "a": "Incorrect. Oscillatory behavior depends on pole location, not proximity to zeros.",
+        "b": "Incorrect. Instability is not caused by pole-zero proximity.",
+        "c": "Incorrect. Close pole-zero pairs dampen the response.",
+        "d": "Correct! Pole-zero cancellation can simplify the system."
       },
       "correctAnswer": "d",
       "difficulty": "intermediate"
     },
     {
-      "question": "8. For an AR(1) process X(n) = a·X(n−1) + W(n), where W(n) is zero-mean white noise, what happens to the power spectral density as |a| approaches 1?",
+      "question": "For an AR(1) process X(n) = a·X(n−1) + W(n), where W(n) is zero-mean white noise, what happens to the power spectral density as |a| approaches 1?",
       "answers": {
         "a": "The spectrum becomes more concentrated around low frequencies, and the process becomes nearly non-stationary.",
         "b": "The process becomes more like white noise with a flat spectral density.",
@@ -129,16 +129,16 @@
         "d": "The process loses all memory and becomes purely random."
       },
       "explanations": {
-        "a": "Correct. As |a| approaches 1, the pole moves closer to the unit circle, leading to a sharp spectral peak at low frequency and borderline non-stationarity.",
+        "a": "Correct! As |a| approaches 1, the pole moves closer to the unit circle, leading to a sharp spectral peak at low frequency and borderline non-stationarity.",
         "b": "Incorrect. As |a| increases, the spectral density becomes more peaked, not flat.",
         "c": "Incorrect. Only white noise has a uniform spectrum; AR(1) is colored noise.",
         "d": "Incorrect. The process retains memory when |a| is close to 1, not loses it."
       },
       "correctAnswer": "a",
       "difficulty": "intermediate"
-    },       
+    },
     {
-      "question": "9. How does the inclusion of a high-order AR term in an ARMA model influence its autocorrelation properties?",
+      "question": "How does the inclusion of a high-order AR term in an ARMA model influence its autocorrelation properties?",
       "answers": {
         "a": "It shortens the decay rate of the autocorrelation.",
         "b": "It extends the memory of the process.",
@@ -146,29 +146,29 @@
         "d": "It has no effect on the autocorrelation."
       },
       "explanations": {
-        "a": "Higher-order AR terms extend the memory, not shorten it.",
-        "b": "Higher-order AR terms increase the decay length of autocorrelation.",
-        "c": "Oscillatory behavior depends on pole locations, not order.",
-        "d": "Autocorrelation is directly influenced by AR terms."
+        "a": "Incorrect. Higher-order AR terms extend the memory, not shorten it.",
+        "b": "Correct! Higher-order AR terms increase the decay length of autocorrelation.",
+        "c": "Incorrect. Oscillatory behavior depends on pole locations, not order.",
+        "d": "Incorrect. Autocorrelation is directly influenced by AR terms."
       },
       "correctAnswer": "b",
       "difficulty": "advanced"
     },
     {
-      "question": "10. What is the effect of adding a long-memory MA term to an ARMA model in the frequency domain?",
+      "question": "Why is the ARMA model considered more parsimonious compared to using a pure AR or MA model for a stationary time series?",
       "answers": {
-        "a": "It increases the bandwidth of the process.",
-        "b": "It adds sharp resonances at specific frequencies.",
-        "c": "It suppresses high-frequency components.",
-        "d": "It enhances low-frequency components."
+        "a": "Because it eliminates the need for white noise in modeling.",
+        "b": "Because it combines both AR and MA terms, capturing dependencies efficiently with fewer parameters.",
+        "c": "Because it guarantees strict stationarity for all time series.",
+        "d": "Because it only uses past noise values and ignores past signal values."
       },
       "explanations": {
-        "a": "Bandwidth is not directly affected by MA terms.",
-        "b": "Resonances are typically introduced by poles, not zeros.",
-        "c": "Long-memory MA terms smoothen or suppress high frequencies.",
-        "d": "Low-frequency enhancement depends on specific placements of zeros."
+        "a": "Incorrect. White noise is still required as the driving error term in ARMA models.",
+        "b": "Correct! ARMA models combine AR (past values) and MA (past noise) components, modeling the series efficiently with fewer parameters than using separate AR or MA models.",
+        "c": "Incorrect. ARMA models preserve WSS, but strict stationarity depends on the distribution of the process.",
+        "d": "Incorrect. ARMA explicitly uses both past signal values and past noise values."
       },
-      "correctAnswer": "c",
+      "correctAnswer": "b",
       "difficulty": "advanced"
     }
   ]
