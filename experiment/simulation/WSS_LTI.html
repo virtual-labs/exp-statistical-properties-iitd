@@ -340,6 +340,33 @@ onclick="plotCorrelation()">Calculate Auto-correlation</button>
 </script>
 
     <script>
+        // Renders x/y data as discrete-time "stems" (marker + line to zero per
+        // sample) instead of a continuous line. This system is discrete-time
+        // (finite-tap impulse response, discrete convolution), so its input
+        // and output should look discrete too, not like continuous signals.
+        function discreteStemTraces(x, y, color, name) {
+            const stems = [];
+            for (let i = 0; i < x.length; i++) {
+                stems.push({
+                    x: [x[i], x[i]],
+                    y: [0, y[i]],
+                    mode: 'lines',
+                    type: 'scatter',
+                    line: { color: color, width: 1 },
+                    hoverinfo: 'skip',
+                    showlegend: false
+                });
+            }
+            stems.push({
+                x: x,
+                y: y,
+                mode: 'markers',
+                type: 'scatter',
+                marker: { color: color, size: 4 },
+                name: name
+            });
+            return stems;
+        }
         // Helper functions
         function mean(arr) {
             return arr.reduce((a, b) => a + b, 0) / arr.length;
@@ -435,15 +462,12 @@ onclick="plotCorrelation()">Calculate Auto-correlation</button>
             input = generateNoisySinusoid(n, frequency, amplitude, 0, 1, n); // Also make sure this is defined
         }
 
-        Plotly.newPlot('inputPlot', [{
-            x: [...Array(input.length).keys()],
-            y: input,
-            type: 'scatter',
-            mode: 'lines',
-            name: 'Input'
-        }], {
-            title: `WSS Input`,
-            xaxis: { title: 'Sample Index' }
+        Plotly.newPlot('inputPlot', discreteStemTraces(
+            [...Array(input.length).keys()], input, 'rgba(17, 97, 230, 0.86)', 'Input'
+        ), {
+            title: `Input signal x[n]`,
+            xaxis: { title: 'Sample index n' },
+            yaxis: { title: 'Amplitude' }
         });
 
         document.getElementById('scrolltoinput').scrollIntoView({ behavior: 'smooth' });
@@ -463,7 +487,7 @@ onclick="plotCorrelation()">Calculate Auto-correlation</button>
 				type: 'scatter',
                 name: `Input`
             }], {
-                title: `CIR Plot`,
+                title: `System impulse response h[n]`,
 				xaxis: { title: 'Sample Index' }
             }, rr);
 			document.getElementById('scrolltocir').scrollIntoView({ behavior: 'smooth' });
@@ -481,7 +505,7 @@ onclick="plotCorrelation()">Calculate Auto-correlation</button>
 				type: 'scatter',
                 name: `Input`
             }], {
-                title: `CIR Plot`,
+                title: `System impulse response h[n]`,
 				xaxis: { title: 'Sample Index' }
             }, rr);
 			}
@@ -495,15 +519,12 @@ function generateLTIOutput() {
     ltiOutputValue = ltiOutput; // Assign to the global variable
 
     // Plot the output using Plotly
-    Plotly.newPlot('ltiOutput', [{
-        x: [...Array(ltiOutput.length).keys()],
-        y: ltiOutput,
-        type: 'scatter',
-        mode: 'lines',
-        name: 'LTI Output'
-    }], {
-        title: 'LTI System Output',
-        xaxis: { title: 'Sample Index' }
+    Plotly.newPlot('ltiOutput', discreteStemTraces(
+        [...Array(ltiOutput.length).keys()], ltiOutput, 'rgba(216, 90, 48, 0.9)', 'LTI Output'
+    ), {
+        title: 'Output y[n] = x[n] \u2217 h[n]  (convolution of input with impulse response)',
+        xaxis: { title: 'Sample index n' },
+        yaxis: { title: 'Amplitude' }
     }, rr);
 
     // Display statistical properties below the plot
@@ -534,15 +555,12 @@ function generateLTIOutputxx() {
     ltiOutputValue = ltiOutput; // Assign to the global variable
 
     // Plot the output using Plotly
-    Plotly.newPlot('ltiOutputxx', [{
-        x: [...Array(ltiOutput.length).keys()],
-        y: ltiOutput,
-        type: 'scatter',
-        mode: 'lines',
-        name: 'LTI Output'
-    }], {
-        title: 'LTI System Output',
-        xaxis: { title: 'Sample Index' }
+    Plotly.newPlot('ltiOutputxx', discreteStemTraces(
+        [...Array(ltiOutput.length).keys()], ltiOutput, 'rgba(216, 90, 48, 0.9)', 'LTI Output'
+    ), {
+        title: 'Output y[n] = x[n] \u2217 h[n]  (convolution of input with impulse response)',
+        xaxis: { title: 'Sample index n' },
+        yaxis: { title: 'Amplitude' }
     }, rr);
 
     // Display statistical properties below the plot
