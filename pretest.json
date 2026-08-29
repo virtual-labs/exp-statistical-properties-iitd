@@ -1,0 +1,175 @@
+{
+  "version": 2.0,
+  "questions": [
+    {
+      "question": "What is a fundamental property of a wide-sense stationary (WSS) process?",
+      "answers": {
+        "a": "It has a zero mean and constant variance.",
+        "b": "Its autocorrelation depends only on the time difference.",
+        "c": "Its power spectral density is a constant value.",
+        "d": "Its mean is always equal to zero."
+      },
+      "explanations": {
+        "a": "Incorrect. A WSS process can have a non-zero mean and varying variance.",
+        "b": "Correct! The autocorrelation function of a WSS process depends only on the time difference.",
+        "c": "Incorrect. The power spectral density of a WSS process is not constant but depends on the frequency.",
+        "d": "Incorrect. A WSS process does not necessarily have a zero mean."
+      },
+      "correctAnswer": "b",
+      "difficulty": "intermediate"
+    },
+    {
+      "question": "Which of the following statements is FALSE regarding Linear Time-Invariant (LTI) systems?",
+      "answers": {
+        "a": "They preserve the frequency of sinusoidal inputs in the output.",
+        "b": "They must always satisfy the causality condition in all practical cases.",
+        "c": "Their response to a linear combination of inputs is the same linear combination of individual responses.",
+        "d": "They can be completely characterized by their impulse response."
+      },
+      "explanations": {
+        "a": "Correct! LTI systems maintain input frequency, changing only amplitude and phase.",
+        "b": "Incorrect. While many practical systems are causal, not all LTI systems must be causal.",
+        "c": "Correct! This reflects the principle of linearity.",
+        "d": "Correct! The impulse response defines the system entirely via convolution."
+      },
+      "correctAnswer": "b",
+      "difficulty": "intermediate"
+    },
+    {
+      "question": "The autocorrelation function of a WSS process is:",
+      "answers": {
+        "a": "Symmetric about the time origin.",
+        "b": "An exponential decay.",
+        "c": "A triangular function.",
+        "d": "A delta function."
+      },
+      "explanations": {
+        "a": "Correct! The autocorrelation function is symmetric for WSS processes.",
+        "b": "Incorrect. Exponential decay is a possible form, but it is not a general property.",
+        "c": "Incorrect. A triangular function is not a general property of WSS autocorrelation.",
+        "d": "Incorrect. A delta function corresponds to white noise, not general WSS signals."
+      },
+      "correctAnswer": "a",
+      "difficulty": "intermediate"
+    },
+    {
+      "question": "In the context of LTI systems, what does the convolution operation in time domain represent?",
+      "answers": {
+        "a": "The multiplication of two signals in the time domain.",
+        "b": "The multiplication of two signals in the frequency domain.",
+        "c": "The relationship between input, impulse response, and output.",
+        "d": "The inverse Fourier Transform of the power spectral density."
+      },
+      "explanations": {
+        "a": "Incorrect. Convolution is not time-domain multiplication.",
+        "b": "Correct! Convolution in the time domain corresponds to multiplication in the frequency domain.",
+        "c": "Correct! Convolution relates the input, impulse response, and output of an LTI system.",
+        "d": "Incorrect. The inverse Fourier Transform is unrelated to convolution directly."
+      },
+      "correctAnswer": "b",
+      "difficulty": "intermediate"
+    },
+    {
+      "question": "Why is the ARMA model commonly used for analyzing time-series data in signal processing?",
+      "answers": {
+        "a": "It assumes all signals are periodic and noise-free.",
+        "b": "It models both the memory (AR) and the impact of past noise (MA) in signals.",
+        "c": "It ignores past values and focuses only on current observations.",
+        "d": "It eliminates the need for statistical assumptions."
+      },
+      "explanations": {
+        "a": "Incorrect. ARMA is used for stochastic signals, not idealized periodic ones.",
+        "b": "Correct! The AR part captures memory of past values, while the MA part captures influence of past noise.",
+        "c": "Incorrect. ARMA explicitly models dependence on past values and errors.",
+        "d": "Incorrect. Statistical assumptions are essential in ARMA modeling."
+      },
+      "correctAnswer": "b",
+      "difficulty": "intermediate"
+    },
+    {
+      "question": "What is the primary difference between an AR and MA process?",
+      "answers": {
+        "a": "An AR process depends on past noise values, while an MA process depends on past signal values.",
+        "b": "An AR process depends on past values of the signal, while an MA process depends on past noise values.",
+        "c": "An AR process has no memory, while an MA process has infinite memory.",
+        "d": "An AR process is deterministic, while an MA process is stochastic."
+      },
+      "explanations": {
+        "a": "Incorrect. This reverses the roles of AR and MA processes.",
+        "b": "Correct! AR uses past signal values, while MA uses past noise values.",
+        "c": "Incorrect. Both AR and MA processes have finite memory in practice.",
+        "d": "Incorrect. Both processes are stochastic, not deterministic."
+      },
+      "correctAnswer": "b",
+      "difficulty": "intermediate"
+    },
+    {
+      "question": "In a wide-sense stationary (WSS) process, which of the following statements about the mean and variance is correct?",
+      "answers": {
+        "a": "The mean must always be zero, but the variance can change over time.",
+        "b": "Both mean and variance are constant over time.",
+        "c": "The variance can be constant only if the process is ergodic, otherwise it varies.",
+        "d": "The mean may vary with time, but the variance remains constant."
+      },
+      "explanations": {
+        "a": "Incorrect. WSS processes can have non-zero mean.",
+        "b": "Correct! For a WSS process, the mean and variance are constant over time.",
+        "c": "Incorrect. Ergodicity is a separate property and not required for WSS variance constancy.",
+        "d": "Incorrect. WSS requires constant mean as well as variance over time."
+      },
+      "correctAnswer": "b",
+      "difficulty": "intermediate"
+    },
+    {
+      "question": "In an ARMA(1,1) model, what does the order '1' in the AR part signify?",
+      "answers": {
+        "a": "The model uses one noise term.",
+        "b": "The model uses one past signal value.",
+        "c": "The model has one autoregressive and one moving average parameter.",
+        "d": "The model uses one future signal value."
+      },
+      "explanations": {
+        "a": "Incorrect. The AR component refers to past signal values, not noise terms.",
+        "b": "Correct! The '1' in the AR part indicates that the model uses one past signal value.",
+        "c": "Incorrect. This describes the overall ARMA model but not the specific AR part.",
+        "d": "Incorrect. AR models do not use future signal values."
+      },
+      "correctAnswer": "b",
+      "difficulty": "intermediate"
+    },
+    {
+      "question": "How can the output of an LTI system be determined if the input signal is sinusoidal?",
+      "answers": {
+        "a": "By finding the convolution of the input signal with the system's impulse response.",
+        "b": "By adding the input to the system's impulse response.",
+        "c": "By multiplying the input frequency with the system's bandwidth.",
+        "d": "By integrating the input signal over time."
+      },
+      "explanations": {
+        "a": "Correct! The convolution operation determines the output of an LTI system.",
+        "b": "Incorrect. Adding the input to the impulse response is not correct.",
+        "c": "Incorrect. Multiplying the frequency with the bandwidth is irrelevant.",
+        "d": "Incorrect. Integration does not directly determine the LTI system's output."
+      },
+      "correctAnswer": "a",
+      "difficulty": "intermediate"
+    },
+    {
+      "question": "Under what condition is an ARMA model both causal and invertible?",
+      "answers": {
+        "a": "All poles and zeros lie inside the unit circle in the z-domain.",
+        "b": "All poles lie outside the unit circle, and zeros lie inside.",
+        "c": "All poles lie inside the unit circle, and zeros lie inside.",
+        "d": "Both poles and zeros lie on the unit circle."
+      },
+      "explanations": {
+        "a": "Incorrect. Both poles and zeros do not need to lie inside for both properties; this ignores specifics of poles vs zeros.",
+        "b": "Incorrect. Poles outside the unit circle make the system non-causal and unstable.",
+        "c": "Correct! Causality requires all AR poles inside the unit circle, and invertibility requires all MA zeros inside the unit circle.",
+        "d": "Incorrect. Poles or zeros on the unit circle lead to instability or non-invertibility."
+      },
+      "correctAnswer": "c",
+      "difficulty": "advanced"
+    }   
+  ]
+}
